@@ -7,31 +7,55 @@ using System.Threading.Tasks;
 namespace GeneticHumans {
     class Program {
         static void Main(string[] args) {
-            List<Human> humans = new List<Human>();
+            Colony colony = new Colony();
 
-            for (int i = 0; i < 100; i++)
-                humans.Add(new Human(10, 10, 10, 20));
+            while (true) {
+                string line = Console.ReadLine();
 
-            humans.Sort();
+                if (string.IsNullOrEmpty(line))
+                    continue;
+                else if (line[0] == 'q')
+                    break;
+                else if (line[0] == 'r') {
+                    string[] command = line.Split(' ');
+                    if (command.Length == 2)
+                        for (int i = 0; i < Math.Abs(Convert.ToInt32(command[1])); i++)
+                            colony.NextGeneration();
+                    else
+                        colony.NextGeneration();
+                } else if (line[0] == 'p') {
+                    string[] command = line.Split(' ');
 
-            foreach (Human human in humans)
-                Console.WriteLine(human);
+                    if (command.Length < 6) {
+                        Console.WriteLine("Correct usage: \"p {strength} {intelligence} {constitution] {gene count} {population}\"");
+                        continue;
+                    }
 
-            Console.ReadKey();
+                    colony.Populate(Convert.ToInt32(command[1]),
+                        Convert.ToInt32(command[2]),
+                        Convert.ToInt32(command[3]),
+                        Convert.ToInt32(command[4]),
+                        Convert.ToInt32(command[5]));
+                } else if (line[0] == 'o')
+                    colony.Print();
+                else if (line[0] == 'm') {
+                    string[] command = line.Split(' ');
 
-            humans.RemoveRange(humans.Count / 2, humans.Count / 2);
+                    if (command.Length < 2) {
+                        Console.WriteLine("Correct usage: \"m {new modifier}\"");
+                        continue;
+                    }
 
-            Random rand = new Random(humans[0].Fitness());
-
-            while (humans.Count < 100)
-                humans.Add(humans[rand.Next(0, humans.Count)].CreateOffSpring(humans[rand.Next(0, humans.Count)]));
-
-            humans.Sort();
-
-            foreach (Human human in humans)
-                Console.WriteLine(human);
-
-            Console.ReadKey();
+                    colony.modifier = (float)Convert.ToDouble(command[1]);
+                } else if (line.Substring(0, 4).Equals("list") || line.Substring(0, 8).Equals("commands")) {
+                    Console.WriteLine("Quit: 'q'\n" +
+                        "Reproduce: 'r' - {generations -> int | optional}\n" +
+                        "Populate: 'p' - {strength -> int} - {intelligence -> int} - {constitution -> int} - {gene count -> int} - {population -> int}\n" +
+                        "Out: 'o'\n" +
+                        "Modifier: 'm' {modifier -> float (uses commas)}\n" +
+                        "List: \"commands\" or \"list\"");
+                }
+            }
         }
     }
 }

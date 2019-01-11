@@ -52,9 +52,7 @@ namespace GeneticHumans {
             return strength + intelligence + constitution;
         }
 
-        public Human CreateOffSpring(Human other) {
-            const float mod = 0.7f;
-
+        public Human CreateOffSpring(Human other, float mod) {
             int avgStr = (int)((strength + other.strength) * mod);
             int avgInt = (int)((intelligence + other.intelligence) * mod);
             int avgCon = (int)((constitution + other.constitution) * mod);

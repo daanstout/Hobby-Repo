@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Colony.cs" />
     <Compile Include="Effect.cs" />
     <Compile Include="Gene.cs" />
     <Compile Include="Human.cs" />
