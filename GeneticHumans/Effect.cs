@@ -31,11 +31,12 @@ namespace GeneticHumans {
 
         private static Random rand = new Random();
 
-        public abstract void Activate(Human human);
-
         public static Effect GetRandomEffect() {
             return effects[rand.Next(0, effects.Count)];
         }
+
+
+        public abstract void Activate(Human human);
     }
 
     public class Strength1 : Effect { public override void Activate(Human human) => human.strength += 1; }

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace GeneticHumans {
     public class Human : IComparable{
+        public static readonly Human dummy = new Human();
+
         private int baseStrength;
         private int baseIntelligence;
         private int baseConstitution;
@@ -15,6 +17,8 @@ namespace GeneticHumans {
         public int constitution;
 
         private Gene[] genes;
+
+        private Human() { }
 
         public Human(int str, int inte, int con, int geneCount) {
             baseStrength = str;
@@ -52,7 +56,7 @@ namespace GeneticHumans {
             return strength + intelligence + constitution;
         }
 
-        public Human CreateOffSpring(Human other, float mod) {
+        public Human CreateOffSpring(Human other, float mod, bool debug, float mutationChance) {
             int avgStr = (int)((strength + other.strength) * mod);
             int avgInt = (int)((intelligence + other.intelligence) * mod);
             int avgCon = (int)((constitution + other.constitution) * mod);
@@ -61,18 +65,25 @@ namespace GeneticHumans {
 
             Random rand = new Random(avgStr + avgInt + avgCon);
 
+            if (debug)
+                Console.WriteLine($"Creating a new Human with stats: STR: {avgStr} - INT: {avgInt} - CON: {avgCon}\nPassing genes");
+
             for(int i = 0; i < genes.Count(); i++) {
                 genes[i] = rand.Next() % 2 == 0 ? this.genes[i] : other.genes[i];
 
-                if (rand.Next(0, 10) == 0)
+                if (rand.Next(0, (int)(1 / mutationChance)) == 0) {
                     genes[i] = new Gene();
+                    if (debug)
+                        Console.WriteLine($"Mutated gene {i}");
+                }
             }
 
-            return new Human(avgStr, avgInt, avgCon, genes);
+            //return new Human(avgStr, avgInt, avgCon, genes);
+            return new Human(baseStrength, baseIntelligence, baseConstitution, genes);
         }
 
         public override string ToString() {
-            return $"Str: {strength} - Int: {intelligence} - Con: {constitution}\t\t\tFitness:{Fitness()}";
+            return $"Str: {strength} - Int: {intelligence} - Con: {constitution}\t\tFitness:{Fitness()}";
         }
 
         public int CompareTo(object obj) {
