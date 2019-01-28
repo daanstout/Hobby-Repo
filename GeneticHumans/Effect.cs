@@ -31,9 +31,7 @@ namespace GeneticHumans {
 
         private static Random rand = new Random();
 
-        public static Effect GetRandomEffect() {
-            return effects[rand.Next(0, effects.Count)];
-        }
+        public static Effect GetRandomEffect() => effects[rand.Next(0, effects.Count)];
 
 
         public abstract void Activate(Human human);

@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GeneticHumans {
-    public class Human : IComparable{
+    public class Human : IComparable {
         public static readonly Human dummy = new Human();
 
-        private int baseStrength;
-        private int baseIntelligence;
-        private int baseConstitution;
+        private readonly int baseStrength;
+        private readonly int baseIntelligence;
+        private readonly int baseConstitution;
 
         public int strength;
         public int intelligence;
@@ -52,9 +52,7 @@ namespace GeneticHumans {
                 gene.Activate(this);
         }
 
-        public int Fitness() {
-            return strength + intelligence + constitution;
-        }
+        public int Fitness() => strength + intelligence + constitution;
 
         public Human CreateOffSpring(Human other, float mod, bool debug, float mutationChance) {
             int avgStr = (int)((strength + other.strength) * mod);
@@ -68,7 +66,7 @@ namespace GeneticHumans {
             if (debug)
                 Console.WriteLine($"Creating a new Human with stats: STR: {avgStr} - INT: {avgInt} - CON: {avgCon}\nPassing genes");
 
-            for(int i = 0; i < genes.Count(); i++) {
+            for (int i = 0; i < genes.Count(); i++) {
                 genes[i] = rand.Next() % 2 == 0 ? this.genes[i] : other.genes[i];
 
                 if (rand.Next(0, (int)(1 / mutationChance)) == 0) {
@@ -82,9 +80,7 @@ namespace GeneticHumans {
             return new Human(baseStrength, baseIntelligence, baseConstitution, genes);
         }
 
-        public override string ToString() {
-            return $"Str: {strength} - Int: {intelligence} - Con: {constitution}\t\tFitness:{Fitness()}";
-        }
+        public override string ToString() => $"Str: {strength} - Int: {intelligence} - Con: {constitution}\t\tFitness:{Fitness()}";
 
         public int CompareTo(object obj) {
             if (obj == null)

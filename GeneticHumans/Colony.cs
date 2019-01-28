@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace GeneticHumans {
     public class Colony {
         private List<Human> humans = new List<Human>();
-        private int population;
+        public int population;
 
         public int generation;
         public float modifier { set; get; } = 0.25f;

@@ -8,54 +8,122 @@ namespace GeneticHumans {
     public class BaseParser : IParser {
         public void Parse(string text, World world) {
             if (string.IsNullOrEmpty(text)) {
-                Console.WriteLine("Please type a command - or \"list\" for a list of commands");
+                Console.WriteLine("Please type a command - Or \"list\" for a list of commands");
                 return;
-            } else if (text[0] == 'q') {
-                Console.WriteLine("Ending simulation");
+            }
+
+            text = text.ToLower();
+
+            string[] commands = text.Split(new string[] { " -" }, StringSplitOptions.RemoveEmptyEntries);
+
+            if (commands[0].Equals("quit")) {
+                Console.WriteLine("Ending the simulation");
                 return;
-            } else if (text[0] == 'r') {
+            }
+
+            if (commands[0].Equals("reproduce")) {
                 Console.WriteLine("Reproducing the current population");
 
-                string[] command = text.Split(' ');
-
-                if (command.Length == 2)
-                    if (!string.IsNullOrEmpty(command[1]))
-                        for (int i = 0; i < Math.Abs(Convert.ToInt32(command[1])); i++)
-                            world.NextGeneration();
-                    else
-                        world.NextGeneration();
+                if (commands.Length > 1)
+                    if (commands[1].Count() > 3 && commands[1].Substring(0, 3).Equals("rep")) {
+                        try {
+                            int gens = Math.Abs(Convert.ToInt32(commands[1].Substring(4)));
+                            for (int i = 0; i < gens; i++)
+                                world.NextGeneration();
+                        } catch {
+                            Console.WriteLine("Please write a valid reproduce commant, use \" -rep X\" to reproduce X times");
+                        }
+                    } else
+                        Console.WriteLine("Please write a valid reproduce commant, use \" -rep X\" to reproduce X times");
                 else
                     world.NextGeneration();
-            } else if (text[0] == 'p') {
+
+                return;
+            }
+
+            if (commands[0].Equals("populate")) {
                 Console.WriteLine("Creating a new population");
 
-                string[] command = text.Split(' ');
+                int strength = 10;
+                int intelligence = 10;
+                int constitution = 10;
+                int geneCount = 20;
+                int populationSize = 50;
 
-                if (command.Length < 6) {
-                    Console.WriteLine("Correct usage: \"p {strength} {intelligence} {constitution] {gene count} {population}\"");
-                    return;
+                for (int i = 1; i < commands.Length; i++) {
+                    string com = commands[i];
+
+                    if (com.Count() > 3 && com.Substring(0, 3).Equals("str")) {
+                        try {
+                            strength = Math.Abs(Convert.ToInt32(com.Substring(4)));
+                        } catch {
+                            Console.WriteLine("Please write a valid strength amount. The default value (10) will be used");
+                        }
+                    }
+
+                    if (com.Count() > 3 && com.Substring(0, 3).Equals("int")) {
+                        try {
+                            intelligence = Math.Abs(Convert.ToInt32(com.Substring(4)));
+                        } catch {
+                            Console.WriteLine("Please write a valid intelligence amount. The default value (10) will be used");
+                        }
+                    }
+
+                    if (com.Count() > 3 && com.Substring(0, 3).Equals("con")) {
+                        try {
+                            constitution = Math.Abs(Convert.ToInt32(com.Substring(4)));
+                        } catch {
+                            Console.WriteLine("Please write a valid constitution amount. The default value (10) will be used");
+                        }
+                    }
+
+                    if (com.Count() > 1 && com.Substring(0, 2).Equals("gc")) {
+                        try {
+                            geneCount = Math.Abs(Convert.ToInt32(com.Substring(3)));
+                        } catch {
+                            Console.WriteLine("Please write a valid gene count. The default value (20) will be used");
+                        }
+                    }
+
+                    if (com.Count() > 3 && com.Substring(0, 3).Equals("pop")) {
+                        try {
+                            populationSize = Math.Abs(Convert.ToInt32(com.Substring(4)));
+                        } catch {
+                            Console.WriteLine("Please write a valid population size. The default value (50) will be used");
+                        }
+                    }
                 }
 
-                world.Populate(Convert.ToInt32(command[1]),
-                    Convert.ToInt32(command[2]),
-                    Convert.ToInt32(command[3]),
-                    Convert.ToInt32(command[4]),
-                    Convert.ToInt32(command[5]));
-            } else if (text[0] == 'o') {
-                //world.Print();
+                world.Populate(strength, intelligence, constitution, geneCount, populationSize);
+
+                return;
+            }
+
+            if (commands[0].Equals("show") || commands[0].Equals("print") || commands[0].Equals("out")) {
                 world.Sort();
                 world.PrintCompare();
-            } else if (text[0] == 's') {
+
+                return;
+            }
+
+            if (commands[0].Equals("list") || commands[0].Equals("command") || commands[0].Equals("commands") || commands[0].Equals("help")) {
+                Console.WriteLine($"\nList of commands:\n" +
+                    $"All variables are optional\n" +
+                    $"Quit: \t\t\t\t\"quit\"\n" +
+                    $"Reproduce population: \t\t\"reproduce -rep X\"\n" +
+                    $"Create population: \t\t\"populate -str X -int X -con X -gc X -pop X\"\n" +
+                    $"Print the population: \t\t\"out\" or \"print\" or \"show\"\n");
+
+                return;
+            }
+
+            if (commands[0].Equals("settings")) {
+                Console.WriteLine("Switching to settings");
                 Program.parser = new SettingsParser();
                 return;
-            } else if ((text.Length >= 4 && text.Substring(0, 4).Equals("list")) || (text.Length >= 8 && text.Substring(0, 8).Equals("commands"))) {
-                Console.WriteLine("Quit: 'q'\n" +
-                    "Reproduce: 'r' - {generations -> int | optional}\n" +
-                    "Populate: 'p' - {strength -> int} - {intelligence -> int} - {constitution -> int} - {gene count -> int} - {population -> int}\n" +
-                    "Out: 'o'\n" +
-                    "Settings: 's'" +
-                    "List: \"commands\" or \"list\"");
             }
+
+            Console.WriteLine("Please write a valid command, or \"help\" for a list of valid commands");
         }
     }
 }

@@ -60,7 +60,7 @@ namespace GeneticHumans {
             Console.WriteLine("Civilizations:");
             Console.WriteLine($"\tCivilization One:\t\t\t\t\tCivilization Two:");
 
-            for(int i = 0; i < population; i++) {
+            for (int i = 0; i < population; i++) {
                 Console.WriteLine($"{i + 1}\t{civA.GetHuman(i)}\t{civB.GetHuman(i)}");
             }
         }

@@ -12,7 +12,7 @@ namespace GeneticHumans {
             World world = new World();
             Colony colony = new Colony();
 
-            Console.WindowWidth = (int)(Console.LargestWindowWidth * 0.95);
+            Console.WindowWidth = (int)(Console.LargestWindowWidth * 0.75);
 
             Console.WriteLine("Starting simulation");
 

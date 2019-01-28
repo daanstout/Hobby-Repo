@@ -46,8 +46,10 @@
     <Compile Include="BaseParser.cs" />
     <Compile Include="Colony.cs" />
     <Compile Include="Effect.cs" />
+    <Compile Include="Fight.cs" />
     <Compile Include="Gene.cs" />
     <Compile Include="Human.cs" />
+    <Compile Include="InputTranscriber.cs" />
     <Compile Include="IParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
