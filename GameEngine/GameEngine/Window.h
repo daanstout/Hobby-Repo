@@ -27,6 +27,9 @@ public:
 	// Indicates whether the window is running
 	bool IsRunning();
 
+	RECT GetClientWindowRect();
+	void SetHWND(HWND hwnd);
+
 	// EVENTS
 	virtual void OnCreate();
 	virtual void OnUpdate();

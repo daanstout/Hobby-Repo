@@ -1,9 +1,12 @@
 #pragma once
 #include "Window.h"
 #include "GraphicsEngine.h"
+#include "SwapChain.h"
 
 
 class AppWindow : public Window {
+private:
+	SwapChain* _swapChain;
 public:
 	AppWindow();
 	~AppWindow();
