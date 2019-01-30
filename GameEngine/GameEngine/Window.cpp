@@ -72,12 +72,12 @@ bool Window::Init() {
 bool Window::Broadcast() {
 	MSG msg;
 
+	window->OnUpdate();
+
 	while (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) > 0) {
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
-
-	window->OnUpdate();
 
 	Sleep(1);
 
