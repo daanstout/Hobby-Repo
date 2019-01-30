@@ -3,10 +3,12 @@
 #include "GraphicsEngine.h"
 #include "SwapChain.h"
 #include "DeviceContext.h"
+#include "VertexBuffer.h"
 
 class AppWindow : public Window {
 private:
 	SwapChain* _swapChain;
+	VertexBuffer* _vertexBuffer;
 public:
 	AppWindow();
 	~AppWindow();
