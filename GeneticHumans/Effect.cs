@@ -42,19 +42,19 @@ namespace GeneticHumans {
     public class Strength3 : Effect { public override void Activate(Human human) => human.strength += 3; }
     public class StrengthN1 : Effect { public override void Activate(Human human) => human.strength -= 1; }
     public class StrengthN2 : Effect { public override void Activate(Human human) => human.strength -= 2; }
-    public class StrengthN3 : Effect { public override void Activate(Human human) => human.strength -= 2; }
+    public class StrengthN3 : Effect { public override void Activate(Human human) => human.strength -= 3; }
 
     public class Intelligence1 : Effect { public override void Activate(Human human) => human.intelligence += 1; }
     public class Intelligence2 : Effect { public override void Activate(Human human) => human.intelligence += 2; }
     public class Intelligence3 : Effect { public override void Activate(Human human) => human.intelligence += 3; }
     public class IntelligenceN1 : Effect { public override void Activate(Human human) => human.intelligence -= 1; }
     public class IntelligenceN2 : Effect { public override void Activate(Human human) => human.intelligence -= 2; }
-    public class IntelligenceN3 : Effect { public override void Activate(Human human) => human.intelligence -= 2; }
+    public class IntelligenceN3 : Effect { public override void Activate(Human human) => human.intelligence -= 3; }
 
     public class Constitution1 : Effect { public override void Activate(Human human) => human.constitution += 1; }
     public class Constitution2 : Effect { public override void Activate(Human human) => human.constitution += 2; }
     public class Constitution3 : Effect { public override void Activate(Human human) => human.constitution += 3; }
     public class ConstitutionN1 : Effect { public override void Activate(Human human) => human.constitution -= 1; }
     public class ConstitutionN2 : Effect { public override void Activate(Human human) => human.constitution -= 2; }
-    public class ConstitutionN3 : Effect { public override void Activate(Human human) => human.constitution -= 2; }
+    public class ConstitutionN3 : Effect { public override void Activate(Human human) => human.constitution -= 3; }
 }
