@@ -59,6 +59,8 @@
     <None Include="Config\App.config" />
     <None Include="Config\OpenTK.dll.config" />
     <None Include="Config\packages.config" />
+    <None Include="OpenTK.dll.config" />
+    <None Include="packages.config" />
     <None Include="Shaders\FragmentShader.fs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

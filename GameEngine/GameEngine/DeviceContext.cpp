@@ -26,6 +26,12 @@ void DeviceContext::DrawTriangleList(UINT vertexCount, UINT startVertexIndex) {
 	_deviceContext->Draw(vertexCount, startVertexIndex);
 }
 
+void DeviceContext::DrawTriangleStrip(UINT vertexCount, UINT startVertexIndex) {
+	_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+
+	_deviceContext->Draw(vertexCount, startVertexIndex);
+}
+
 void DeviceContext::SetViewportSize(UINT width, UINT height) {
 	D3D11_VIEWPORT vp = {};
 	vp.Width = width;

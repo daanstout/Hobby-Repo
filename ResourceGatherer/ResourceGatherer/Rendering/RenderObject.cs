@@ -55,7 +55,6 @@ namespace ResourceGatherer.Rendering {
         }
 
         public void Render() {
-            GL.BindVertexArray(_vertexArray);
             GL.DrawArrays(PrimitiveType.Triangles, 0, _verticeCount);
         }
 
@@ -73,6 +72,10 @@ namespace ResourceGatherer.Rendering {
                     _initialized = false;
                 }
             }
+        }
+
+        public void Bind() {
+            GL.BindVertexArray(_vertexArray);
         }
     }
 }

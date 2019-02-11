@@ -24,9 +24,20 @@ void AppWindow::OnCreate() {
 
 	vertex list[] = {
 		{-0.5f,-0.5f,0.0f}, // POS1
-		{0.0f,0.5f,0.0f}, // POS2
-		{ 0.5f,-0.5f,0.0f}
+		{-0.5f, 0.5f,0.0f}, // POS2
+		{ 0.5f,0.5f,0.0f},
+
+		{ 0.5f,0.5f,0.0f }, // POS1
+		{0.5f, -0.5f,0.0f}, // POS2
+		{-0.5f,-0.5f,0.0f}
 	};
+
+	//vertex list[] = {
+	//	{-0.5f,-0.5f,0.0f}, // POS1
+	//	{-0.5f, 0.5f,0.0f}, // POS2
+	//	{ 0.5f,-0.5f,0.0f},
+	//	{ 0.5f,0.5f,0.0f } // POS1
+	//};
 
 	_vertexBuffer = GraphicsEngine::Get()->CreateVertexBuffer();
 	UINT sizeList = ARRAYSIZE(list);
@@ -52,6 +63,7 @@ void AppWindow::OnUpdate() {
 	GraphicsEngine::Get()->GetImmediateDeviceContext()->SetVertexBuffer(_vertexBuffer);
 
 	GraphicsEngine::Get()->GetImmediateDeviceContext()->DrawTriangleList(_vertexBuffer->GetSizeVertexList(), 0);
+	//GraphicsEngine::Get()->GetImmediateDeviceContext()->DrawTriangleStrip(_vertexBuffer->GetSizeVertexList(), 0);
 
 	_swapChain->Present(false);
 }

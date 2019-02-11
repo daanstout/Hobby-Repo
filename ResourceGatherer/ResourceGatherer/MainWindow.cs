@@ -22,6 +22,7 @@ namespace ResourceGatherer {
         private Matrix4 _modelView;
         private readonly Color4 _backColor = new Color4(0.1f, 0.1f, 1.0f, 0.3f);
         private bool _doRotate = true;
+        private Matrix4 _projectionMatrix;
 
         public MainWindow() : base(1280, // initial width
                                     720, // initial height
@@ -33,31 +34,25 @@ namespace ResourceGatherer {
                                     5, // OpenGL minor version
                                     GraphicsContextFlags.ForwardCompatible) => Title += ": OpenGL Version: " + GL.GetString(StringName.Version);
 
-        protected override void OnResize(EventArgs e) => GL.Viewport(0, 0, Width, Height);
+        protected override void OnResize(EventArgs e) {
+            GL.Viewport(0, 0, Width, Height);
+            CreateProjection();
+        }
 
         protected override void OnLoad(EventArgs e) {
-            // Create a solid cube
-            Vertex[] vertices = ObjectFactory.CreateSolidCube(0.2f, Color4.HotPink);
-            // Render it
-            _renderObjects.Add(new RenderObject(vertices));
+            VSync = VSyncMode.Off;
+            CreateProjection();
+            _renderObjects.Add(new RenderObject(ObjectFactory.CreateSolidCube(0.2f, Color4.HotPink)));
+            _renderObjects.Add(new RenderObject(ObjectFactory.CreateSolidCube(0.2f, Color4.BlueViolet)));
+            _renderObjects.Add(new RenderObject(ObjectFactory.CreateSolidCube(0.2f, Color4.Red)));
+            _renderObjects.Add(new RenderObject(ObjectFactory.CreateSolidCube(0.2f, Color4.LimeGreen)));
 
-            float k = (float)_time * 0.05f;
-            Matrix4 r1 = Matrix4.CreateRotationX(k * 13.0f);
-            Matrix4 r2 = Matrix4.CreateRotationY(k * 13.0f);
-            Matrix4 r3 = Matrix4.CreateRotationZ(k * 3.0f);
-            _modelView = r1 * r2 * r3;
-
-            // Allow the cursor to be visible
             CursorVisible = true;
 
-            // Create the program in the graphics card
             _program = CreateProgram();
-            // Set the mode for drawing the polygons
-            //GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
-            GL.PolygonMode(MaterialFace.Back, PolygonMode.Line);
-            // Set the patch parameters
+            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
             GL.PatchParameter(PatchParameterInt.PatchVertices, 3);
-            // Add the closed function to the closed event
+            GL.Enable(EnableCap.DepthTest);
             Closed += OnClosed;
         }
 
@@ -154,19 +149,42 @@ namespace ResourceGatherer {
         }
 
         protected override void OnRenderFrame(FrameEventArgs e) {
-            // Set the Clear color for the screen
             Title = $"{_title}: (Vsync: {VSync}) FPS: {1f / e.Time:0}";
             GL.ClearColor(_backColor);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             GL.UseProgram(_program);
-            GL.UniformMatrix4(20,              // match the layout location in the shader
-                              false,           // transpose
-                              ref _modelView); // our matrix
+            GL.UniformMatrix4(20, false, ref _projectionMatrix);
+            float c = 0f;
             foreach (RenderObject renderObject in _renderObjects) {
-                renderObject.Render();
+                renderObject.Bind();
+                for (int i = 0; i < 5; i++) {
+                    float k = i + (float)(_time * (0.05f + (0.1 * c)));
+                    Matrix4 t2 = Matrix4.CreateTranslation(
+                        (float)(Math.Sin(k * 5f) * (c + 0.5f)),
+                        (float)(Math.Cos(k * 5f) * (c + 0.5f)),
+                        -2.7f);
+                    Matrix4 r1 = Matrix4.CreateRotationX(k * 13.0f + i);
+                    Matrix4 r2 = Matrix4.CreateRotationY(k * 13.0f + i);
+                    Matrix4 r3 = Matrix4.CreateRotationZ(k * 3.0f + i);
+                    Matrix4 modelView = r1 * r2 * r3 * t2;
+                    GL.UniformMatrix4(21, false, ref modelView);
+                    renderObject.Render();
+                }
+                c += 0.3f;
             }
+            GL.PointSize(10);
             SwapBuffers();
+        }
+
+        private void CreateProjection() {
+
+            float aspectRatio = (float)Width / Height;
+            _projectionMatrix = Matrix4.CreatePerspectiveFieldOfView(
+                60 * ((float)Math.PI / 180f), // field of view angle, in radians
+                aspectRatio,                // current window aspect ratio
+                0.1f,                       // near plane
+                4000f);                     // far plane
         }
     }
 }
