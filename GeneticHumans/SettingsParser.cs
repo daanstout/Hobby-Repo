@@ -74,5 +74,7 @@ namespace GeneticHumans {
                     $"Back:\t\t\t\t\"back\"");
             }
         }
+
+        public void Parse(InputRoot input, World world) => throw new NotImplementedException();
     }
 }

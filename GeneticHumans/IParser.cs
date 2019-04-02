@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace GeneticHumans {
     public interface IParser {
-        void Parse(string text, World world);
+        void Parse(InputRoot input, World world);
     }
 }

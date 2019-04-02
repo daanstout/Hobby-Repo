@@ -21,7 +21,9 @@ namespace GeneticHumans {
 
                 string line = Console.ReadLine();
 
-                parser.Parse(line, world);
+                InputRoot root = InputTranscriber.TranscribeInput(line);
+
+                parser.Parse(root, world);
             }
         }
     }

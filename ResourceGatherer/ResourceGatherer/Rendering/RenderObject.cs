@@ -54,9 +54,7 @@ namespace ResourceGatherer.Rendering {
             _initialized = true;
         }
 
-        public void Render() {
-            GL.DrawArrays(PrimitiveType.Triangles, 0, _verticeCount);
-        }
+        public void Render() => GL.DrawArrays(PrimitiveType.Triangles, 0, _verticeCount);
 
 
         public void Dispose() {
@@ -74,8 +72,6 @@ namespace ResourceGatherer.Rendering {
             }
         }
 
-        public void Bind() {
-            GL.BindVertexArray(_vertexArray);
-        }
+        public void Bind() => GL.BindVertexArray(_vertexArray);
     }
 }
