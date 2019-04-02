@@ -22,6 +22,18 @@
     <Filter Include="GameEngine\GraphicsEngine\VertexBuffer">
       <UniqueIdentifier>{d433d3fd-8093-4fa3-9780-4492aef97e00}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\Shaders">
+      <UniqueIdentifier>{e2abc5ed-1fdc-4b7e-819f-925d8fa5b9ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Shaders\VertexShader">
+      <UniqueIdentifier>{dbbfe4d8-74b8-4966-a1fc-702f05c49482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App\Shaders">
+      <UniqueIdentifier>{7ad4e365-cb69-4b4c-b78f-d4a25b9819b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Shaders\PixelShader">
+      <UniqueIdentifier>{f57b175d-d80c-4a18-b382-6d36b885ee0e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -45,6 +57,12 @@
     <ClCompile Include="VertexBuffer.cpp">
       <Filter>GameEngine\GraphicsEngine\VertexBuffer</Filter>
     </ClCompile>
+    <ClCompile Include="VertexShader.cpp">
+      <Filter>GameEngine\Shaders\VertexShader</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelShader.cpp">
+      <Filter>GameEngine\Shaders\PixelShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -65,10 +83,26 @@
     <ClInclude Include="VertexBuffer.h">
       <Filter>GameEngine\GraphicsEngine\VertexBuffer</Filter>
     </ClInclude>
+    <ClInclude Include="VertexShader.h">
+      <Filter>GameEngine\Shaders\VertexShader</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="PixelShader.h">
+      <Filter>GameEngine\Shaders\PixelShader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader.fx">
-      <Filter>GameEngine</Filter>
+      <Filter>GameEngine\Shaders</Filter>
     </FxCompile>
+    <FxCompile Include="VertexShader.hlsl">
+      <Filter>App\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PixelShader.hlsl">
+      <Filter>App\Shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GameEngine.rc" />
   </ItemGroup>
 </Project>

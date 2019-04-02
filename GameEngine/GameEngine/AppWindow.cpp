@@ -6,6 +6,7 @@ struct vec3 {
 
 struct vertex {
 	vec3 position;
+	vec3 Color;
 };
 
 
@@ -22,34 +23,43 @@ void AppWindow::OnCreate() {
 	RECT rc = this->GetClientWindowRect();
 	_swapChain->Init(this->_hwnd, rc.right - rc.left, rc.bottom - rc.top);
 
-	vertex list[] = {
-		{-0.5f,-0.5f,0.0f}, // POS1
-		{-0.5f, 0.5f,0.0f}, // POS2
-		{ 0.5f,0.5f,0.0f},
-
-		{ 0.5f,0.5f,0.0f }, // POS1
-		{0.5f, -0.5f,0.0f}, // POS2
-		{-0.5f,-0.5f,0.0f}
-	};
-
 	//vertex list[] = {
 	//	{-0.5f,-0.5f,0.0f}, // POS1
 	//	{-0.5f, 0.5f,0.0f}, // POS2
-	//	{ 0.5f,-0.5f,0.0f},
-	//	{ 0.5f,0.5f,0.0f } // POS1
+	//	{ 0.5f,0.5f,0.0f},
+
+	//	{ 0.5f,0.5f,0.0f }, // POS1
+	//	{0.5f, -0.5f,0.0f}, // POS2
+	//	{-0.5f,-0.5f,0.0f}
 	//};
+
+	vertex list[] = {
+		{-0.5f,-0.5f,0.0f,   1, 1, 1}, // POS1
+		{-0.5f, 0.5f,0.0f,   0, 1, 0}, // POS2
+		{ 0.5f,-0.5f,0.0f,   0, 0, 0},
+		{ 0.5f,0.5f,0.0f,    1, 1, 0} // POS1
+	};
 
 	_vertexBuffer = GraphicsEngine::Get()->CreateVertexBuffer();
 	UINT sizeList = ARRAYSIZE(list);
 
-	GraphicsEngine::Get()->CreateShaders();
-
 	void* shaderByteCode = nullptr;
-	UINT shaderSize = 0;
-	GraphicsEngine::Get()->GetShadderBufferAndSize(&shaderByteCode, &shaderSize);
+	size_t shaderSize = 0;
+	GraphicsEngine::Get()->CompileVertexShader(L"VertexShader.hlsl", "vsmain", &shaderByteCode, &shaderSize);
+
+	_vertexShader = GraphicsEngine::Get()->CreateVertexShader(shaderByteCode, shaderSize);
 
 	bool res = _vertexBuffer->Load(list, sizeof(vertex), sizeList, shaderByteCode, shaderSize);
 
+	GraphicsEngine::Get()->ReleaseCompiledShader();
+
+
+
+	GraphicsEngine::Get()->CompilePixelShader(L"PixelShader.hlsl", "psmain", &shaderByteCode, &shaderSize);
+
+	_pixelShader = GraphicsEngine::Get()->CreatePixelShader(shaderByteCode, shaderSize);
+
+	GraphicsEngine::Get()->ReleaseCompiledShader();
 }
 
 void AppWindow::OnUpdate() {
@@ -58,12 +68,14 @@ void AppWindow::OnUpdate() {
 
 	RECT rc = this->GetClientWindowRect();
 	GraphicsEngine::Get()->GetImmediateDeviceContext()->SetViewportSize(rc.right - rc.left, rc.bottom - rc.top);
-	GraphicsEngine::Get()->SetShaders();
+
+	GraphicsEngine::Get()->GetImmediateDeviceContext()->SetVertexShader(_vertexShader);
+	GraphicsEngine::Get()->GetImmediateDeviceContext()->SetPixelShader(_pixelShader);
 
 	GraphicsEngine::Get()->GetImmediateDeviceContext()->SetVertexBuffer(_vertexBuffer);
 
-	GraphicsEngine::Get()->GetImmediateDeviceContext()->DrawTriangleList(_vertexBuffer->GetSizeVertexList(), 0);
-	//GraphicsEngine::Get()->GetImmediateDeviceContext()->DrawTriangleStrip(_vertexBuffer->GetSizeVertexList(), 0);
+	//GraphicsEngine::Get()->GetImmediateDeviceContext()->DrawTriangleList(_vertexBuffer->GetSizeVertexList(), 0);
+	GraphicsEngine::Get()->GetImmediateDeviceContext()->DrawTriangleStrip(_vertexBuffer->GetSizeVertexList(), 0);
 
 	_swapChain->Present(false);
 }
@@ -73,5 +85,7 @@ void AppWindow::OnDestroy() {
 
 	_swapChain->Release();
 	_vertexBuffer->Release();
+	_vertexShader->Release();
+	_pixelShader->Release();
 	GraphicsEngine::Get()->Release();
 }

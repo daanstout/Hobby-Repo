@@ -2,6 +2,8 @@
 #include "SwapChain.h"
 #include "DeviceContext.h"
 #include "VertexBuffer.h"
+#include "VertexShader.h"
+#include "PixelShader.h"
 
 #include <d3dcompiler.h>
 
@@ -71,24 +73,58 @@ VertexBuffer * GraphicsEngine::CreateVertexBuffer() {
 	return new VertexBuffer();
 }
 
-bool GraphicsEngine::CreateShaders() {
+VertexShader * GraphicsEngine::CreateVertexShader(const void * shaderByteCode, size_t byteCodeSize) {
+	VertexShader* vertexShader = new VertexShader();
+
+	if (!vertexShader->Init(shaderByteCode, byteCodeSize)) {
+		vertexShader->Release();
+		return nullptr;
+	}
+
+	return vertexShader;
+}
+
+PixelShader * GraphicsEngine::CreatePixelShader(const void * shaderByteCode, size_t byteCodeSize) {
+	PixelShader* pixelShader = new PixelShader();
+
+	if (!pixelShader->Init(shaderByteCode, byteCodeSize)) {
+		pixelShader->Release();
+		return nullptr;
+	}
+
+	return pixelShader;
+}
+
+bool GraphicsEngine::CompileVertexShader(const wchar_t* fileName, const char* entryPointName, void** shaderByteCode, size_t* byteCodeSize) {
 	ID3DBlob* errblob = nullptr;
-	D3DCompileFromFile(L"shader.fx", nullptr, nullptr, "vsmain", "vs_5_0", NULL, NULL, &_vsBlob, &errblob);
-	D3DCompileFromFile(L"shader.fx", nullptr, nullptr, "psmain", "ps_5_0", NULL, NULL, &_psBlob, &errblob);
-	_d3dDevice->CreateVertexShader(_vsBlob->GetBufferPointer(), _vsBlob->GetBufferSize(), nullptr, &_vertexShader);
-	_d3dDevice->CreatePixelShader(_psBlob->GetBufferPointer(), _psBlob->GetBufferSize(), nullptr, &_pixelShader);
+	if (!SUCCEEDED(D3DCompileFromFile(fileName, nullptr, nullptr, entryPointName, "vs_5_0", 0, 0, &_blob, &errblob))) {
+		if(errblob)
+		errblob->Release();
+		return false;
+	}
+
+	*shaderByteCode = _blob->GetBufferPointer();
+	*byteCodeSize = _blob->GetBufferSize();
+
 	return true;
 }
 
-void GraphicsEngine::GetShadderBufferAndSize(void ** bytecode, UINT * size) {
-	*bytecode = this->_vsBlob->GetBufferPointer();
-	*size = this->_vsBlob->GetBufferSize();
+bool GraphicsEngine::CompilePixelShader(const wchar_t * fileName, const char * entryPointName, void ** shaderByteCode, size_t * byteCodeSize) {
+	ID3DBlob* errblob = nullptr;
+	if (!SUCCEEDED(D3DCompileFromFile(fileName, nullptr, nullptr, entryPointName, "ps_5_0", 0, 0, &_blob, &errblob))) {
+		if (errblob)
+			errblob->Release();
+		return false;
+	}
+
+	*shaderByteCode = _blob->GetBufferPointer();
+	*byteCodeSize = _blob->GetBufferSize();
+
+	return true;
 }
 
-bool GraphicsEngine::SetShaders() {
-	_immContext->VSSetShader(_vertexShader, nullptr, 0);
-	_immContext->PSSetShader(_pixelShader, nullptr, 0);
-	return true;
+void GraphicsEngine::ReleaseCompiledShader() {
+	if (_blob) _blob->Release();
 }
 
 GraphicsEngine* GraphicsEngine::Get() {
