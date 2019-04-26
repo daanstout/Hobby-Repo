@@ -3,6 +3,7 @@
 #include "VertexBuffer.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
+#include "ConstantBuffer.h"
 
 DeviceContext::DeviceContext(ID3D11DeviceContext* deviceContext) :_deviceContext(deviceContext) {}
 
@@ -10,12 +11,12 @@ DeviceContext::DeviceContext(ID3D11DeviceContext* deviceContext) :_deviceContext
 DeviceContext::~DeviceContext() {}
 
 void DeviceContext::ClearRenderTargetColor(SwapChain* swapChain, float r, float g, float b, float a) {
-	FLOAT clearColor[] = { r, g, b, a };
+	FLOAT clearColor[] = {r, g, b, a};
 	_deviceContext->ClearRenderTargetView(swapChain->_renderTargetView, clearColor);
 	_deviceContext->OMSetRenderTargets(1, &swapChain->_renderTargetView, NULL);
 }
 
-void DeviceContext::SetVertexBuffer(VertexBuffer * vertexBuffer) {
+void DeviceContext::SetVertexBuffer(VertexBuffer* vertexBuffer) {
 	UINT stride = vertexBuffer->vertexSize;
 	UINT offset = 0;
 	_deviceContext->IASetVertexBuffers(0, 1, &vertexBuffer->_buffer, &stride, &offset);
@@ -43,11 +44,19 @@ void DeviceContext::SetViewportSize(UINT width, UINT height) {
 	_deviceContext->RSSetViewports(1, &vp);
 }
 
-void DeviceContext::SetVertexShader(VertexShader * vertexShader) {
+void DeviceContext::SetConstantBuffer(VertexShader* vertexShader, ConstantBuffer* buffer) {
+	_deviceContext->VSSetConstantBuffers(0, 1, &buffer->_buffer);
+}
+
+void DeviceContext::SetConstantBuffer(PixelShader* pixelShader, ConstantBuffer* buffer) {
+	_deviceContext->PSSetConstantBuffers(0, 1, &buffer->_buffer);
+}
+
+void DeviceContext::SetVertexShader(VertexShader* vertexShader) {
 	_deviceContext->VSSetShader(vertexShader->_vertexShader, nullptr, 0);
 }
 
-void DeviceContext::SetPixelShader(PixelShader * pixelShader) {
+void DeviceContext::SetPixelShader(PixelShader* pixelShader) {
 	_deviceContext->PSSetShader(pixelShader->_pixelShader, nullptr, 0);
 }
 

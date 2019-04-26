@@ -5,6 +5,7 @@
 class SwapChain;
 class DeviceContext;
 class VertexBuffer;
+class ConstantBuffer;
 class VertexShader;
 class PixelShader;
 
@@ -31,6 +32,7 @@ private:
 	friend class VertexBuffer;
 	friend class VertexShader;
 	friend class PixelShader;
+	friend class ConstantBuffer;
 public:
 	// Constructors
 	GraphicsEngine();
@@ -41,12 +43,13 @@ public:
 	bool Init();
 	// Releases all the resources loaded
 	bool Release();
-	
+
 	SwapChain* CreateSwapChain();
 	DeviceContext* GetImmediateDeviceContext();
 	VertexBuffer* CreateVertexBuffer();
-	VertexShader* CreateVertexShader(const void *shaderByteCode, size_t byteCodeSize);
-	PixelShader* CreatePixelShader(const void *shaderByteCode, size_t byteCodeSize);
+	ConstantBuffer* CreateConstantBuffer();
+	VertexShader* CreateVertexShader(const void* shaderByteCode, size_t byteCodeSize);
+	PixelShader* CreatePixelShader(const void* shaderByteCode, size_t byteCodeSize);
 
 	bool CompileVertexShader(const wchar_t* fileName, const char* entryPointName, void** shaderByteCode, size_t* byteCodeSize);
 	bool CompilePixelShader(const wchar_t* fileName, const char* entryPointName, void** shaderByteCode, size_t* byteCodeSize);

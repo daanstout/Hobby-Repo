@@ -15,7 +15,7 @@ public:
 	// Constructors
 	Window();
 	~Window();
-	
+
 
 	// Functions
 	// Initialize the Window

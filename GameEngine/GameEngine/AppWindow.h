@@ -6,6 +6,7 @@
 #include "VertexBuffer.h"
 #include "VertexShader.h"
 #include "PixelShader.h"
+#include "ConstantBuffer.h"
 
 class AppWindow : public Window {
 private:
@@ -13,6 +14,7 @@ private:
 	VertexBuffer* _vertexBuffer;
 	VertexShader* _vertexShader;
 	PixelShader* _pixelShader;
+	ConstantBuffer* _constantBuffer;
 public:
 	AppWindow();
 	~AppWindow();

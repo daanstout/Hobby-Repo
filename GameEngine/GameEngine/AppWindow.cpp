@@ -1,4 +1,5 @@
 #include "AppWindow.h"
+#include <Windows.h>
 
 struct vec3 {
 	float x, y, z;
@@ -6,7 +7,13 @@ struct vec3 {
 
 struct vertex {
 	vec3 position;
+	vec3 position1;
 	vec3 Color;
+};
+
+__declspec(align(16))
+struct constant {
+	unsigned int time;
 };
 
 
@@ -34,10 +41,10 @@ void AppWindow::OnCreate() {
 	//};
 
 	vertex list[] = {
-		{-0.5f,-0.5f,0.0f,   1, 1, 1}, // POS1
-		{-0.5f, 0.5f,0.0f,   0, 1, 0}, // POS2
-		{ 0.5f,-0.5f,0.0f,   0, 0, 0},
-		{ 0.5f,0.5f,0.0f,    1, 1, 0} // POS1
+		{-0.5f,-0.5f,0.0f,   0.3f, -0.81f, 0.0f,    1, 1, 1}, // POS1
+		{-0.5f, 0.5f,0.0f,   0.2f, 0.1f, 0.0f,      0, 1, 0}, // POS2
+		{ 0.5f,-0.5f,0.0f,   -0.3f, -0.2f, 0.0f,    0, 0, 0},
+		{ 0.5f,0.5f,0.0f,    0.81f, -0.52f, 0.0f,   1, 1, 0} // POS1
 	};
 
 	_vertexBuffer = GraphicsEngine::Get()->CreateVertexBuffer();
@@ -60,6 +67,15 @@ void AppWindow::OnCreate() {
 	_pixelShader = GraphicsEngine::Get()->CreatePixelShader(shaderByteCode, shaderSize);
 
 	GraphicsEngine::Get()->ReleaseCompiledShader();
+
+
+	constant cc;
+
+	cc.time = 0;
+
+	_constantBuffer = GraphicsEngine::Get()->CreateConstantBuffer();
+
+	_constantBuffer->Load(&cc, sizeof(constant));
 }
 
 void AppWindow::OnUpdate() {
@@ -68,6 +84,14 @@ void AppWindow::OnUpdate() {
 
 	RECT rc = this->GetClientWindowRect();
 	GraphicsEngine::Get()->GetImmediateDeviceContext()->SetViewportSize(rc.right - rc.left, rc.bottom - rc.top);
+
+	constant cc;
+	cc.time = ::GetTickCount();
+
+	_constantBuffer->Update(GraphicsEngine::Get()->GetImmediateDeviceContext(), &cc);
+
+	GraphicsEngine::Get()->GetImmediateDeviceContext()->SetConstantBuffer(_vertexShader, _constantBuffer);
+	GraphicsEngine::Get()->GetImmediateDeviceContext()->SetConstantBuffer(_pixelShader, _constantBuffer);
 
 	GraphicsEngine::Get()->GetImmediateDeviceContext()->SetVertexShader(_vertexShader);
 	GraphicsEngine::Get()->GetImmediateDeviceContext()->SetPixelShader(_pixelShader);

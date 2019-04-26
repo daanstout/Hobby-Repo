@@ -31,7 +31,7 @@ bool SwapChain::Init(HWND hwnd, UINT width, UINT height) {
 		return false;
 
 	ID3D11Texture2D* buffer = NULL;
-	res = _swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D),(void**)&buffer);
+	res = _swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)& buffer);
 
 	if (FAILED(res))
 		return false;
@@ -53,7 +53,7 @@ bool SwapChain::Present(bool vsync) {
 
 bool SwapChain::Release() {
 	_swapChain->Release();
-	
+
 	delete this;
 
 	return true;
