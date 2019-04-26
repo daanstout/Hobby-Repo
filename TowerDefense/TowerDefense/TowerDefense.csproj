@@ -51,9 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\TileDrawer\ITileDrawer.cs" />
     <Compile Include="GameWorld\GameWorld.cs" />
-    <Compile Include="GameWorld\TileSystem\BaseTile.cs" />
-    <Compile Include="GameWorld\TileSystem\TileSystem.cs" />
+    <Compile Include="GameWorld\Tiles\BaseTile.cs" />
+    <Compile Include="GameWorld\Tiles\PlainsTile.cs" />
+    <Compile Include="GameWorld\Tiles\TileSystem.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="TowerDefense.cs">
       <SubType>Form</SubType>
