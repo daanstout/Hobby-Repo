@@ -8,7 +8,8 @@ struct vec3 {
 struct vertex {
 	vec3 position;
 	vec3 position1;
-	vec3 Color;
+	vec3 color;
+	vec3 color1;
 };
 
 __declspec(align(16))
@@ -41,10 +42,10 @@ void AppWindow::OnCreate() {
 	//};
 
 	vertex list[] = {
-		{-0.5f,-0.5f,0.0f,   0.3f, -0.81f, 0.0f,    1, 1, 1}, // POS1
-		{-0.5f, 0.5f,0.0f,   0.2f, 0.1f, 0.0f,      0, 1, 0}, // POS2
-		{ 0.5f,-0.5f,0.0f,   -0.3f, -0.2f, 0.0f,    0, 0, 0},
-		{ 0.5f,0.5f,0.0f,    0.81f, -0.52f, 0.0f,   1, 1, 0} // POS1
+		{-0.5f,-0.5f,0.0f,   -0.32f, -0.11f, 0.0f,		0, 0, 0,	0, 1, 0}, // POS1
+		{-0.5f, 0.5f,0.0f,   -0.11f, 0.78f, 0.0f,       1, 1, 0,	0, 1, 1}, // POS2
+		{ 0.5f,-0.5f,0.0f,   0.75f, -0.73f, 0.0f,	    0, 0, 1,	1, 0, 0},
+		{ 0.5f,0.5f,0.0f,    0.88f, 0.77f, 0.0f,		1, 1, 1,	0, 0, 1} // POS11
 	};
 
 	_vertexBuffer = GraphicsEngine::Get()->CreateVertexBuffer();
