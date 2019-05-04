@@ -52,10 +52,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Drawing\TileDrawer\ITileDrawer.cs" />
-    <Compile Include="GameWorld\GameWorld.cs" />
-    <Compile Include="GameWorld\Tiles\BaseTile.cs" />
-    <Compile Include="GameWorld\Tiles\PlainsTile.cs" />
-    <Compile Include="GameWorld\Tiles\TileSystem.cs" />
+    <Compile Include="Drawing\TileDrawer\SimpleTileDrawer.cs" />
+    <Compile Include="world\GameWorld.cs" />
+    <Compile Include="world\Tiles\BaseTile.cs" />
+    <Compile Include="world\Tiles\PlainsTile.cs" />
+    <Compile Include="world\Tiles\TileSystem.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="TowerDefense.cs">
       <SubType>Form</SubType>

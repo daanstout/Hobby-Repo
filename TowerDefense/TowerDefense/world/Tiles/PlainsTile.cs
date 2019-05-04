@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DaanLib.Maths;
 
-namespace TowerDefense.GameWorld.Tiles {
+namespace TowerDefense.World.Tiles {
     public class PlainsTile : BaseTile {
         public PlainsTile(Vector2D position) : this(position, Color.Green) { }
 

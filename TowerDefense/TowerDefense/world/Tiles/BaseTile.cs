@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TowerDefense.Drawing.TileDrawer;
 
-namespace TowerDefense.GameWorld.Tiles {
+namespace TowerDefense.World.Tiles {
     /// <summary>
     /// A base tile that occupies the world
     /// </summary>
@@ -23,7 +23,7 @@ namespace TowerDefense.GameWorld.Tiles {
         public const int TILE_HEIGHT = 25;
         #endregion
         #region Statics
-        private static ITileDrawer renderer;
+        private static ITileDrawer renderer = new SimpleTileDrawer();
         #endregion
         #region Variables
         /// <summary>
@@ -115,7 +115,6 @@ namespace TowerDefense.GameWorld.Tiles {
             this.sprite = sprite;
         }
         #endregion
-
         public void Render(Graphics g) => renderer.Render(g, this);
 
         public static void SetRenderer(ITileDrawer renderer) => BaseTile.renderer = renderer;
