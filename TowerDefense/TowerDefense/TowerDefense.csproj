@@ -34,8 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DaanLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="DaanLib">
       <HintPath>..\..\..\DaanLib\DaanLib\DaanLib\bin\Debug\DaanLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -51,12 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\TileDrawer\ITileDrawer.cs" />
-    <Compile Include="Drawing\TileDrawer\SimpleTileDrawer.cs" />
-    <Compile Include="world\GameWorld.cs" />
-    <Compile Include="world\Tiles\BaseTile.cs" />
-    <Compile Include="world\Tiles\PlainsTile.cs" />
-    <Compile Include="world\Tiles\TileSystem.cs" />
+    <Compile Include="Drawing\TileDrawer\ITileRenderer.cs" />
+    <Compile Include="Drawing\TileDrawer\SimpleTileRenderer.cs" />
+    <Compile Include="World\GameWorld.cs" />
+    <Compile Include="World\Tiles\BaseTile.cs" />
+    <Compile Include="World\Tiles\PlainsTile.cs" />
+    <Compile Include="World\Tiles\TileSystem.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="TowerDefense.cs">
       <SubType>Form</SubType>
@@ -66,6 +65,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="World\Time.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

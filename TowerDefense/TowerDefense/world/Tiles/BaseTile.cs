@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TowerDefense.Drawing.TileDrawer;
+using TowerDefense.Rendering.TileRenderer;
 
 namespace TowerDefense.World.Tiles {
     /// <summary>
@@ -23,7 +23,7 @@ namespace TowerDefense.World.Tiles {
         public const int TILE_HEIGHT = 25;
         #endregion
         #region Statics
-        private static ITileDrawer renderer = new SimpleTileDrawer();
+        private static ITileRenderer renderer = new SimpleTileRenderer();
         #endregion
         #region Variables
         /// <summary>
@@ -115,8 +115,16 @@ namespace TowerDefense.World.Tiles {
             this.sprite = sprite;
         }
         #endregion
-        public void Render(Graphics g) => renderer.Render(g, this);
+        /// <summary>
+        /// Renders the tile
+        /// </summary>
+        /// <param name="g"></param>
+        public virtual void Render(Graphics g) => renderer.Render(g, this);
 
-        public static void SetRenderer(ITileDrawer renderer) => BaseTile.renderer = renderer;
+        /// <summary>
+        /// Changes the renderer for the tiles
+        /// </summary>
+        /// <param name="renderer"></param>
+        public static void SetRenderer(ITileRenderer renderer) => BaseTile.renderer = renderer;
     }
 }

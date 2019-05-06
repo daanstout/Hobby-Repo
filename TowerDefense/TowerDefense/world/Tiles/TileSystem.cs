@@ -12,7 +12,7 @@ namespace TowerDefense.World.Tiles {
         private BaseTile[] tiles;
 
         private int tileCount;
-        
+
         private int tilesPerRow;
 
         private static Random rand;

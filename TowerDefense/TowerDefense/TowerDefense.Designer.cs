@@ -26,6 +26,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TowerDefense));
             this.gamePanel = new System.Windows.Forms.Panel();
             this.bannerPanel = new System.Windows.Forms.Panel();
+            this.GameLoopWorker = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // gamePanel
@@ -39,6 +40,12 @@
             resources.ApplyResources(this.bannerPanel, "bannerPanel");
             this.bannerPanel.Name = "bannerPanel";
             this.bannerPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BannerPanel_MouseDown);
+            // 
+            // GameLoopWorker
+            // 
+            this.GameLoopWorker.WorkerSupportsCancellation = true;
+            this.GameLoopWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.GameLoopWorker_DoWork);
+            this.GameLoopWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.GameLoopWorker_RunWorkerCompleted);
             // 
             // TowerDefense
             // 
@@ -60,6 +67,7 @@
 
         private System.Windows.Forms.Panel gamePanel;
         private System.Windows.Forms.Panel bannerPanel;
+        private System.ComponentModel.BackgroundWorker GameLoopWorker;
     }
 }
 

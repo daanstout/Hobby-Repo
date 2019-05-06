@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TowerDefense {
+    /// <summary>
+    /// Global functions and variables
+    /// </summary>
     public static class Global {
 
     }
