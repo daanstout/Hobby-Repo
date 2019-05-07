@@ -45,6 +45,7 @@
             this.ancestorTreePanel.Size = new System.Drawing.Size(300, 575);
             this.ancestorTreePanel.TabIndex = 1;
             this.ancestorTreePanel.Paint += new System.Windows.Forms.PaintEventHandler(this.AncestorTreePanel_Paint);
+            this.ancestorTreePanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.AncestorTreePanel_MouseClick);
             // 
             // drawButton
             // 

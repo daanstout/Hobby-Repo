@@ -12,22 +12,26 @@ namespace CommonAncestor.Ancestors {
         int initialPopulationSize;
         List<Person[]> generations = new List<Person[]>();
 
+        Point selectedPerson = new Point(-1, -1);
+
         public Tree(int generationSize) {
             initialPopulationSize = generationSize;
             generations.Add(new Person[generationSize]);
-            for (int i = 0; i < generationSize; i++)
-                generations[0][i] = new Person();
+            for (int i = 0; i < generationSize; i++) {
+                generations[0][i] = new Person(initialPopulationSize);
+                generations[0][i].SetDescendant(i, true);
+            }
         }
 
-        public void Draw(Graphics g, int distanceBetweenPersons) {
-            int curY = 10;
+        public void Draw(Graphics g, int distanceBetweenPersons, int startY) {
+            int curY = startY - 10;
             int curX = 10;
             int sphereRadius = 10;
-            for(int gen = 0; gen < generations.Count; gen++){
+            for (int gen = 0; gen < generations.Count; gen++) {
                 for (int i = 0; i < generations[gen].Length; i++) {
                     g.FillEllipse(Brushes.White, new Rectangle(curX - sphereRadius, curY - sphereRadius, sphereRadius * 2, sphereRadius * 2));
 
-                    if (gen == 0) {
+                    if (gen == generations.Count - 1) {
                         curX += distanceBetweenPersons;
                         continue;
                     }
@@ -53,8 +57,19 @@ namespace CommonAncestor.Ancestors {
 
                     curX += distanceBetweenPersons;
                 }
-                curY += distanceBetweenPersons;
+                curY -= distanceBetweenPersons;
                 curX = 10;
+            }
+
+            if (selectedPerson.X != -1 || selectedPerson.Y != -1) {
+                curY = startY - 10;
+                curX = 10;
+                for(int i = 0; i < initialPopulationSize; i++) {
+                    if (generations[selectedPerson.Y][selectedPerson.X].DescentsTo(i))
+                        g.FillEllipse(Brushes.Green, new Rectangle(curX - sphereRadius, curY - sphereRadius, sphereRadius * 2, sphereRadius * 2));
+
+                    curX += distanceBetweenPersons;
+                }
             }
         }
 
@@ -63,12 +78,22 @@ namespace CommonAncestor.Ancestors {
         public void AddGeneration(int newPopulationSize) {
             Person[] newGen = new Person[newPopulationSize];
 
-            for(int i = 0; i < newPopulationSize; i++) {
-                newGen[i].father = rand.Next(0, generations.Last().Length);
-                newGen[i].mother = rand.Next(0, generations.Last().Length);
+            for (int i = 0; i < newPopulationSize; i++)
+                newGen[i] = new Person(initialPopulationSize);
+
+            for (int i = 0; i < generations.Last().Length; i++) {
+                generations.Last()[i].father = rand.Next(0, newPopulationSize);
+                newGen[generations.Last()[i].father].CheckDescendants(generations.Last()[i], initialPopulationSize);
+
+                generations.Last()[i].mother = rand.Next(0, newPopulationSize);
+                newGen[generations.Last()[i].mother].CheckDescendants(generations.Last()[i], initialPopulationSize);
             }
 
             generations.Add(newGen);
+        }
+
+        public void SelectPerson(Point location, int distanceBetweenPersons, int startY) {
+            selectedPerson = new Point((location.X + (distanceBetweenPersons / 4)) / distanceBetweenPersons, (startY - location.Y + (distanceBetweenPersons / 4)) / distanceBetweenPersons);
         }
     }
 }
