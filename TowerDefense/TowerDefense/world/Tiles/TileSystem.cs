@@ -27,7 +27,7 @@ namespace TowerDefense.World.Tiles {
             float curX = 0, curY = 0;
 
             for (int i = 0; i < tileCount; i++) {
-                tiles[i] = new PlainsTile(new Vector2D(curX, curY), Color.White, true);
+                tiles[i] = new PlainsTile(new Vector2D(curX, curY), Color.Green, true);
                 curX += BaseTile.TILE_WIDTH;
 
                 if (curX >= GameWorld.instance.gameWidth) {

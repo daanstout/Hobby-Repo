@@ -6,12 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TowerDefense.Rendering.TileRenderer;
+using DaanLib;
 
 namespace TowerDefense.World.Tiles {
     /// <summary>
     /// A base tile that occupies the world
     /// </summary>
-    public abstract class BaseTile {
+    public abstract class BaseTile : IEquatable<BaseTile> {
         #region Constants
         /// <summary>
         /// The width of a tile
@@ -23,9 +24,14 @@ namespace TowerDefense.World.Tiles {
         public const int TILE_HEIGHT = 25;
         #endregion
         #region Statics
+        /// <summary>
+        /// The renderer used for drawing the tiles
+        /// </summary>
         private static ITileRenderer renderer = new SimpleTileRenderer();
+        private static IDSetter idSetter = new IDSetter();
         #endregion
         #region Variables
+        private int tileID;
         /// <summary>
         /// The sprite of the tile
         /// </summary>
@@ -113,6 +119,7 @@ namespace TowerDefense.World.Tiles {
             this.tileColor = tileColor;
             this.isWalkable = isWalkable;
             this.sprite = sprite;
+            tileID = idSetter.getNextValidId;
         }
         #endregion
         /// <summary>
@@ -126,5 +133,29 @@ namespace TowerDefense.World.Tiles {
         /// </summary>
         /// <param name="renderer"></param>
         public static void SetRenderer(ITileRenderer renderer) => BaseTile.renderer = renderer;
+
+        /// <summary>
+        /// Compares two Tiles to see if they are the same Tile
+        /// </summary>
+        /// <param name="obj">The other tile</param>
+        /// <returns>True if they are the same tiels</returns>
+        public override bool Equals(object obj) => Equals(obj as BaseTile);
+        /// <summary>
+        /// Compares two Tiles to see if they are the same Tile
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(BaseTile other) => other != null && tileID == other.tileID && position.Equals(other.position) && isWalkable == other.isWalkable;
+
+        public override int GetHashCode() {
+            var hashCode = -185539890;
+            hashCode = hashCode * -1521134295 + tileID.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<Vector2D>.Default.GetHashCode(position);
+            hashCode = hashCode * -1521134295 + isWalkable.GetHashCode();
+            return hashCode;
+        }
+
+        public static bool operator ==(BaseTile left, BaseTile right) => EqualityComparer<BaseTile>.Default.Equals(left, right);
+        public static bool operator !=(BaseTile left, BaseTile right) => !(left == right);
     }
 }

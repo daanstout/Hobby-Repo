@@ -33,6 +33,9 @@ namespace TowerDefense {
         /// </summary>
         GameWorld world;
 
+        /// <summary>
+        /// Override the Create Params property to allow double buffering
+        /// </summary>
         protected override CreateParams CreateParams {
             get {
                 CreateParams cp = base.CreateParams;
@@ -58,6 +61,7 @@ namespace TowerDefense {
             // Create the game world
             world = new GameWorld(gamePanel.Width, gamePanel.Height);
 
+            // Render the background for the first time
             RedrawBackground();
 
             // Start the game loop
@@ -72,7 +76,7 @@ namespace TowerDefense {
             float timeTillTick = tickInterval;
             // We loop untill the player has lost
             while (!gameOver) {
-                // If the delta time is larger than the tick interval we have set, then something is eating up processing power, throw an exception
+                // If the delta time is larger than the tick interval we have set, then something is eating up processing power, for now we throw an exception
                 if (Time.deltaTimeMillis > tickInterval)
                     throw new TimeoutException("The tick time has become to long, do something about this");
 

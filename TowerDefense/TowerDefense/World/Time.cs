@@ -21,6 +21,10 @@ namespace TowerDefense.World {
         /// The previous tick
         /// </summary>
         private long previousTick;
+        /// <summary>
+        /// The time untill the total elapsed time will be corrected
+        /// </summary>
+        private float timeTillCorrection = 1.0f;
 
         /// <summary>
         /// The elapsed amount of milli seconds since the last tick
@@ -56,6 +60,11 @@ namespace TowerDefense.World {
             deltaTimeMillis = tickWatch.ElapsedMilliseconds - previousTick;
             previousTick = tickWatch.ElapsedMilliseconds;
             totalElapsedTime = tickWatch.ElapsedMilliseconds;
+
+            //timeTillCorrection -= deltaTimeMillis;
+            //if(timeTillCorrection <= 0) {
+            //    totale
+            //}
         }
 
         public void Pause() => tickWatch.Stop();
