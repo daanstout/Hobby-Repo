@@ -34,7 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DaanLib">
+    <Reference Include="DaanLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\DaanLib\DaanLib\DaanLib\bin\Debug\DaanLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -50,9 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\TileDrawer\ITileRenderer.cs" />
-    <Compile Include="Drawing\TileDrawer\SimpleTileRenderer.cs" />
+    <Compile Include="Rendering\TileRenderer\ITileRenderer.cs" />
+    <Compile Include="Rendering\TileRenderer\SimpleTileRenderer.cs" />
+    <Compile Include="Rendering\TileRenderer\VertexTileRenderer.cs" />
     <Compile Include="World\GameWorld.cs" />
+    <Compile Include="World\Graph.cs" />
     <Compile Include="World\Tiles\BaseTile.cs" />
     <Compile Include="World\Tiles\PlainsTile.cs" />
     <Compile Include="World\Tiles\TileSystem.cs" />

@@ -10,8 +10,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using DaanLib;
-
+using TowerDefense.Rendering.TileRenderer;
 using TowerDefense.World;
+using TowerDefense.World.Tiles;
 
 namespace TowerDefense {
     /// <summary>
@@ -27,6 +28,8 @@ namespace TowerDefense {
         /// Indicates whether the player has lost yet
         /// </summary>
         public bool gameOver = false;
+
+        private bool showVerteces = false;
 
         /// <summary>
         /// The world instance
@@ -109,6 +112,9 @@ namespace TowerDefense {
             // Dispose of the previous image and set the new image as the background
             gamePanel.BackgroundImage?.Dispose();
             gamePanel.BackgroundImage = bm;
+
+            // Force the garbace collection to start collecting garbage
+            GC.Collect();
         }
 
         /// <summary>
@@ -125,7 +131,7 @@ namespace TowerDefense {
         /// <param name="e">The event arguments of the event</param>
         private void BannerPanel_MouseDown(object sender, MouseEventArgs e) {
             if (e.Button == MouseButtons.Left) {
-                WinFormHelper.HandleWindowDrag(Handle);
+                NativeMethods.HandleWindowDrag(Handle);
             }
         }
 
@@ -142,5 +148,24 @@ namespace TowerDefense {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void GameLoopWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) => gameOver = e.Cancelled;
+
+        /// <summary>
+        /// Toggles the Tile Renderer between VertexTileRendere and SimpleTileRenderer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ToggleVertexButton_Click(object sender, EventArgs e) {
+            showVerteces = !showVerteces;
+
+            if (showVerteces) {
+                BaseTile.SetRenderer(new VertexTileRenderer());
+                (sender as Control).Text = "Hide Verteces";
+            } else {
+                BaseTile.SetRenderer(new SimpleTileRenderer());
+                (sender as Control).Text = "Show Verteces";
+            }
+
+            RedrawBackground();
+        }
     }
 }

@@ -31,6 +31,9 @@ namespace TowerDefense.World.Tiles {
         private static IDSetter idSetter = new IDSetter();
         #endregion
         #region Variables
+        /// <summary>
+        /// The id of the tile
+        /// </summary>
         private int tileID;
         /// <summary>
         /// The sprite of the tile
@@ -54,6 +57,10 @@ namespace TowerDefense.World.Tiles {
         /// Gets a rectangle representing this tile
         /// </summary>
         public Rectangle tileRectangle => new Rectangle(position, new Vector2D(TILE_WIDTH, TILE_HEIGHT));
+        /// <summary>
+        /// The id of the tile
+        /// </summary>
+        public int tileId => tileID;
         #endregion
         #region Constructors
         /// <summary>
@@ -145,13 +152,12 @@ namespace TowerDefense.World.Tiles {
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
-        public bool Equals(BaseTile other) => other != null && tileID == other.tileID && position.Equals(other.position) && isWalkable == other.isWalkable;
+        public bool Equals(BaseTile other) => other != null && tileID == other.tileID && position.Equals(other.position);
 
         public override int GetHashCode() {
             var hashCode = -185539890;
             hashCode = hashCode * -1521134295 + tileID.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<Vector2D>.Default.GetHashCode(position);
-            hashCode = hashCode * -1521134295 + isWalkable.GetHashCode();
             return hashCode;
         }
 
