@@ -30,9 +30,9 @@ namespace TowerDefense.Rendering.TileRenderer {
 
             g.FillRectangle(new SolidBrush(vertexColor), new Rectangle(vertexPos, vertexSize));
 
-            foreach(Edge e in vertex.adjacents) {
+            foreach(Edge e in vertex.edgeList) {
                 BaseTile other = Graph.instance.GetKey(e.destination);
-                vertexPos += new Vector2D(vertexRecSize, vertexRecSize);
+                vertexPos = tile.position + (new Vector2D(BaseTile.TILE_WIDTH, BaseTile.TILE_HEIGHT) / 2);
 
                 Vector2D otherPos = other.position + (new Vector2D(BaseTile.TILE_WIDTH, BaseTile.TILE_HEIGHT) / 2);
 

@@ -77,20 +77,23 @@ namespace TowerDefense {
         private void StartGameLoop() {
             const float tickInterval = 1f / 60f;
             float timeTillTick = tickInterval;
+            int TimesToLong = 0;
             // We loop untill the player has lost
             while (!gameOver) {
                 // If the delta time is larger than the tick interval we have set, then something is eating up processing power, for now we throw an exception
-                if (Time.deltaTimeMillis > tickInterval)
-                    throw new TimeoutException("The tick time has become to long, do something about this");
+                if (Time.deltaTimeSeconds > tickInterval)
+                    Console.WriteLine("To long" + ++TimesToLong);
+                    //throw new TimeoutException("The tick time has become to long, do something about this");
+
+                world.Update();
 
                 // We update the time till we tick
                 timeTillTick -= Time.deltaTimeMillis;
 
                 if (timeTillTick <= 0) {
                     // When we have reached our tick mark, we tick
-                    world.Update();
                     gamePanel.Invalidate();
-                    timeTillTick = tickInterval;
+                    timeTillTick += tickInterval;
                 }
             }
         }

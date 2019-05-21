@@ -19,7 +19,13 @@ namespace TowerDefense.World {
         /// <summary>
         /// Instantiates a new Graph
         /// </summary>
-        public Graph() : base() => instance = this;
+        public Graph() : this(true) { }
+
+        /// <summary>
+        /// Instantiates a new Graph
+        /// </summary>
+        /// <param name="hasUniqueVerteces">Whether the verteces are always unique (default = true)</param>
+        public Graph(bool hasUniqueVerteces = true) : base(hasUniqueVerteces) => instance = this;
 
         /// <summary>
         /// Creates a new Vertex based on a tile
@@ -46,6 +52,29 @@ namespace TowerDefense.World {
                     continue;
 
                 CreateVertex(tile);
+            }
+
+            LinkVerteces(tiles);
+        }
+
+        private void LinkVerteces(BaseTile[] tiles) {
+            if (tiles == null || tiles.Length <= 0)
+                return;
+
+            foreach(BaseTile tile in tiles) {
+                if (tile == null)
+                    continue;
+
+                if (!ContainsKey(tile))
+                    continue;
+
+                List<BaseTile> neighbours = TileSystem.instance.GetNeighbours(tile);
+
+                if (neighbours == null || neighbours.Count <= 0)
+                    continue;
+
+                foreach (BaseTile neighbour in neighbours)
+                    RegisterEdge(tile, neighbour);
             }
         }
     }

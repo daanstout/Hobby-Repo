@@ -84,5 +84,40 @@ namespace TowerDefense.World.Tiles {
         /// </summary>
         /// <returns>The list of tiles</returns>
         public BaseTile[] GetTiles() => (BaseTile[])tiles.Clone();
+
+        public List<BaseTile> GetNeighbours(BaseTile tile) {
+            // Create the list
+            List<BaseTile> neighbours = new List<BaseTile>();
+
+            // Null check, just return the empty list
+            if (tile == null)
+                return neighbours;
+
+            // Get the index based on the position
+            int index = GetIndexFromPos(tile.position);
+
+            // Make sure the index is within bounds
+            if (index < 0 || index > tileCount)
+                return neighbours;
+
+            // If the index is not a multiple of the number of rows, that means there is a tile to the left
+            if (index % tilesPerRow != 0)
+                neighbours.Add(tiles[index - 1]);
+
+            // If the index is larger than the number of tiles in a row, that means there is a tile above
+            if (index >= tilesPerRow)
+                neighbours.Add(tiles[index - tilesPerRow]);
+
+            // If the index is not a multiple of the number of tiles per row + the num
+            if (index % tilesPerRow != tilesPerRow - 1)
+                neighbours.Add(tiles[index + 1]);
+
+            if (index < tileCount - tilesPerRow)
+                neighbours.Add(tiles[index + tilesPerRow]);
+
+            return neighbours;
+        }
+
+        public int GetIndexFromPos(Vector2D position) => (int)(position.x / BaseTile.TILE_WIDTH) + (int)(position.y / BaseTile.TILE_HEIGHT * tilesPerRow);
     }
 }
