@@ -15,8 +15,18 @@ private:
 	VertexShader* _vertexShader;
 	PixelShader* _pixelShader;
 	ConstantBuffer* _constantBuffer;
+
+	float oldDelta;
+	float newDelta;
+	float deltaTime;
+
+	float deltaPosition;
+	float deltaScale;
 public:
 	AppWindow();
+
+	void UpdateQuadPosition();
+
 	~AppWindow();
 
 	// Inherited via Window
