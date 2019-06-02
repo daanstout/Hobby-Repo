@@ -23,6 +23,7 @@ namespace TowerDefense.World {
         /// </summary>
         private TileSystem tileSystem;
         private Time time;
+        private Graph graph;
 
         /// <summary>
         /// The width of the world
@@ -48,9 +49,12 @@ namespace TowerDefense.World {
             // Create a new tile system
             tileSystem = new TileSystem();
             time = Time.Create();
+            graph = new Graph();
 
             // Initialize the tiles
             tileSystem.InitTileSystem();
+
+            graph.CreateVerteces(tileSystem.GetTiles());
         }
 
         /// <summary>

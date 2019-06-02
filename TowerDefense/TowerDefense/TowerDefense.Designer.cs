@@ -27,6 +27,7 @@
             this.gamePanel = new System.Windows.Forms.Panel();
             this.bannerPanel = new System.Windows.Forms.Panel();
             this.GameLoopWorker = new System.ComponentModel.BackgroundWorker();
+            this.toggleVertexButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // gamePanel
@@ -47,11 +48,22 @@
             this.GameLoopWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.GameLoopWorker_DoWork);
             this.GameLoopWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.GameLoopWorker_RunWorkerCompleted);
             // 
+            // toggleVertexButton
+            // 
+            this.toggleVertexButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.toggleVertexButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            resources.ApplyResources(this.toggleVertexButton, "toggleVertexButton");
+            this.toggleVertexButton.ForeColor = System.Drawing.Color.White;
+            this.toggleVertexButton.Name = "toggleVertexButton";
+            this.toggleVertexButton.UseVisualStyleBackColor = false;
+            this.toggleVertexButton.Click += new System.EventHandler(this.ToggleVertexButton_Click);
+            // 
             // TowerDefense
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.Controls.Add(this.toggleVertexButton);
             this.Controls.Add(this.bannerPanel);
             this.Controls.Add(this.gamePanel);
             this.DoubleBuffered = true;
@@ -68,6 +80,7 @@
         private System.Windows.Forms.Panel gamePanel;
         private System.Windows.Forms.Panel bannerPanel;
         private System.ComponentModel.BackgroundWorker GameLoopWorker;
+        private System.Windows.Forms.Button toggleVertexButton;
     }
 }
 
