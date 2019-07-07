@@ -40,7 +40,7 @@ namespace TowerDefense.World {
         /// Creates verteces for all the tiles
         /// </summary>
         /// <param name="tiles">The tiles to create verteces for</param>
-        public void CreateVerteces(BaseTile[] tiles) {
+        public void CreateVerteces(BaseTile[] tiles, TileInfo info) {
             if (tiles == null || tiles.Length <= 0)
                 return;
 
@@ -57,22 +57,33 @@ namespace TowerDefense.World {
             LinkVerteces(tiles);
         }
 
+        /// <summary>
+        /// Links all verteces in the world with its neighbours
+        /// </summary>
+        /// <param name="tiles">The tiles that contain the verteces</param>
         private void LinkVerteces(BaseTile[] tiles) {
+            // Do a null check to make sure there are tiles to link
             if (tiles == null || tiles.Length <= 0)
                 return;
 
             foreach(BaseTile tile in tiles) {
+                // Do a null check to make sure there is a tile
                 if (tile == null)
                     continue;
 
+                // Check if the tile is a registered key
                 if (!ContainsKey(tile))
                     continue;
 
+                // Get the neighbours of the tile
                 List<BaseTile> neighbours = TileSystem.instance.GetNeighbours(tile);
 
+                // Make sure the list isn't empty
                 if (neighbours == null || neighbours.Count <= 0)
                     continue;
 
+                // Link this node to every neighbour
+                // The RegisterEdge() function will not link if the neighbour doesn't have a vertex, so we don't have to do that check
                 foreach (BaseTile neighbour in neighbours)
                     RegisterEdge(tile, neighbour);
             }

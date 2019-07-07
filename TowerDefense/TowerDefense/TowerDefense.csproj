@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\ITickable.cs" />
+    <Compile Include="Entities\MovingEntity.cs" />
     <Compile Include="Rendering\TileRenderer\ITileRenderer.cs" />
     <Compile Include="Rendering\TileRenderer\SimpleTileRenderer.cs" />
     <Compile Include="Rendering\TileRenderer\VertexTileRenderer.cs" />

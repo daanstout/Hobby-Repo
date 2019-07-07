@@ -35,40 +35,8 @@ namespace TowerDefense.World.Tiles {
         /// Instantiates a new Plains Tile
         /// </summary>
         /// <param name="position">The position of the tile</param>
-        /// <param name="isWalkable">Indicates whether this tile can be walked upon</param>
-        public PlainsTile(Vector2D position, bool isWalkable) : this(position, Color.Green, isWalkable) { }
-
-        /// <summary>
-        /// Instantiates a new Plains Tile
-        /// </summary>
-        /// <param name="position">The position of the tile</param>
         /// <param name="tileColor">The color used for this tile</param>
         /// <param name="sprite">The sprite used for this tile</param>
         public PlainsTile(Vector2D position, Color tileColor, Bitmap sprite) : base(position, tileColor, sprite) { }
-
-        /// <summary>
-        /// Instantiates a new Plains Tile
-        /// </summary>
-        /// <param name="position">The position of the tile</param>
-        /// <param name="isWalkable">Indicates whether this tile can be walked upon</param>
-        /// <param name="sprite">The sprite used for this tile</param>
-        public PlainsTile(Vector2D position, bool isWalkable, Bitmap sprite) : base(position, Color.Green, isWalkable, sprite) { }
-
-        /// <summary>
-        /// Instantiates a new Plains Tile
-        /// </summary>
-        /// <param name="position">The position of the tile</param>
-        /// <param name="tileColor">The color used for this tile</param>
-        /// <param name="isWalkable">Indicates whether this tile can be walked upon</param>
-        public PlainsTile(Vector2D position, Color tileColor, bool isWalkable) : base(position, tileColor, isWalkable) { }
-
-        /// <summary>
-        /// Instantiates a new Plains Tile
-        /// </summary>
-        /// <param name="position">The position of the tile</param>
-        /// <param name="tileColor">The color used for this tile</param>
-        /// <param name="isWalkable">Indicates whether this tile can be walked upon</param>
-        /// <param name="sprite">The sprite used for this tile</param>
-        public PlainsTile(Vector2D position, Color tileColor, bool isWalkable, Bitmap sprite) : base(position, tileColor, isWalkable, sprite) { }
     }
 }

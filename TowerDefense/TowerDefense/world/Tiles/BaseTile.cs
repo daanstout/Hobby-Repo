@@ -47,10 +47,10 @@ namespace TowerDefense.World.Tiles {
         /// The position of the tile
         /// </summary>
         public Vector2D position;
-        /// <summary>
-        /// Indicates whether this tile can be walked over
-        /// </summary>
-        public bool isWalkable;
+        ///// <summary>
+        ///// Indicates whether this tile can be walked over
+        ///// </summary>
+        //public bool isWalkable;
         #endregion
         #region Properties
         /// <summary>
@@ -61,6 +61,8 @@ namespace TowerDefense.World.Tiles {
         /// The id of the tile
         /// </summary>
         public int tileId => tileID;
+
+        public bool isWalkable => !TileSystem.instance.getTileInfo.ContainsState(TileSystem.instance.GetIndexFromPos(position), TileInfo.tileStates.non_walkable);
         #endregion
         #region Constructors
         /// <summary>
@@ -81,50 +83,17 @@ namespace TowerDefense.World.Tiles {
         /// </summary>
         /// <param name="position">The position of the tile</param>
         /// <param name="tileColor">The color of the tile</param>
-        protected BaseTile(Vector2D position, Color tileColor) : this(position, tileColor, false) { }
+        protected BaseTile(Vector2D position, Color tileColor) : this(position, tileColor, null) { }
 
         /// <summary>
         /// Instantiates a new BaseTile
         /// </summary>
         /// <param name="position">The position of the tile</param>
         /// <param name="tileColor">The color for the tile</param>
-        /// <param name="sprite">The sprite for the tile</param>
-        protected BaseTile(Vector2D position, Color tileColor, Bitmap sprite) : this(position, tileColor, false, sprite) { }
-
-        /// <summary>
-        /// Instantiates a new BaseTile
-        /// </summary>
-        /// <param name="position">The position of the tile</param>
-        /// <param name="isWalkable">Whether the tile can be walked over</param>
-        protected BaseTile(Vector2D position, bool isWalkable) : this(position, Color.Black, isWalkable) { }
-
-        /// <summary>
-        /// Instantiates a new BaseTile
-        /// </summary>
-        /// <param name="position">The position of the tile</param>
-        /// <param name="isWalkable">Indicates whether the tile can be walked on</param>
-        /// <param name="sprite">The sprite for the tile</param>
-        protected BaseTile(Vector2D position, bool isWalkable, Bitmap sprite) : this(position, Color.Black, isWalkable, sprite) { }
-
-        /// <summary>
-        /// Instantiates a new BaseTile
-        /// </summary>
-        /// <param name="position">The position of the tile</param>
-        /// <param name="tileColor">The color of the tile</param>
-        /// <param name="isWalkable">Whether the tile can be walked over</param>
-        protected BaseTile(Vector2D position, Color tileColor, bool isWalkable) : this(position, tileColor, isWalkable, null) { }
-
-        /// <summary>
-        /// Instantiates a new BaseTile
-        /// </summary>
-        /// <param name="position">The position of the tile</param>
-        /// <param name="tileColor">The color for the tile</param>
-        /// <param name="isWalkable">Indicates whether this tile can be walked over</param>
         /// <param name="sprite">The sprite for this tile</param>
-        protected BaseTile(Vector2D position, Color tileColor, bool isWalkable, Bitmap sprite) {
+        protected BaseTile(Vector2D position, Color tileColor, Bitmap sprite) {
             this.position = position;
             this.tileColor = tileColor;
-            this.isWalkable = isWalkable;
             this.sprite = sprite;
             tileID = idSetter.getNextValidId;
         }

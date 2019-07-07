@@ -21,6 +21,9 @@ namespace TowerDefense.Rendering.TileRenderer {
 
             Vertex vertex = Graph.instance.GetVertex(tile);
 
+            if (vertex == null)
+                return;
+
             Vector2D vertexPos = tile.position + (new Vector2D(BaseTile.TILE_WIDTH, BaseTile.TILE_HEIGHT) / 2);
 
             const int vertexRecSize = 5;

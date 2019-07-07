@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DaanLib.Maths;
 using DaanLib.StateMachine;
+using TowerDefense.Entities;
 using TowerDefense.World.Tiles;
 
 namespace TowerDefense.World {
@@ -22,8 +23,19 @@ namespace TowerDefense.World {
         /// The tiles in the world
         /// </summary>
         private TileSystem tileSystem;
+        /// <summary>
+        /// The time instance that keeps track of time
+        /// </summary>
         private Time time;
+        /// <summary>
+        /// The graph system for the verteces
+        /// </summary>
         private Graph graph;
+
+        /// <summary>
+        /// The list of entities in the world
+        /// </summary>
+        private List<ITickable> entities;
 
         /// <summary>
         /// The width of the world
@@ -51,10 +63,41 @@ namespace TowerDefense.World {
             time = Time.Create();
             graph = new Graph();
 
-            // Initialize the tiles
-            tileSystem.InitTileSystem();
+            entities = new List<ITickable>();
 
-            graph.CreateVerteces(tileSystem.GetTiles());
+            entities.Add(new MovingEntity(new Vector2D(50, 50), new Vector2D(10, 10), Color.Red, Vector2D.Left, 1, 1, 1, 1));
+            entities.Add(new MovingEntity(new Vector2D(100, 100), new Vector2D(20, 20), Color.Black, Vector2D.Left, 1, 1, 1, 1));
+
+            Initialize();
+        }
+
+        /// <summary>
+        /// Initializes the world and its components
+        /// </summary>
+        private void Initialize() {
+            TileInfo tileInfo = tileSystem.getTileInfo;
+
+            tileInfo.AddState(tileSystem.GetIndexFromXY(0, 0), TileInfo.tileStates.enemy_spawn);
+            tileInfo.AddState(tileSystem.GetIndexFromXY(0, 0), TileInfo.tileStates.non_walkable);
+
+            tileInfo.AddState(tileSystem.GetIndexFromXY(1, 0), TileInfo.tileStates.enemy_spawn);
+            tileInfo.AddState(tileSystem.GetIndexFromXY(1, 0), TileInfo.tileStates.non_walkable);
+
+            tileInfo.AddState(tileSystem.GetIndexFromXY(0, 1), TileInfo.tileStates.enemy_spawn);
+            tileInfo.AddState(tileSystem.GetIndexFromXY(0, 1), TileInfo.tileStates.non_walkable);
+
+            tileInfo.AddState(tileSystem.GetIndexFromXY(1, 1), TileInfo.tileStates.enemy_spawn);
+            tileInfo.AddState(tileSystem.GetIndexFromXY(1, 1), TileInfo.tileStates.non_walkable);
+
+            tileInfo.SetAllTypes(TileInfo.tileTypes.plains);
+
+            // Initialize the tiles
+            tileSystem.InitTileSystem(tileInfo);
+
+            graph.CreateVerteces(tileSystem.GetTiles(), tileInfo);
+
+            foreach (ITickable entity in entities)
+                entity.Initialize();
         }
 
         /// <summary>
@@ -62,6 +105,9 @@ namespace TowerDefense.World {
         /// </summary>
         public void Update() {
             time.Update();
+
+            foreach (ITickable entity in entities)
+                entity.Update(Time.deltaTimeSeconds);
         }
 
         /// <summary>
@@ -69,7 +115,8 @@ namespace TowerDefense.World {
         /// </summary>
         /// <param name="g">The graphics instance</param>
         public void Render(Graphics g) {
-
+            foreach (ITickable entity in entities)
+                entity.Render(g);
         }
 
         /// <summary>
