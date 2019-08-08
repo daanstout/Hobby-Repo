@@ -2,12 +2,11 @@
 #include <Windows.h>
 #include "Vector3D.h"
 #include "Matrix4x4.h"
-#include <stdio.h>
-#include <iostream>
+//#include <stdio.h>
+//#include <iostream>
 
 struct vertex {
 	Vector3D position;
-	Vector3D position1;
 	Vector3D color;
 	Vector3D color1;
 };
@@ -37,19 +36,33 @@ void AppWindow::UpdateQuadPosition() {
 
 	//cc.world.SetTranslation(Vector3D::lerp(Vector3D(-2, -2, 0), Vector3D(2, 2, 0), deltaPosition));
 	
-	deltaScale += deltaTime / 0.15f;
+	deltaScale += deltaTime / 0.55f;
 
-	cc.world.SetScale(Vector3D::lerp(Vector3D(0.5, 0.5, 0), Vector3D(1.0f, 1.0f, 0), (sin(deltaScale) + 1.0f) / 2.0f));
+	//cc.world.SetScale(Vector3D::lerp(Vector3D(0.5, 0.5, 0), Vector3D(1.0f, 1.0f, 0), (sin(deltaScale) + 1.0f) / 2.0f));
 
-	temp.SetTranslation(Vector3D::lerp(Vector3D(-1.5f, -1.5f, 0), Vector3D(1.5f, 1.5f, 0), deltaPosition));
+	//temp.SetTranslation(Vector3D::lerp(Vector3D(-1.5f, -1.5f, 0), Vector3D(1.5f, 1.5f, 0), deltaPosition));
 
+	//cc.world *= temp;
+
+	cc.world.SetScale(Vector3D(1, 1, 1));
+
+	temp.SetIdentity();
+	temp.SetRotationZ(deltaScale);
+	cc.world *= temp;
+
+	temp.SetIdentity();
+	temp.SetRotationY(deltaScale);
+	cc.world *= temp;
+
+	temp.SetIdentity();
+	temp.SetRotationX(deltaScale);
 	cc.world *= temp;
 
 
 	cc.view.SetIdentity();
 	cc.projection.SetOrtholH(
-		(this->GetClientWindowRect().right - this->GetClientWindowRect().left) / 400.0f,
-		(this->GetClientWindowRect().bottom - this->GetClientWindowRect().top) / 400.0f,
+		(this->GetClientWindowRect().right - this->GetClientWindowRect().left) / 300.0f,
+		(this->GetClientWindowRect().bottom - this->GetClientWindowRect().top) / 300.0f,
 		-4.0f,
 		4.0f
 	);
@@ -78,15 +91,53 @@ void AppWindow::OnCreate() {
 	//	{-0.5f,-0.5f,0.0f}
 	//};
 
-	vertex list[] = {
-		{Vector3D(-0.5f,-0.5f,0.0f),	Vector3D(-0.32f, -0.11f, 0.0f),		Vector3D(0, 0, 0),		Vector3D(0, 1, 0)}, // POS1
-		{Vector3D(-0.5f, 0.5f,0.0f),	Vector3D(-0.11f, 0.78f, 0.0f),		Vector3D(1, 1, 0),		Vector3D(0, 1, 1)}, // POS2
-		{Vector3D(0.5f,-0.5f,0.0f),		Vector3D(0.75f, -0.73f, 0.0f),		Vector3D(0, 0, 1),		Vector3D(1, 0, 0)},
-		{Vector3D(0.5f,0.5f,0.0f),		Vector3D(0.88f, 0.77f, 0.0f),		Vector3D(1, 1, 1),		Vector3D(0, 0, 1)} // POS11
+	vertex vertexList[] = {
+		//			X	Y		Z		Clr1	R	G	B		Clr2	R	G	B
+		// Front Face
+		{Vector3D(-0.5f,-0.5f,-0.5f),	Vector3D(1, 0, 0),		Vector3D(0.2f, 0, 0)},
+		{Vector3D(-0.5f,0.5f,-0.5f),	Vector3D(1, 1, 0),		Vector3D(0.2f, 0.2f, 0)},
+		{Vector3D(0.5f,0.5f,-0.5f),		Vector3D(1, 1, 0),		Vector3D(0.2f, 0.2f, 0)},
+		{Vector3D(0.5f,-0.5f,-0.5f),	Vector3D(1, 0, 0),		Vector3D(0.2f, 0, 0)},
+		// Back Face
+		{Vector3D(0.5f,-0.5f,0.5f),		Vector3D(0, 1, 0),		Vector3D(0, 0.2f, 0)},
+		{Vector3D(0.5f, 0.5f,0.5f),		Vector3D(0, 1, 1),		Vector3D(0, 0.2f, 0.2f)},
+		{Vector3D(-0.5f,0.5f,0.5f),		Vector3D(0, 1, 1),		Vector3D(0, 0.2f, 0.2f)},
+		{Vector3D(-0.5f,-0.5f,0.5f),	Vector3D(0, 1, 0),		Vector3D(0, 0.2f, 0)}
 	};
 
 	_vertexBuffer = GraphicsEngine::Get()->CreateVertexBuffer();
-	UINT sizeList = ARRAYSIZE(list);
+	UINT sizeList = ARRAYSIZE(vertexList);
+
+	unsigned int indexList[] = {
+		// Front Side
+		0, 1, 2,
+		2, 3, 0,
+
+		// Back Side
+		4, 5, 6,
+		6, 7, 4,
+
+		// Top Side
+		1, 6, 5,
+		5, 2, 1,
+
+		// Bottom Side
+		7, 0, 3,
+		3, 4, 7,
+
+		//Right Side
+		3, 2, 5,
+		5, 4, 3,
+
+		// Left Side
+		7, 6, 1,
+		1, 0, 7
+	};
+
+	_indexBuffer = GraphicsEngine::Get()->CreateIndexBuffer();
+	UINT sizeIndexList = ARRAYSIZE(indexList);
+
+	_indexBuffer->Load(indexList, sizeIndexList);
 
 	void* shaderByteCode = nullptr;
 	size_t shaderSize = 0;
@@ -94,7 +145,7 @@ void AppWindow::OnCreate() {
 
 	_vertexShader = GraphicsEngine::Get()->CreateVertexShader(shaderByteCode, shaderSize);
 
-	bool res = _vertexBuffer->Load(list, sizeof(vertex), sizeList, shaderByteCode, shaderSize);
+	bool res = _vertexBuffer->Load(vertexList, sizeof(vertex), sizeList, shaderByteCode, shaderSize);
 
 	GraphicsEngine::Get()->ReleaseCompiledShader();
 
@@ -132,20 +183,18 @@ void AppWindow::OnUpdate() {
 	GraphicsEngine::Get()->GetImmediateDeviceContext()->SetPixelShader(_pixelShader);
 
 	GraphicsEngine::Get()->GetImmediateDeviceContext()->SetVertexBuffer(_vertexBuffer);
+	GraphicsEngine::Get()->GetImmediateDeviceContext()->SetIndexBuffer(_indexBuffer);
 
 	//GraphicsEngine::Get()->GetImmediateDeviceContext()->DrawTriangleList(_vertexBuffer->GetSizeVertexList(), 0);
-	GraphicsEngine::Get()->GetImmediateDeviceContext()->DrawTriangleStrip(_vertexBuffer->GetSizeVertexList(), 0);
+	//GraphicsEngine::Get()->GetImmediateDeviceContext()->DrawTriangleStrip(_vertexBuffer->GetSizeVertexList(), 0);
+	GraphicsEngine::Get()->GetImmediateDeviceContext()->DrawIndexedTriangleList(_indexBuffer->GetSizeIndexList(),0,  0);
 
 	_swapChain->Present(false);
 
 	oldDelta = newDelta;
 	newDelta = ::GetTickCount();
 
-	std::cout << oldDelta << " - " << newDelta << std::endl;
-
 	deltaTime = oldDelta ? ((newDelta - oldDelta) / 1000.0f) : 0;
-
-	std::cout << deltaTime << std::endl;
 }
 
 void AppWindow::OnDestroy() {
@@ -153,6 +202,8 @@ void AppWindow::OnDestroy() {
 
 	_swapChain->Release();
 	_vertexBuffer->Release();
+	_indexBuffer->Release();
+	_constantBuffer->Release();
 	_vertexShader->Release();
 	_pixelShader->Release();
 	GraphicsEngine::Get()->Release();

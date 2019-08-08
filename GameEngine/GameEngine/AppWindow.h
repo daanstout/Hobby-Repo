@@ -5,6 +5,7 @@
 #include "DeviceContext.h"
 #include "VertexBuffer.h"
 #include "VertexShader.h"
+#include "IndexBuffer.h"
 #include "PixelShader.h"
 #include "ConstantBuffer.h"
 
@@ -13,11 +14,12 @@ private:
 	SwapChain* _swapChain;
 	VertexBuffer* _vertexBuffer;
 	VertexShader* _vertexShader;
+	IndexBuffer* _indexBuffer;
 	PixelShader* _pixelShader;
 	ConstantBuffer* _constantBuffer;
 
-	float oldDelta;
-	float newDelta;
+	long oldDelta;
+	long newDelta;
 	float deltaTime;
 
 	float deltaPosition;

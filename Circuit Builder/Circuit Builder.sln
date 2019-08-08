@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Circuit Builder", "Circuit Builder\Circuit Builder.csproj", "{076FCD56-07AB-42B9-B3CE-A8552C73FFDF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{076FCD56-07AB-42B9-B3CE-A8552C73FFDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{076FCD56-07AB-42B9-B3CE-A8552C73FFDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{076FCD56-07AB-42B9-B3CE-A8552C73FFDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{076FCD56-07AB-42B9-B3CE-A8552C73FFDF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F3467F8C-2438-41A7-A3E4-D2F3E2817D8D}
+	EndGlobalSection
+EndGlobal
