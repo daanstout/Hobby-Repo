@@ -2,8 +2,9 @@
 #include <Windows.h>
 #include "Vector3D.h"
 #include "Matrix4x4.h"
-//#include <stdio.h>
-//#include <iostream>
+#include "InputSystem.h"
+#include <stdio.h>
+#include <iostream>
 
 struct vertex {
 	Vector3D position;
@@ -47,15 +48,15 @@ void AppWindow::UpdateQuadPosition() {
 	cc.world.SetScale(Vector3D(1, 1, 1));
 
 	temp.SetIdentity();
-	temp.SetRotationZ(deltaScale);
+	temp.SetRotationZ(0.0f);
 	cc.world *= temp;
 
 	temp.SetIdentity();
-	temp.SetRotationY(deltaScale);
+	temp.SetRotationY(rotY);
 	cc.world *= temp;
 
 	temp.SetIdentity();
-	temp.SetRotationX(deltaScale);
+	temp.SetRotationX(rotX);
 	cc.world *= temp;
 
 
@@ -75,21 +76,14 @@ AppWindow::~AppWindow() {}
 
 void AppWindow::OnCreate() {
 	Window::OnCreate();
+	
+	InputSystem::Get()->AddListener(this);
+
 	GraphicsEngine::Get()->Init();
 	_swapChain = GraphicsEngine::Get()->CreateSwapChain();
 
 	RECT rc = this->GetClientWindowRect();
 	_swapChain->Init(this->_hwnd, rc.right - rc.left, rc.bottom - rc.top);
-
-	//vertex list[] = {
-	//	{-0.5f,-0.5f,0.0f}, // POS1
-	//	{-0.5f, 0.5f,0.0f}, // POS2
-	//	{ 0.5f,0.5f,0.0f},
-
-	//	{ 0.5f,0.5f,0.0f }, // POS1
-	//	{0.5f, -0.5f,0.0f}, // POS2
-	//	{-0.5f,-0.5f,0.0f}
-	//};
 
 	vertex vertexList[] = {
 		//			X	Y		Z		Clr1	R	G	B		Clr2	R	G	B
@@ -169,6 +163,9 @@ void AppWindow::OnCreate() {
 
 void AppWindow::OnUpdate() {
 	Window::OnUpdate();
+
+	InputSystem::Get()->Update();
+
 	GraphicsEngine::Get()->GetImmediateDeviceContext()->ClearRenderTargetColor(this->_swapChain, 0, 0, 1, 1);
 
 	RECT rc = this->GetClientWindowRect();
@@ -195,6 +192,8 @@ void AppWindow::OnUpdate() {
 	newDelta = ::GetTickCount();
 
 	deltaTime = oldDelta ? ((newDelta - oldDelta) / 1000.0f) : 0;
+
+	std::cout << deltaTime << std::endl;
 }
 
 void AppWindow::OnDestroy() {
@@ -207,4 +206,20 @@ void AppWindow::OnDestroy() {
 	_vertexShader->Release();
 	_pixelShader->Release();
 	GraphicsEngine::Get()->Release();
+}
+
+void AppWindow::onKeyDown(int key) {
+	if (key == 'W') {
+		rotX += 5.0f * deltaTime;
+	} else if (key == 'S') {
+		rotX -= 5.0f * deltaTime;
+	} else if (key == 'A') {
+		rotY += 5.0f * deltaTime;
+	} else if (key == 'D') {
+		rotY -= 5.0f * deltaTime;
+	}
+}
+
+void AppWindow::onKeyUp(int key) {
+	
 }
