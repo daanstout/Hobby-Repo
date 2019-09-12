@@ -186,7 +186,7 @@ void AppWindow::OnUpdate() {
 	//GraphicsEngine::Get()->GetImmediateDeviceContext()->DrawTriangleStrip(_vertexBuffer->GetSizeVertexList(), 0);
 	GraphicsEngine::Get()->GetImmediateDeviceContext()->DrawIndexedTriangleList(_indexBuffer->GetSizeIndexList(),0,  0);
 
-	_swapChain->Present(false);
+	_swapChain->Present(true);
 
 	oldDelta = newDelta;
 	newDelta = ::GetTickCount();
