@@ -388,7 +388,7 @@ public:
 			if (dy >= 0) {
 				x = x1; y = y1; ye = y2;
 			} else {
-				x = x2; y = y2; y2 = y1;
+				x = x2; y = y2; ye = y1;
 			}
 
 			Draw(x, y, c, col);
