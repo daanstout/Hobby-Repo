@@ -131,7 +131,7 @@ void AppWindow::OnCreate() {
 	_indexBuffer = GraphicsEngine::Get()->CreateIndexBuffer();
 	UINT sizeIndexList = ARRAYSIZE(indexList);
 
-	_indexBuffer->Load(indexList, sizeIndexList);
+	bool b = _indexBuffer->Load(indexList, sizeIndexList);
 
 	void* shaderByteCode = nullptr;
 	size_t shaderSize = 0;

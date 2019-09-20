@@ -21,5 +21,33 @@ namespace ResourceGathererMono.GameWorld {
                 SpriteEffects.None,
                 0f);
         }
+
+        public void RenderTile(BaseTile tile, SpriteBatch spriteBatch, Color color) {
+            if (tile == null)
+                return;
+
+            spriteBatch.Draw(tile.GetTexture(),
+                tile.tileRectangle,
+                null,
+                color,
+                0f,
+                Vector2.Zero,
+                SpriteEffects.None,
+                0f);
+        }
+
+        public void RenderTile(BaseTile tile, SpriteBatch spriteBatch, Color color, float layerDepth) {
+            if (tile == null)
+                return;
+
+            spriteBatch.Draw(tile.GetTexture(),
+                tile.tileRectangle,
+                null,
+                color,
+                0f,
+                Vector2.Zero,
+                SpriteEffects.None,
+                layerDepth);
+        }
     }
 }

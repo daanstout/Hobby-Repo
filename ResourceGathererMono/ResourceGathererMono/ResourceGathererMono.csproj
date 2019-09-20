@@ -46,10 +46,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="GameWorld\BaseTile.cs" />
+    <Compile Include="GameWorld\Graph.cs" />
     <Compile Include="GameWorld\SimpleTileRenderer.cs" />
     <Compile Include="GameWorld\ITileRenderer.cs" />
     <Compile Include="GameWorld\TilePlains.cs" />
     <Compile Include="GameWorld\TileSystem.cs" />
+    <Compile Include="GameWorld\VertexTileRenderer.cs" />
     <Compile Include="GameWorld\World.cs" />
     <Compile Include="ResourceGatherer.cs" />
     <Compile Include="Program.cs" />

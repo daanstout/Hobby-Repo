@@ -22,7 +22,6 @@ int mapHeight = 16;
 int mapWidth = 16;
 
 int main() {
-
 	wchar_t* screen = new wchar_t[screenWidth * screenHeight];
 	HANDLE console = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
 	SetConsoleActiveScreenBuffer(console);

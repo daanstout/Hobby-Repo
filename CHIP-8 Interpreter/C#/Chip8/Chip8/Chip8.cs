@@ -21,7 +21,7 @@ namespace Chip8 {
         /// <summary>
         /// General purpose registers. There are 15 of those, with a 16th as the carry flag
         /// </summary>
-        protected byte[] registers;
+        protected byte[] V;
 
         /// <summary>
         /// The index register
@@ -93,7 +93,7 @@ namespace Chip8 {
 
         public Chip8() {
             memory = new byte[4096];
-            registers = new byte[16];
+            V = new byte[16];
             gfx = new byte[DISPLAY_WIDTH * DISPLAY_HEIGTH];
             stack = new ushort[16];
             key = new byte[16];
@@ -104,9 +104,9 @@ namespace Chip8 {
             for (int i = 0; i < memory.Length; i++)
                 memory[i] = 0;
 
-            registers = new byte[16];
-            for (int i = 0; i < registers.Length; i++)
-                registers[i] = 0;
+            V = new byte[16];
+            for (int i = 0; i < V.Length; i++)
+                V[i] = 0;
 
             gfx = new byte[DISPLAY_WIDTH * DISPLAY_HEIGTH];
             for (int i = 0; i < gfx.Length; i++)
@@ -169,15 +169,45 @@ namespace Chip8 {
                     }
                     break;
 
+                case 0x1000:
+                    programCounter = (byte)(opcode & 0x0FFF);
+                    break;
+
                 case 0x2000:
                     stack[stackPointer] = programCounter;
                     stackPointer++;
                     programCounter = (ushort)(opcode & 0x0FFF);
                     break;
 
+                case 0x8000:
+                    switch (opcode & 0x000F) {
+                        case 0x0004:
+                            if (V[(opcode & 0x00F0) >> 4] > 0xFF - V[(opcode & 0x0F00) >> 8])
+                                V[0xF] = 1;
+                            else
+                                V[0xF] = 0;
+                            V[(opcode & 0x0F00) >> 8] += V[(opcode & 0x00F0) >> 4];
+                            programCounter += 2;
+                            break;
+                        default:
+                            Console.WriteLine("Unknown opcode: " + opcode);
+                            break;
+                    } 
+                    break;
+
                 case 0xA000:
                     indexRegister = (ushort)(opcode & 0x0FFF);
                     programCounter += 2;
+                    break;
+
+                case 0xF000:
+                    switch (opcode & 0x00FF) {
+                        case 0x0033:
+                            memory[indexRegister] = (byte)(V[(opcode & 0x0F00) >> 8] / 100);
+                            memory[indexRegister + 1] = (byte)(V[(opcode & 0x0F00) >> 8] / 10 % 10);
+                            memory[indexRegister + 2] = (byte)(V[(opcode & 0x0F00) >> 8] % 100 % 10);
+                            break;
+                    }
                     break;
 
                 default:
