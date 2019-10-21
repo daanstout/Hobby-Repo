@@ -52,7 +52,10 @@ namespace ResourceGathererMono.GameWorld {
 
             for (int i = 0; i < tileCount; i++) {
                 BaseTile tile = new BaseTile(new Vector2(curX + 0, curY + 0), Color.White);
-                tile.isPlains = true;
+                if (curY < 160)
+                    tile.isPlains = true;
+                else
+                    tile.isStone = true;
                 tiles.Add(tile.position, tile);
 
                 curX += BaseTile.TILE_WIDTH;

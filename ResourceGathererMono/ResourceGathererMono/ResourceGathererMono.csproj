@@ -45,14 +45,16 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="GameWorld\BaseTile.cs" />
+    <Compile Include="GameWorld\Global.cs" />
+    <Compile Include="GameWorld\Tiles\BaseTile.cs" />
     <Compile Include="GameWorld\Graph.cs" />
-    <Compile Include="GameWorld\SimpleTileRenderer.cs" />
-    <Compile Include="GameWorld\ITileRenderer.cs" />
-    <Compile Include="GameWorld\TilePlains.cs" />
-    <Compile Include="GameWorld\TileSystem.cs" />
-    <Compile Include="GameWorld\VertexTileRenderer.cs" />
+    <Compile Include="GameWorld\TileRendering\SimpleTileRenderer.cs" />
+    <Compile Include="GameWorld\TileRendering\ITileRenderer.cs" />
+    <Compile Include="GameWorld\Tiles\TilePlains.cs" />
+    <Compile Include="GameWorld\Tiles\TileSystem.cs" />
+    <Compile Include="GameWorld\TileRendering\VertexTileRenderer.cs" />
     <Compile Include="GameWorld\World.cs" />
+    <Compile Include="Physics\Gravity.cs" />
     <Compile Include="ResourceGatherer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

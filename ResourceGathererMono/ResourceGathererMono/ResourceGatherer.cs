@@ -28,8 +28,8 @@ namespace ResourceGathererMono {
         void graphics_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e) {
             DisplayMode displayMode = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode;
             e.GraphicsDeviceInformation.PresentationParameters.BackBufferFormat = displayMode.Format;
-            //e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth = displayMode.Width;
-            //e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight = displayMode.Height;
+            e.GraphicsDeviceInformation.PresentationParameters.BackBufferWidth = displayMode.Width;
+            e.GraphicsDeviceInformation.PresentationParameters.BackBufferHeight = displayMode.Height;
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace ResourceGathererMono {
         protected override void Initialize() {
             // TODO: Add your initialization logic here
             // Set the game to be borderless and prevent the user from resizing the game
-            //Window.IsBorderless = true;
+            Window.IsBorderless = true;
             Window.AllowUserResizing = false;
 
             base.Initialize();
@@ -58,6 +58,8 @@ namespace ResourceGathererMono {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             BaseTile.RegisterTexture(Content.Load<Texture2D>("Land_01"), BaseTile.plainsMask);
+            BaseTile.RegisterTexture(Content.Load<Texture2D>("Land_01"), BaseTile.waterMask);
+            BaseTile.RegisterTexture(Content.Load<Texture2D>("Land_01"), BaseTile.stoneMask);
 
             // TODO: use this.Content to load your game content here
         }
@@ -102,7 +104,7 @@ namespace ResourceGathererMono {
 
             //SimpleTileRenderer renderer = new SimpleTileRenderer();
 
-            //foreach(BaseTile tile in tiles) {
+            //foreach (BaseTile tile in tiles) {
             //    renderer.RenderTile(tile, spriteBatch, Color.Red);
             //}
 

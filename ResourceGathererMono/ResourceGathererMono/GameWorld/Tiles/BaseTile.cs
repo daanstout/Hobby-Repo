@@ -26,7 +26,11 @@ namespace ResourceGathererMono.GameWorld {
         public static ITileRenderer renderer { get; private set; } = new SimpleTileRenderer();
 
         public Vector2 position;
-        public Color tileColor;
+        private Color _tileColor;
+        public Color tileColor {
+            get => isStone ? Color.Brown : isWater ? Color.Blue : Color.White;
+            set => _tileColor = value;
+        }
 
         public Rectangle tileRectangle => new Rectangle(position.ToPoint(), new Point(TILE_WIDTH, TILE_HEIGHT));
 
@@ -35,7 +39,7 @@ namespace ResourceGathererMono.GameWorld {
             this.tileColor = tileColor;
         }
 
-        public virtual void Render(SpriteBatch spriteBatch) => renderer.RenderTile(this, spriteBatch);
+        public virtual void Render(SpriteBatch spriteBatch) => renderer.RenderTile(this, spriteBatch, isStone ? Color.Brown : isWater ? Color.Blue : Color.Green);
 
         public virtual Texture2D GetTexture() => textures[mask];
 
@@ -45,12 +49,31 @@ namespace ResourceGathererMono.GameWorld {
         private int mask = 0;
 
         public const int plainsMask = 0x1;
-        public const int WaterMask = 0x2;
+        public const int waterMask = 0x2;
+        public const int stoneMask = 0x3;
 
         public bool isPlains {
-            get => (mask & plainsMask) > 0;
-            set => mask |= plainsMask;
+            get => (mask & plainsMask) == plainsMask;
+            set { UnsetMask(); mask |= plainsMask; }
         }
+
+        public void UnsetPlains() => mask &= ~plainsMask;
+
+        public bool isWater {
+            get => (mask & waterMask) == waterMask;
+            set { UnsetMask(); mask |= waterMask; }
+        }
+
+        public void UnsetWater() => mask &= ~waterMask;
+
+        public bool isStone {
+            get => (mask & stoneMask) == stoneMask;
+            set { UnsetMask(); mask |= stoneMask; }
+        }
+
+        public void UnsetStone() => mask &= ~stoneMask;
+
+        public void UnsetMask() => mask = 0;
         #endregion
     }
 }
