@@ -131,6 +131,7 @@ public:
 	// =====VARIABLES========
 	int width = 0;
 	int height = 0;
+	
 
 	// =====FUNCTIONS========
 	void SetGlyph(int x, int y, short c) {
