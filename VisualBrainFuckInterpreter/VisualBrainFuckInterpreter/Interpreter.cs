@@ -29,11 +29,18 @@ namespace VisualBrainFuckInterpreter {
         /// The current cell we are talking to
         /// </summary>
         public int dataPointer { get; private set; }
-
+        /// <summary>
+        /// Sets or gets whether we wait between steps to execute
+        /// </summary>
         public bool incrementalSteps { get; set; }
+        /// <summary>
+        /// The task completion source, that indicates whether the task has finished completing
+        /// </summary>
+        private readonly TaskCompletionSource<bool> step = new TaskCompletionSource<bool>();
 
-        private TaskCompletionSource<bool> step = new TaskCompletionSource<bool>();
-
+        /// <summary>
+        /// Allows the program to say when the next step should be done
+        /// </summary>
         public bool doStep {
             set => step.SetResult(value);
         }
@@ -59,7 +66,7 @@ namespace VisualBrainFuckInterpreter {
         public Interpreter() {
             numCells = baseNumCells;
 
-            Reset();
+            Reset(true);
         }
 
         /// <summary>
@@ -69,7 +76,7 @@ namespace VisualBrainFuckInterpreter {
         public Interpreter(int numCells) {
             this.numCells = numCells;
 
-            Reset();
+            Reset(true);
         }
 
         /// <summary>
@@ -101,6 +108,47 @@ namespace VisualBrainFuckInterpreter {
             this.program = program;
         }
 
+        /// <summary>
+        /// Calculates what the loop offset is, a valid program should have a loop offset of zero
+        /// </summary>
+        /// <param name="program">The program to check</param>
+        /// <returns>
+        /// The loop offset
+        /// <para>A negative number means to many closing brackets</para>
+        /// <para>A positive number means to many opening brackets</para>
+        /// <para>0 means there are as many opening as closing brackets</para>
+        /// </returns>
+        public int GetLoopOffset() {
+            // Keep track of how many loop-characters we have encountered
+            int loops = 0;
+
+            foreach (char c in program) {
+                // Whenever we encounter an opening bracket, we increase the loop counter by 1
+                // Whenever we encounter a closing bracket, we decrease the loop counter by 1
+                if (c == '[')
+                    loops++;
+                else if (c == ']')
+                    loops--;
+            }
+
+            return loops;
+        }
+
+        /// <summary>
+        /// Checks whether the program is valid
+        /// </summary>
+        /// <param name="program">The program to check</param>
+        /// <returns>True if the program is valid, False if the program is not valid</returns>
+        public bool ValidateProgram() {
+            // Get how many loops we have
+            int loops = GetLoopOffset();
+
+            // A valid program will have as many opening brackets as closing brackets, so they should cancel eachother out
+            // And we should have a loops counter of 0. If it is not zero, there are either too many opening or closing brackets
+            // And that invalidates the program
+            return loops == 0;
+        }
+
         public byte[] GetCellData() => cells.Clone() as byte[];
 
         /// <summary>
@@ -117,7 +165,7 @@ namespace VisualBrainFuckInterpreter {
         /// <summary>
         /// Executes the currently loaded program
         /// </summary>
-        public async void Execute() {
+        public void Execute() {
             // If there is no program, there is nothing to execute. Return
             if (string.IsNullOrEmpty(program))
                 return;
@@ -127,66 +175,119 @@ namespace VisualBrainFuckInterpreter {
 
             // While we have not gotten to the end of the program, we loop over it
             while (instructionPointer < program.Length && instructionsRan < maximumInstructions) {
-                // If we want to do incremental steps as a set interval or when the user wants to, we wait until the doStep flag is true
-                if (incrementalSteps)
-                    await step.Task;
+                ExecuteNextStep();
+                //// Get the current instruction
+                //char instruction = program[instructionPointer];
 
-                // Get the current instruction
-                char instruction = program[instructionPointer];
+                //// Switch through the commands
+                //// If the instruction is not part of this, it gets ignored
+                //switch (instruction) {
+                //    // This increases the data pointer 1 step forward, going to the next cell
+                //    case '>':
+                //        dataPointer++;
+                //        // Make sure we do not go over the maximum number of cells
+                //        if (dataPointer >= numCells)
+                //            dataPointer = numCells - 1;
+                //        break;
+                //    // This decreases the data pointer 1 step backwards, going to the previous cell
+                //    case '<':
+                //        dataPointer--;
+                //        // Make sure we do not go below 0
+                //        if (dataPointer < 0)
+                //            dataPointer = 0;
+                //        break;
+                //    // This increases the data in the current cell
+                //    case '+':
+                //        cells[dataPointer]++;
+                //        break;
+                //    // This decreases the data in the current cell
+                //    case '-':
+                //        cells[dataPointer]--;
+                //        break;
+                //    // This outputs the current data to the console
+                //    case '.':
+                //        Console.Write((char)cells[dataPointer]);
+                //        break;
+                //    // This reads in a byte of data from the console
+                //    case ',':
+                //        cells[dataPointer] = (byte)Console.Read();
+                //        break;
+                //    // If the current data is equal to 0, we skip this place, else, we execute it as normal
+                //    case '[':
+                //        if (cells[dataPointer] == 0)
+                //            instructionPointer = SkipToNextEnd();
+                //        break;
+                //    // If the current data is not equal to 0, we go back to the opening of this loop, else, we execute as normal
+                //    case ']':
+                //        if (cells[dataPointer] != 0)
+                //            instructionPointer = BacktrackToPreviousStart();
+                //        break;
+                //}
 
-                // Switch through the commands
-                // If the instruction is not part of this, it gets ignored
-                switch (instruction) {
-                    // This increases the data pointer 1 step forward, going to the next cell
-                    case '>':
-                        dataPointer++;
-                        // Make sure we do not go over the maximum number of cells
-                        if (dataPointer >= numCells)
-                            dataPointer = numCells - 1;
-                        break;
-                    // This decreases the data pointer 1 step backwards, going to the previous cell
-                    case '<':
-                        dataPointer--;
-                        // Make sure we do not go below 0
-                        if (dataPointer < 0)
-                            dataPointer = 0;
-                        break;
-                    // This increases the data in the current cell
-                    case '+':
-                        cells[dataPointer]++;
-                        break;
-                    // This decreases the data in the current cell
-                    case '-':
-                        cells[dataPointer]--;
-                        break;
-                    // This outputs the current data to the console
-                    case '.':
-                        Console.Write((char)cells[dataPointer]);
-                        break;
-                    // This reads in a byte of data from the console
-                    case ',':
-                        cells[dataPointer] = (byte)Console.Read();
-                        break;
-                    // If the current data is equal to 0, we skip this place, else, we execute it as normal
-                    case '[':
-                        if (cells[dataPointer] == 0)
-                            instructionPointer = SkipToNextEnd();
-                        break;
-                    // If the current data is not equal to 0, we go back to the opening of this loop, else, we execute as normal
-                    case ']':
-                        if (cells[dataPointer] != 0)
-                            instructionPointer = BacktrackToPreviousStart();
-                        break;
-                }
-
-                // Increment the instruction pointer to go to the next instruction
-                instructionPointer++;
+                //// Increment the instruction pointer to go to the next instruction
+                //instructionPointer++;
 
                 // Increment the number of instructions executed
                 instructionsRan++;
             }
 
             Console.WriteLine("\nEnd of Program");
+        }
+
+        /// <summary>
+        /// Executes the next step in the program
+        /// </summary>
+        public void ExecuteNextStep() {
+            // Get the current instruction
+            char instruction = program[instructionPointer];
+
+            // Switch through the commands
+            // If the instruction is not part of this, it gets ignored
+            switch (instruction) {
+                // This increases the data pointer 1 step forward, going to the next cell
+                case '>':
+                    dataPointer++;
+                    // Make sure we do not go over the maximum number of cells
+                    if (dataPointer >= numCells)
+                        dataPointer = numCells - 1;
+                    break;
+                // This decreases the data pointer 1 step backwards, going to the previous cell
+                case '<':
+                    dataPointer--;
+                    // Make sure we do not go below 0
+                    if (dataPointer < 0)
+                        dataPointer = 0;
+                    break;
+                // This increases the data in the current cell
+                case '+':
+                    cells[dataPointer]++;
+                    break;
+                // This decreases the data in the current cell
+                case '-':
+                    cells[dataPointer]--;
+                    break;
+                // This outputs the current data to the console
+                case '.':
+                    Console.Write((char)cells[dataPointer]);
+                    break;
+                // This reads in a byte of data from the console
+                case ',':
+                    cells[dataPointer] = (byte)Console.Read();
+                    break;
+                // If the current data is equal to 0, we skip this place, else, we execute it as normal
+                case '[':
+                    if (cells[dataPointer] == 0)
+                        instructionPointer = SkipToNextEnd();
+                    break;
+                // If the current data is not equal to 0, we go back to the opening of this loop, else, we execute as normal
+                case ']':
+                    if (cells[dataPointer] != 0)
+                        instructionPointer = BacktrackToPreviousStart();
+                    break;
+            }
+
+            // Increment the instruction pointer to go to the next instruction
+            instructionPointer++;
         }
 
         /// <summary>
