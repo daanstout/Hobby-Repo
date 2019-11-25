@@ -7,6 +7,12 @@ namespace CirclePractice {
     /// </summary>
     class Circle {
         /// <summary>
+        /// a constant value to change degrees to radians
+        /// <para>multiply your degrees with this to get radians</para>
+        /// </summary>
+        const float degreesToRad = (float)Math.PI / 180.0f;
+
+        /// <summary>
         /// The position of the circle in the world
         /// </summary>
         Point position;
@@ -31,6 +37,33 @@ namespace CirclePractice {
         /// Creates a rectangle in which the circle sits
         /// </summary>
         RectangleF circleRectangle => new RectangleF(position.X - radius, position.Y - radius, radius * 2, radius * 2);
+
+        /// <summary>
+        /// Gets the local X position of the blob around the circle
+        /// </summary>
+        public float localBlobX => (float)Math.Cos(rotation * degreesToRad) * radius;
+        /// <summary>
+        /// Gets the local Y position of the blob around the circle
+        /// </summary>
+        public float localBlobY => (float)Math.Sin(rotation * degreesToRad) * radius;
+
+        /// <summary>
+        /// Gets the X position of the blob in the world
+        /// </summary>
+        public float worldBlobX => localBlobX - blobRadius + position.X;
+        /// <summary>
+        /// Gets the Y position of the blob in the world
+        /// </summary>
+        public float worldBlobY => -localBlobY - blobRadius + position.Y;
+
+        /// <summary>
+        /// Gets the X position in the center of the blob in world space
+        /// </summary>
+        public float centeredWorldBlobX => worldBlobX + (blobRadius / 2);
+        /// <summary>
+        /// Gets the Y position in the center of the blob in world space
+        /// </summary>
+        public float centeredWorldBlobY => worldBlobY + (blobRadius / 2);
 
         /// <summary>
         /// Instantiates a new Circle
@@ -69,10 +102,10 @@ namespace CirclePractice {
             // First we change the degrees to radians, since Math.Cos and Math.Sin use radians
             // Then we multiply by the circle's radius to get the correct distance from the centre so it sits on the edge
             // We take the minus of the Math.Sin because WinForm's Y goes from top to bottom (so the top is 0)
-            float blobX = (float)Math.Cos((Math.PI * rotation) / 180.0f) * radius;
-            float blobY = -(float)Math.Sin((Math.PI * rotation) / 180.0f) * radius;
+            //float blobX = localBlobX;
+            //float blobY = -localBlobY;
 
-            g.FillEllipse(Brushes.Red, new RectangleF(blobX - blobRadius + position.X, blobY - blobRadius + position.Y, blobRadius * 2, blobRadius * 2));
+            g.FillEllipse(Brushes.Red, new RectangleF(worldBlobX, worldBlobY, blobRadius * 2, blobRadius * 2));
         }
     }
 }
