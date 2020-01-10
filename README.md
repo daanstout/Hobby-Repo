@@ -10,6 +10,7 @@ Status:
 <b>Circle practice (Completed)</b> - I used this to get a feel for working with the Sine and Cosine functions when working with circles  
 <b>Common Ancestor (Completed)</b> - Based on the Common Ancestor Numberphile video: https://www.youtube.com/watch?v=Fm0hOex4psA&t=1s  
 <b>GeneticHumans (Near-Completed)</b> - My attempt at genetic algorithms. This is console based and allows you to create a human population and see how their genes evolve over time, last I worked on it, was in the middle of a partial rewrite of the controls parsing  
+<b>Maze Algorithms (Completed)</b> - An application that generates mazes, and then solves it. It has various algorithms you can choose from, though the last solving algorithm is incomplete and needs a near-complete rewrite.  
 <b>Resource Gatherer (Completed)</b> - A simple C# program I made. In it, there is a field with divided into four by rivers, with resources spread randomly, and two gatherers who look for, and gather the resources into a shed in the middle. Fully written in WinForms C#, with some help from Buckland Coding by Example.  
 <b>Word Counter (Completed)</b> - A simple project that takes in a .txt file and outputs a .txt file showing what words occur in it, and how often.  
 

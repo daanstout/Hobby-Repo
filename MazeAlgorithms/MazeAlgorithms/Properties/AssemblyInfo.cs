@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ResourceGatherer")]
+[assembly: AssemblyTitle("MazeAlgorithms")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ResourceGatherer")]
+[assembly: AssemblyProduct("MazeAlgorithms")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b459ac9e-c8c5-41e9-b9d8-33fdae9111b7")]
+[assembly: Guid("1886d8f6-372d-42b2-a77c-05b0ee57e705")]
 
 // Version information for an assembly consists of the following four values:
 //

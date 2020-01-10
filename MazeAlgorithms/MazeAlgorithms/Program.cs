@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ResourceGatherer {
+namespace MazeAlgorithms {
     static class Program {
         /// <summary>
         /// The main entry point for the application.
@@ -13,7 +13,7 @@ namespace ResourceGatherer {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ResourceGatherer());
+            Application.Run(new MazeWindow());
         }
     }
 }
