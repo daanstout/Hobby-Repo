@@ -13,6 +13,7 @@ Status:
 <b>Maze Algorithms (Completed)</b> - An application that generates mazes, and then solves it. It has various algorithms you can choose from, though the last solving algorithm is incomplete and needs a near-complete rewrite.  
 <b>Resource Gatherer (Completed)</b> - A simple C# program I made. In it, there is a field with divided into four by rivers, with resources spread randomly, and two gatherers who look for, and gather the resources into a shed in the middle. Fully written in WinForms C#, with some help from Buckland Coding by Example.  
 <b>Word Counter (Completed)</b> - A simple project that takes in a .txt file and outputs a .txt file showing what words occur in it, and how often.  
+<b>Connect Four</b> - An asignment I had to do as assessment for a company I applied for. A simple Connect4 game I created, with a bit of customisation. Completely made in C# WinForms.  
 
 
 Started but not very far:  
