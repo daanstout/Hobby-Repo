@@ -73,7 +73,7 @@ namespace CirclePractice {
 
             horizontalList.ForEach(circle => circle.DrawCircle(e.Graphics));
             verticalList.ForEach(circle => circle.DrawCircle(e.Graphics));
-
+            
             horizontalList.ForEach(circle => circle.DrawBlob(e.Graphics));
             verticalList.ForEach(circle => circle.DrawBlob(e.Graphics));
 
