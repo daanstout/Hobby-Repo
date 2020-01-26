@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ConnectFour {
-    public class ThreePlayerConnect : ClassicConnect {
+    public class ThreePlayerConnect : AConnect {
         protected override Pieces nextPlayer => currentPlayer == Pieces.red ? Pieces.yellow : currentPlayer == Pieces.yellow ? Pieces.green : Pieces.red;
 
         public ThreePlayerConnect() : base() { }

@@ -47,19 +47,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameModes\ClassicConnect.cs" />
     <Compile Include="ConnectFour.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ConnectFour.Designer.cs">
       <DependentUpon>ConnectFour.cs</DependentUpon>
     </Compile>
-    <Compile Include="ClassicConnect.cs" />
-    <Compile Include="ClassicConnectControl.cs">
+    <Compile Include="GameModes\AConnect.cs" />
+    <Compile Include="ConnectControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ClassicConnectControl.Designer.cs">
-      <DependentUpon>ClassicConnectControl.cs</DependentUpon>
+    <Compile Include="ConnectControl.Designer.cs">
+      <DependentUpon>ConnectControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameModes\WinChecker.cs" />
     <Compile Include="MainMenu.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -75,12 +77,12 @@
     <Compile Include="SettingsControl.Designer.cs">
       <DependentUpon>SettingsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ThreePlayerConnect.cs" />
+    <Compile Include="GameModes\ThreePlayerConnect.cs" />
     <EmbeddedResource Include="ConnectFour.resx">
       <DependentUpon>ConnectFour.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ClassicConnectControl.resx">
-      <DependentUpon>ClassicConnectControl.cs</DependentUpon>
+    <EmbeddedResource Include="ConnectControl.resx">
+      <DependentUpon>ConnectControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>

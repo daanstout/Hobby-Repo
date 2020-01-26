@@ -32,11 +32,12 @@
             this.boardSizePanel = new System.Windows.Forms.Panel();
             this.defaultBoardSizeLabel = new System.Windows.Forms.Label();
             this.winLengthPanel = new System.Windows.Forms.Panel();
-            this.largeWinLengthButton = new System.Windows.Forms.Button();
-            this.normalWinLengthButton = new System.Windows.Forms.Button();
-            this.smallWinLengthButton = new System.Windows.Forms.Button();
+            this.winLengthLargeButton = new System.Windows.Forms.Button();
+            this.winLengthNormalButton = new System.Windows.Forms.Button();
+            this.winLengthSmallButton = new System.Windows.Forms.Button();
             this.winLengthLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.defaultButton = new System.Windows.Forms.Button();
             this.boardSizePanel.SuspendLayout();
             this.winLengthPanel.SuspendLayout();
             this.SuspendLayout();
@@ -46,7 +47,7 @@
             this.backButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.backButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.backButton.ForeColor = System.Drawing.Color.White;
-            this.backButton.Location = new System.Drawing.Point(135, 400);
+            this.backButton.Location = new System.Drawing.Point(245, 400);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(150, 35);
             this.backButton.TabIndex = 1;
@@ -145,13 +146,13 @@
             this.defaultBoardSizeLabel.Size = new System.Drawing.Size(44, 15);
             this.defaultBoardSizeLabel.TabIndex = 7;
             this.defaultBoardSizeLabel.Text = "default";
-            this.defaultBoardSizeLabel.Paint += new System.Windows.Forms.PaintEventHandler(this.defaultBoardSizeLabel_Paint);
+            this.defaultBoardSizeLabel.Paint += new System.Windows.Forms.PaintEventHandler(this.defaultLabel_Paint);
             // 
             // winLengthPanel
             // 
-            this.winLengthPanel.Controls.Add(this.largeWinLengthButton);
-            this.winLengthPanel.Controls.Add(this.normalWinLengthButton);
-            this.winLengthPanel.Controls.Add(this.smallWinLengthButton);
+            this.winLengthPanel.Controls.Add(this.winLengthLargeButton);
+            this.winLengthPanel.Controls.Add(this.winLengthNormalButton);
+            this.winLengthPanel.Controls.Add(this.winLengthSmallButton);
             this.winLengthPanel.Controls.Add(this.winLengthLabel);
             this.winLengthPanel.Controls.Add(this.label1);
             this.winLengthPanel.Location = new System.Drawing.Point(20, 120);
@@ -159,47 +160,47 @@
             this.winLengthPanel.Size = new System.Drawing.Size(354, 45);
             this.winLengthPanel.TabIndex = 8;
             // 
-            // largeWinLengthButton
+            // winLengthLargeButton
             // 
-            this.largeWinLengthButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.largeWinLengthButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.largeWinLengthButton.ForeColor = System.Drawing.Color.White;
-            this.largeWinLengthButton.Location = new System.Drawing.Point(281, 0);
-            this.largeWinLengthButton.Name = "largeWinLengthButton";
-            this.largeWinLengthButton.Size = new System.Drawing.Size(73, 30);
-            this.largeWinLengthButton.TabIndex = 5;
-            this.largeWinLengthButton.TabStop = false;
-            this.largeWinLengthButton.Text = "5";
-            this.largeWinLengthButton.UseVisualStyleBackColor = true;
-            this.largeWinLengthButton.Click += new System.EventHandler(this.largeWinLengthButton_Click);
+            this.winLengthLargeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.winLengthLargeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.winLengthLargeButton.ForeColor = System.Drawing.Color.White;
+            this.winLengthLargeButton.Location = new System.Drawing.Point(281, 0);
+            this.winLengthLargeButton.Name = "winLengthLargeButton";
+            this.winLengthLargeButton.Size = new System.Drawing.Size(73, 30);
+            this.winLengthLargeButton.TabIndex = 5;
+            this.winLengthLargeButton.TabStop = false;
+            this.winLengthLargeButton.Text = "5";
+            this.winLengthLargeButton.UseVisualStyleBackColor = true;
+            this.winLengthLargeButton.Click += new System.EventHandler(this.winLengthLargeButton_Click);
             // 
-            // normalWinLengthButton
+            // winLengthNormalButton
             // 
-            this.normalWinLengthButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.normalWinLengthButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.normalWinLengthButton.ForeColor = System.Drawing.Color.White;
-            this.normalWinLengthButton.Location = new System.Drawing.Point(207, 0);
-            this.normalWinLengthButton.Name = "normalWinLengthButton";
-            this.normalWinLengthButton.Size = new System.Drawing.Size(74, 30);
-            this.normalWinLengthButton.TabIndex = 4;
-            this.normalWinLengthButton.TabStop = false;
-            this.normalWinLengthButton.Text = "4";
-            this.normalWinLengthButton.UseVisualStyleBackColor = true;
-            this.normalWinLengthButton.Click += new System.EventHandler(this.normalWinLengthButton_Click);
+            this.winLengthNormalButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.winLengthNormalButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.winLengthNormalButton.ForeColor = System.Drawing.Color.White;
+            this.winLengthNormalButton.Location = new System.Drawing.Point(207, 0);
+            this.winLengthNormalButton.Name = "winLengthNormalButton";
+            this.winLengthNormalButton.Size = new System.Drawing.Size(74, 30);
+            this.winLengthNormalButton.TabIndex = 4;
+            this.winLengthNormalButton.TabStop = false;
+            this.winLengthNormalButton.Text = "4";
+            this.winLengthNormalButton.UseVisualStyleBackColor = true;
+            this.winLengthNormalButton.Click += new System.EventHandler(this.winLengthNormalButton_Click);
             // 
-            // smallWinLengthButton
+            // winLengthSmallButton
             // 
-            this.smallWinLengthButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.smallWinLengthButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.smallWinLengthButton.ForeColor = System.Drawing.Color.White;
-            this.smallWinLengthButton.Location = new System.Drawing.Point(134, 0);
-            this.smallWinLengthButton.Name = "smallWinLengthButton";
-            this.smallWinLengthButton.Size = new System.Drawing.Size(73, 30);
-            this.smallWinLengthButton.TabIndex = 3;
-            this.smallWinLengthButton.TabStop = false;
-            this.smallWinLengthButton.Text = "3";
-            this.smallWinLengthButton.UseVisualStyleBackColor = true;
-            this.smallWinLengthButton.Click += new System.EventHandler(this.smallWinLengthButton_Click);
+            this.winLengthSmallButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.winLengthSmallButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.winLengthSmallButton.ForeColor = System.Drawing.Color.White;
+            this.winLengthSmallButton.Location = new System.Drawing.Point(134, 0);
+            this.winLengthSmallButton.Name = "winLengthSmallButton";
+            this.winLengthSmallButton.Size = new System.Drawing.Size(73, 30);
+            this.winLengthSmallButton.TabIndex = 3;
+            this.winLengthSmallButton.TabStop = false;
+            this.winLengthSmallButton.Text = "3";
+            this.winLengthSmallButton.UseVisualStyleBackColor = true;
+            this.winLengthSmallButton.Click += new System.EventHandler(this.winLengthSmallButton_Click);
             // 
             // winLengthLabel
             // 
@@ -222,13 +223,28 @@
             this.label1.Size = new System.Drawing.Size(44, 15);
             this.label1.TabIndex = 8;
             this.label1.Text = "default";
-            this.label1.Paint += new System.Windows.Forms.PaintEventHandler(this.defaultBoardSizeLabel_Paint);
+            this.label1.Paint += new System.Windows.Forms.PaintEventHandler(this.defaultLabel_Paint);
+            // 
+            // defaultButton
+            // 
+            this.defaultButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.defaultButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.defaultButton.ForeColor = System.Drawing.Color.White;
+            this.defaultButton.Location = new System.Drawing.Point(25, 400);
+            this.defaultButton.Name = "defaultButton";
+            this.defaultButton.Size = new System.Drawing.Size(150, 35);
+            this.defaultButton.TabIndex = 9;
+            this.defaultButton.TabStop = false;
+            this.defaultButton.Text = "Default";
+            this.defaultButton.UseVisualStyleBackColor = true;
+            this.defaultButton.Click += new System.EventHandler(this.defaultButton_Click);
             // 
             // SettingsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.Controls.Add(this.defaultButton);
             this.Controls.Add(this.winLengthPanel);
             this.Controls.Add(this.boardSizePanel);
             this.Controls.Add(this.backButton);
@@ -256,8 +272,9 @@
         private System.Windows.Forms.Panel winLengthPanel;
         private System.Windows.Forms.Label winLengthLabel;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button largeWinLengthButton;
-        private System.Windows.Forms.Button normalWinLengthButton;
-        private System.Windows.Forms.Button smallWinLengthButton;
+        private System.Windows.Forms.Button winLengthLargeButton;
+        private System.Windows.Forms.Button winLengthNormalButton;
+        private System.Windows.Forms.Button winLengthSmallButton;
+        private System.Windows.Forms.Button defaultButton;
     }
 }

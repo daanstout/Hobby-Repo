@@ -10,9 +10,10 @@ using System.Windows.Forms;
 using System.Diagnostics;
 
 namespace ConnectFour {
-    public partial class ClassicConnectControl : UserControl {
-        private static readonly ClassicConnectControl _instance = new ClassicConnectControl();
-
+    /// <summary>
+    /// The control to play Connect Four in
+    /// </summary>
+    public partial class ConnectControl : UserControl {
         #region Handle Double Buffering
         /// <summary>
         /// Override the Create Params property to allow double buffering
@@ -26,18 +27,31 @@ namespace ConnectFour {
         }
         #endregion
 
-        public static ClassicConnectControl instance {
+        /// <summary>
+        /// The instance of this control
+        /// </summary>
+        private static readonly ConnectControl _instance = new ConnectControl();
+
+        /// <summary>
+        /// The instance of this control
+        /// </summary>
+        public static ConnectControl instance {
             get {
+                // Make sure the game is reset
                 _instance.game.Reset();
-                //_instance.mainMenuButton.Visible = false;
-                //_instance.playAgainButton.Visible = false;
                 return _instance;
             }
         }
 
-        public ClassicConnect game;
+        /// <summary>
+        /// The game the user is playing
+        /// </summary>
+        public AConnect game;
 
-        protected ClassicConnectControl() {
+        /// <summary>
+        /// Instantiates a new Connect Control
+        /// </summary>
+        protected ConnectControl() {
             InitializeComponent();
 
             game = new ClassicConnect();
@@ -46,6 +60,11 @@ namespace ConnectFour {
             currentTurnPanel.Invalidate();
         }
 
+        /// <summary>
+        /// Draws the game to the panel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void gamePanel_Paint(object sender, PaintEventArgs e) {
             if (!(sender is Panel))
                 return;
@@ -56,6 +75,11 @@ namespace ConnectFour {
             game.Draw(e.Graphics);
         }
 
+        /// <summary>
+        /// Displays the turn number
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void currentTurnPanel_Paint(object sender, PaintEventArgs e) {
             if (!(sender is Panel panel))
                 return;
@@ -68,6 +92,11 @@ namespace ConnectFour {
             turnLabel.Text = $"Turn: {game.numPiecesOnBoard + 1}";
         }
 
+        /// <summary>
+        /// Allows the user to place pieces
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void gamePanel_MouseClick(object sender, MouseEventArgs e) {
             if (!(sender is Panel))
                 return;
@@ -81,14 +110,14 @@ namespace ConnectFour {
             if (game.PlacePiece(e.Location)) {
                 gamePanel.Invalidate();
                 currentTurnPanel.Invalidate();
-
-                if (game.isGameOver) {
-                    //playAgainButton.Visible = true;
-                    //mainMenuButton.Visible = true;
-                }
             }
         }
 
+        /// <summary>
+        /// Allows the user to play again
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void playAgainButton_Click(object sender, EventArgs e) {
             if (!(sender is Button))
                 return;
@@ -101,17 +130,21 @@ namespace ConnectFour {
             currentTurnPanel.Invalidate();
         }
 
+        /// <summary>
+        /// Allows the user to go back to the main menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void mainMenuButton_Click(object sender, EventArgs e) {
             ConnectFour.instance.SetViewControl(MainMenu.instance);
         }
 
+        /// <summary>
+        /// Provides a tick to update the game, for animations
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void animationTimer_Tick(object sender, EventArgs e) {
-            //long time = stopwatch.ElapsedMilliseconds;
-            //long deltaLong = time - previousTime;
-            //previousTime = time;
-
-            //float deltaTime = deltaLong * 1000f;
-
             if (!(sender is Timer timer))
                 return;
 

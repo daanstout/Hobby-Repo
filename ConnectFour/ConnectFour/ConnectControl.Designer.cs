@@ -1,5 +1,5 @@
 ﻿namespace ConnectFour {
-    partial class ClassicConnectControl {
+    partial class ConnectControl {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
