@@ -42,6 +42,22 @@ namespace ConnectFour {
         }
 
         /// <summary>
+        /// Checks for a win, for all players
+        /// </summary>
+        /// <param name="field">The field to perform the check on</param>
+        /// <param name="fieldSize">The size of the field</param>
+        /// <param name="winLength">The number of connected pieces to look for</param>
+        /// <returns>True if ANY player has 4 connected pieces</returns>
+        public static bool CheckForWin(AConnect.Pieces[,] field, Size fieldSize, int winLength) {
+            bool result = CheckHorizontal(field, fieldSize, winLength);
+            result |= CheckVertical(field, fieldSize, winLength);
+            result |= CheckDiagonalLeft(field, fieldSize, winLength);
+            result |= CheckDiagonalRight(field, fieldSize, winLength);
+
+            return result;
+        }
+
+        /// <summary>
         /// Checks if there is a horizontal win
         /// </summary>
         /// <param name="field">The field to perform the check on</param>
@@ -76,6 +92,37 @@ namespace ConnectFour {
 
                         return true;
                     }
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Checks if there is a horizontal win
+        /// </summary>
+        /// <param name="field">The field to perform the check on</param>
+        /// <param name="fieldSize">The size of the field</param>
+        /// <param name="winLength">The number of connected pieces to look for</param>
+        /// <returns>True if ANY player has 4 horizontally-connected pieces</returns>
+        private static bool CheckHorizontal(AConnect.Pieces[,] field, Size fieldSize, int winLength) {
+            if (!checkHorizontal)
+                return false;
+
+            for (int y = fieldSize.Height - 1; y >= 0; y--) {
+                for (int x = 0; x <= fieldSize.Width - winLength; x++) {
+                    AConnect.Pieces color = field[x, y];
+
+                    if (color == AConnect.Pieces.clear)
+                        continue;
+
+                    bool uninterrupted = true;
+                    for (int length = 1; length < winLength; length++)
+                        if (field[x + length, y] != color)
+                            uninterrupted = false;
+
+                    if (uninterrupted)
+                        return true;
                 }
             }
 
@@ -118,6 +165,37 @@ namespace ConnectFour {
 
                         return true;
                     }
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Checks if there is a vertical win
+        /// </summary>
+        /// <param name="field">The field to perform the check on</param>
+        /// <param name="fieldSize">The size of the field</param>
+        /// <param name="winLength">The number of connected pieces to look for</param>
+        /// <returns>True if ANY player has 4 vertically-connected pieces</returns>
+        private static bool CheckVertical(AConnect.Pieces[,] field, Size fieldSize, int winLength) {
+            if (!checkVertical)
+                return false;
+
+            for (int x = 0; x < fieldSize.Width; x++) {
+                for (int y = 0; y <= fieldSize.Height - winLength; y++) {
+                    AConnect.Pieces color = field[x, y];
+
+                    if (color == AConnect.Pieces.clear)
+                        continue;
+
+                    bool uninterrupted = true;
+                    for (int length = 1; length < winLength; length++)
+                        if (field[x, y + length] != color)
+                            uninterrupted = false;
+
+                    if (uninterrupted)
+                        return true;
                 }
             }
 
@@ -201,6 +279,64 @@ namespace ConnectFour {
         }
 
         /// <summary>
+        /// Checks if there is a diagonal win that goes from top-left to bottom-right
+        /// </summary>
+        /// <param name="field">The field to perform the check on</param>
+        /// <param name="fieldSize">The size of the field</param>
+        /// <param name="winLength">The number of connected pieces to look for</param>
+        /// <returns>True if ANY player has 4 diagonally-connected pieces</returns>
+        private static bool CheckDiagonalRight(AConnect.Pieces[,] field, Size fieldSize, int winLength) {
+            if (!checkDiagonal)
+                return false;
+
+            int x = 0, y = 0;
+            // Loop through the three possible right-wards diagonals from the left most line
+            for (; y <= fieldSize.Height - winLength; y++) {
+                // The 4-long line we look for has up to 3 starting positions, depending on the currentY we start at
+                // To get that value, we take 3 (the max number of positions) and substract the current Y value
+                for (int offset = 0; y + offset <= fieldSize.Height - winLength; offset++) {
+                    // The color of the top-left most piece we are looking at
+                    AConnect.Pieces currentColor = field[x + offset, y + offset];
+
+                    // If the current color is clear (no piece present), we don't have to look
+                    if (currentColor == AConnect.Pieces.clear)
+                        continue;
+
+                    // Look if the four tiles have the same color
+                    bool uninterrupted = true;
+                    for (int length = 1; length < winLength; length++)
+                        if (field[x + offset + length, y + offset + length] != currentColor)
+                            uninterrupted = false;
+
+                    if (uninterrupted)
+                        return true;
+                }
+            }
+
+            y = 0;
+            x = 1;
+
+            for (; x <= fieldSize.Width - winLength; x++) {
+                for (int offset = 0; x + offset <= fieldSize.Width - winLength; offset++) {
+                    AConnect.Pieces currentColor = field[x + offset, y + offset];
+
+                    if (currentColor == AConnect.Pieces.clear)
+                        continue;
+
+                    bool uninterrupted = true;
+                    for (int length = 1; length < winLength; length++)
+                        if (field[x + offset + length, y + offset + length] != currentColor)
+                            uninterrupted = false;
+
+                    if (uninterrupted)
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Checks if there is a diagonal win that goes from top-right to bottom-left
         /// </summary>
         /// <param name="field">The field to perform the check on</param>
@@ -266,6 +402,60 @@ namespace ConnectFour {
 
                         return true;
                     }
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Checks if there is a diagonal win that goes from top-right to bottom-left
+        /// </summary>
+        /// <param name="field">The field to perform the check on</param>
+        /// <param name="fieldSize">The size of the field</param>
+        /// <param name="winLength">The number of connected pieces to look for</param>
+        /// <returns>True if ANY player has 4 diagonally-connected pieces</returns>
+        private static bool CheckDiagonalLeft(AConnect.Pieces[,] field, Size fieldSize, int winLength) {
+            if (!checkDiagonal)
+                return false;
+
+            int x = fieldSize.Width - 1, y = 0;
+
+            for (; y <= fieldSize.Height - winLength; y++) {
+                for (int offset = 0; y + offset <= fieldSize.Height - winLength; offset++) {
+                    AConnect.Pieces currentColor = field[x - offset, y + offset];
+
+                    if (currentColor == AConnect.Pieces.clear)
+                        continue;
+
+                    bool uninterrupted = true;
+                    for (int length = 1; length < winLength; length++)
+                        if (field[x - offset - length, y + offset + length] != currentColor)
+                            uninterrupted = false;
+
+                    if (uninterrupted)
+                        return true;
+                }
+            }
+
+            y = 0;
+            // We go 2 back, 1 because the last column has an index of width - 1, and another 1 becuase we already checked the diagonal that starts in the last column
+            x = fieldSize.Width - 2;
+
+            for (; x > winLength - 2; x--) {
+                for (int offset = 0; x - offset > winLength - 2; offset++) {
+                    AConnect.Pieces currentColor = field[x - offset, y + offset];
+
+                    if (currentColor == AConnect.Pieces.clear)
+                        continue;
+
+                    bool uninterrupted = true;
+                    for (int length = 1; length < winLength; length++)
+                        if (field[x - offset - length, y + offset + length] != currentColor)
+                            uninterrupted = false;
+
+                    if (uninterrupted)
+                        return true;
                 }
             }
 

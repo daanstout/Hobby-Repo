@@ -50,6 +50,7 @@
             this.mainMenuButton.Name = "mainMenuButton";
             this.mainMenuButton.Size = new System.Drawing.Size(150, 50);
             this.mainMenuButton.TabIndex = 2;
+            this.mainMenuButton.TabStop = false;
             this.mainMenuButton.Text = "Main Menu";
             this.mainMenuButton.UseVisualStyleBackColor = true;
             this.mainMenuButton.Click += new System.EventHandler(this.mainMenuButton_Click);
@@ -63,6 +64,7 @@
             this.playAgainButton.Name = "playAgainButton";
             this.playAgainButton.Size = new System.Drawing.Size(150, 50);
             this.playAgainButton.TabIndex = 1;
+            this.playAgainButton.TabStop = false;
             this.playAgainButton.Text = "Play Again";
             this.playAgainButton.UseVisualStyleBackColor = true;
             this.playAgainButton.Click += new System.EventHandler(this.playAgainButton_Click);
@@ -93,7 +95,7 @@
             this.turnLabel.TabIndex = 4;
             this.turnLabel.Text = "Turn ";
             // 
-            // ClassicConnectControl
+            // ConnectControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -104,7 +106,7 @@
             this.Controls.Add(this.playAgainButton);
             this.Controls.Add(this.gamePanel);
             this.DoubleBuffered = true;
-            this.Name = "ClassicConnectControl";
+            this.Name = "ConnectControl";
             this.Size = new System.Drawing.Size(420, 470);
             this.ResumeLayout(false);
             this.PerformLayout();

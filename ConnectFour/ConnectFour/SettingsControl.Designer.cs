@@ -38,8 +38,14 @@
             this.winLengthLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.defaultButton = new System.Windows.Forms.Button();
+            this.aiDifficultyPanel = new System.Windows.Forms.Panel();
+            this.aiDifficultyLabel = new System.Windows.Forms.Label();
+            this.aiHardButton = new System.Windows.Forms.Button();
+            this.aiNormalButton = new System.Windows.Forms.Button();
+            this.aiEasyButton = new System.Windows.Forms.Button();
             this.boardSizePanel.SuspendLayout();
             this.winLengthPanel.SuspendLayout();
+            this.aiDifficultyPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // backButton
@@ -239,11 +245,76 @@
             this.defaultButton.UseVisualStyleBackColor = true;
             this.defaultButton.Click += new System.EventHandler(this.defaultButton_Click);
             // 
+            // aiDifficultyPanel
+            // 
+            this.aiDifficultyPanel.Controls.Add(this.aiHardButton);
+            this.aiDifficultyPanel.Controls.Add(this.aiNormalButton);
+            this.aiDifficultyPanel.Controls.Add(this.aiEasyButton);
+            this.aiDifficultyPanel.Controls.Add(this.aiDifficultyLabel);
+            this.aiDifficultyPanel.Location = new System.Drawing.Point(20, 185);
+            this.aiDifficultyPanel.Name = "aiDifficultyPanel";
+            this.aiDifficultyPanel.Size = new System.Drawing.Size(354, 45);
+            this.aiDifficultyPanel.TabIndex = 10;
+            // 
+            // aiDifficultyLabel
+            // 
+            this.aiDifficultyLabel.AutoSize = true;
+            this.aiDifficultyLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.aiDifficultyLabel.ForeColor = System.Drawing.Color.White;
+            this.aiDifficultyLabel.Location = new System.Drawing.Point(0, 7);
+            this.aiDifficultyLabel.Name = "aiDifficultyLabel";
+            this.aiDifficultyLabel.Size = new System.Drawing.Size(114, 25);
+            this.aiDifficultyLabel.TabIndex = 1;
+            this.aiDifficultyLabel.Text = "AI Difficulty:";
+            // 
+            // aiHardButton
+            // 
+            this.aiHardButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.aiHardButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.aiHardButton.ForeColor = System.Drawing.Color.White;
+            this.aiHardButton.Location = new System.Drawing.Point(281, 0);
+            this.aiHardButton.Name = "aiHardButton";
+            this.aiHardButton.Size = new System.Drawing.Size(73, 30);
+            this.aiHardButton.TabIndex = 8;
+            this.aiHardButton.TabStop = false;
+            this.aiHardButton.Text = "Hard";
+            this.aiHardButton.UseVisualStyleBackColor = true;
+            this.aiHardButton.Click += new System.EventHandler(this.aiHardButton_Click);
+            // 
+            // aiNormalButton
+            // 
+            this.aiNormalButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.aiNormalButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.aiNormalButton.ForeColor = System.Drawing.Color.White;
+            this.aiNormalButton.Location = new System.Drawing.Point(207, 0);
+            this.aiNormalButton.Name = "aiNormalButton";
+            this.aiNormalButton.Size = new System.Drawing.Size(74, 30);
+            this.aiNormalButton.TabIndex = 7;
+            this.aiNormalButton.TabStop = false;
+            this.aiNormalButton.Text = "Normal";
+            this.aiNormalButton.UseVisualStyleBackColor = true;
+            this.aiNormalButton.Click += new System.EventHandler(this.aiNormalButton_Click);
+            // 
+            // aiEasyButton
+            // 
+            this.aiEasyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.aiEasyButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.aiEasyButton.ForeColor = System.Drawing.Color.White;
+            this.aiEasyButton.Location = new System.Drawing.Point(134, 0);
+            this.aiEasyButton.Name = "aiEasyButton";
+            this.aiEasyButton.Size = new System.Drawing.Size(73, 30);
+            this.aiEasyButton.TabIndex = 6;
+            this.aiEasyButton.TabStop = false;
+            this.aiEasyButton.Text = "Easy";
+            this.aiEasyButton.UseVisualStyleBackColor = true;
+            this.aiEasyButton.Click += new System.EventHandler(this.aiEasyButton_Click);
+            // 
             // SettingsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.Controls.Add(this.aiDifficultyPanel);
             this.Controls.Add(this.defaultButton);
             this.Controls.Add(this.winLengthPanel);
             this.Controls.Add(this.boardSizePanel);
@@ -255,6 +326,8 @@
             this.boardSizePanel.PerformLayout();
             this.winLengthPanel.ResumeLayout(false);
             this.winLengthPanel.PerformLayout();
+            this.aiDifficultyPanel.ResumeLayout(false);
+            this.aiDifficultyPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -276,5 +349,10 @@
         private System.Windows.Forms.Button winLengthNormalButton;
         private System.Windows.Forms.Button winLengthSmallButton;
         private System.Windows.Forms.Button defaultButton;
+        private System.Windows.Forms.Panel aiDifficultyPanel;
+        private System.Windows.Forms.Button aiHardButton;
+        private System.Windows.Forms.Button aiNormalButton;
+        private System.Windows.Forms.Button aiEasyButton;
+        private System.Windows.Forms.Label aiDifficultyLabel;
     }
 }

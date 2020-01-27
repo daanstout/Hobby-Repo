@@ -84,6 +84,8 @@ namespace ConnectFour {
             viewPanel.Controls.Clear();
             viewPanel.Controls.Add(control);
 
+            control.Focus();
+
             viewPanel.Invalidate();
 
             // If the message should be cleared, clear it

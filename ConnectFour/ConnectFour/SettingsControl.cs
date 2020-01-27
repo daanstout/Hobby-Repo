@@ -27,6 +27,8 @@ namespace ConnectFour {
         /// </summary>
         private Button currentWinLengthButton;
 
+        private Button currentAIDifficultyButton;
+
         /// <summary>
         /// Instantiates a new Settings Control
         /// </summary>
@@ -190,6 +192,34 @@ namespace ConnectFour {
 
             winLengthNormalButton_Click(winLengthNormalButton, null);
             sizeNormalButton_Click(sizeNormalButton, null);
+            aiNormalButton_Click(aiNormalButton, null);
+        }
+
+        private void aiEasyButton_Click(object sender, EventArgs e) {
+            if (!(sender is Button button))
+                return;
+
+            SwitchButton(button, ref currentAIDifficultyButton);
+
+            ConnectAI.searchDepth = 1;
+        }
+
+        private void aiNormalButton_Click(object sender, EventArgs e) {
+            if (!(sender is Button button))
+                return;
+
+            SwitchButton(button, ref currentAIDifficultyButton);
+
+            ConnectAI.searchDepth = 3;
+        }
+
+        private void aiHardButton_Click(object sender, EventArgs e) {
+            if (!(sender is Button button))
+                return;
+
+            SwitchButton(button, ref currentAIDifficultyButton);
+
+            ConnectAI.searchDepth = 5;
         }
     }
 }

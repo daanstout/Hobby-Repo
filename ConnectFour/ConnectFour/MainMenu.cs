@@ -57,5 +57,12 @@ namespace ConnectFour {
         private void settingsButton_Click(object sender, EventArgs e) {
             ConnectFour.instance.SetViewControl(SettingsControl.instance);
         }
+
+        private void aiConnectButton_Click(object sender, EventArgs e) {
+            if (!(ConnectControl.instance.game is ConnectAI))
+                ConnectControl.instance.game = new ConnectAI();
+
+            ConnectFour.instance.SetViewControl(ConnectControl.instance);
+        }
     }
 }

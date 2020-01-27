@@ -61,6 +61,7 @@
     <Compile Include="ConnectControl.Designer.cs">
       <DependentUpon>ConnectControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameModes\ConnectAI.cs" />
     <Compile Include="GameModes\WinChecker.cs" />
     <Compile Include="MainMenu.cs">
       <SubType>UserControl</SubType>
