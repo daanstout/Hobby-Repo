@@ -125,7 +125,9 @@ namespace ConnectFour {
             if (game == null)
                 return;
 
-            game.Reset();
+            //game.Reset();
+            game.Restart();
+
             gamePanel.Invalidate();
             currentTurnPanel.Invalidate();
         }

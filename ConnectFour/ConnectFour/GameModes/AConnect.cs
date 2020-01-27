@@ -64,13 +64,23 @@ namespace ConnectFour {
         /// <summary>
         /// The piece that will fall down when a player places his piece
         /// </summary>
-        FallingPiece fallingPiece;
+        protected FallingPiece fallingPiece;
 
         /// <summary>
         /// If true, new pieces cannot be placed on the board
         /// <para>Is typically true if a piece is currently falling</para>
         /// </summary>
         protected bool lockBoard;
+
+        /// <summary>
+        /// A list of pieces that will fall away from the board
+        /// </summary>
+        protected List<FallingPiece> boardClearPieces;
+        /// <summary>
+        /// If true, all the pieces fall from the board
+        /// <para>Is typically true if the player restarts the game</para>
+        /// </summary>
+        protected bool clearBoard;
 
         /// <summary>
         /// The total number of pieces on the board
@@ -171,6 +181,20 @@ namespace ConnectFour {
             };
         }
 
+        public virtual void Restart() {
+            clearBoard = true;
+            boardClearPieces = new List<FallingPiece>();
+
+            for (int x = 0; x < fieldSize.Width; x++) {
+                for (int y = 0; y < fieldSize.Height; y++) {
+                    if (field[x, y] == Pieces.clear || field[x, y] == Pieces.draw)
+                        continue;
+
+                    boardClearPieces.Add(new FallingPiece(x * squareSize, y * squareSize, (fieldSize.Height + 1) * squareSize, field[x, y]));
+                }
+            }
+        }
+
         /// <summary>
         /// Constructs the image we use for the board.
         /// </summary>
@@ -258,9 +282,14 @@ namespace ConnectFour {
         /// <param name="deltaTime">The time since the last call</param>
         public virtual void Update(float deltaTime) {
             // We only want to animate if the board is locked, as that means there is a piece currently falling
-            if (!lockBoard)
-                return;
+            if (lockBoard)
+                UpdateFallingPiece(deltaTime);
 
+            if (clearBoard)
+                UpdateClearingBoard(deltaTime);
+        }
+
+        protected virtual void UpdateFallingPiece(float deltaTime) {
             if (fallingPiece == null)
                 return;
 
@@ -286,6 +315,20 @@ namespace ConnectFour {
             }
         }
 
+        protected virtual void UpdateClearingBoard(float deltaTime) {
+            if (boardClearPieces == null)
+                return;
+
+            foreach (FallingPiece piece in boardClearPieces)
+                piece.Update(deltaTime);
+
+            if (boardClearPieces.All(piece => piece.atTargetY)) {
+                clearBoard = false;
+
+                Reset();
+            }
+        }
+
         /// <summary>
         /// Draws the playing board
         /// </summary>
@@ -299,20 +342,28 @@ namespace ConnectFour {
             // The size of a square is equal to the square size, minus twice the offset, as the offset has to be removed on both sides.
             Size size = new Size(squareSize - (squareOffset * 2), squareSize - (squareOffset * 2));
 
-            for (int x = 0; x < fieldSize.Width; x++) {
-                for (int y = 0; y < fieldSize.Height; y++) {
-                    if (field[x, y] == Pieces.clear)
-                        continue;
+            if (clearBoard) {
+                foreach (FallingPiece piece in boardClearPieces) {
+                    squareBrush = GetBrushFromPiece(piece.pieceColor);
 
-                    // The location is X square sizes + the offset, and the same for the Y
-                    location = new Point {
-                        X = x * squareSize + squareOffset,
-                        Y = y * squareSize + squareOffset
-                    };
+                    piece?.Draw(g, squareBrush, size, squareOffset);
+                }
+            } else {
+                for (int x = 0; x < fieldSize.Width; x++) {
+                    for (int y = 0; y < fieldSize.Height; y++) {
+                        if (field[x, y] == Pieces.clear)
+                            continue;
 
-                    squareBrush = GetBrushFromPiece(field[x, y]);
+                        // The location is X square sizes + the offset, and the same for the Y
+                        location = new Point {
+                            X = x * squareSize + squareOffset,
+                            Y = y * squareSize + squareOffset
+                        };
 
-                    g.FillEllipse(squareBrush, new Rectangle(location, size));
+                        squareBrush = GetBrushFromPiece(field[x, y]);
+
+                        g.FillEllipse(squareBrush, new Rectangle(location, size));
+                    }
                 }
             }
 
@@ -328,7 +379,7 @@ namespace ConnectFour {
             g.DrawImage(boardSprite, new Point(0, 0));
 
             // If the game is over, draw dots on the winning pieces and connect them with a line
-            if (isGameOver) {
+            if (isGameOver && !clearBoard) {
                 // Drawing the dots on every winning piece
 
                 Size dotSize = new Size((int)(squareSize * 0.2f), (int)(squareSize * 0.2f));
@@ -479,9 +530,7 @@ namespace ConnectFour {
             /// Updates the piece
             /// </summary>
             /// <param name="deltaTime">The elapsed time in seconds since the previous call</param>
-            public void Update(float deltaTime) {
-                yPos += fallSpeed * deltaTime;
-            }
+            public void Update(float deltaTime) => yPos += fallSpeed * deltaTime;
 
             /// <summary>
             /// Draws the piece
