@@ -195,31 +195,49 @@ namespace ConnectFour {
             aiNormalButton_Click(aiNormalButton, null);
         }
 
+        /// <summary>
+        /// Sets the AI to easy
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void aiEasyButton_Click(object sender, EventArgs e) {
             if (!(sender is Button button))
                 return;
 
             SwitchButton(button, ref currentAIDifficultyButton);
 
-            ConnectAI.searchDepth = 1;
+            ConnectAI.searchDepth = 2;
+            ConnectAI.randomMoveChance = 30;
         }
 
+        /// <summary>
+        /// Sets the AI to normal
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void aiNormalButton_Click(object sender, EventArgs e) {
             if (!(sender is Button button))
                 return;
 
             SwitchButton(button, ref currentAIDifficultyButton);
 
-            ConnectAI.searchDepth = 3;
+            ConnectAI.searchDepth = 4;
+            ConnectAI.randomMoveChance = 15;
         }
 
+        /// <summary>
+        /// Sets the AI to hard
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void aiHardButton_Click(object sender, EventArgs e) {
             if (!(sender is Button button))
                 return;
 
             SwitchButton(button, ref currentAIDifficultyButton);
 
-            ConnectAI.searchDepth = 5;
+            ConnectAI.searchDepth = 6;
+            ConnectAI.randomMoveChance = 5;
         }
     }
 }

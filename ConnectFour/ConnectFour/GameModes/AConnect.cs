@@ -7,16 +7,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ConnectFour {
+    /// <summary>
+    /// A Base class for a Connect Four game
+    /// </summary>
     public abstract class AConnect {
         /// <summary>
         /// The different possible pieces
         /// </summary>
         public enum Pieces {
-            clear = 0x0,
-            red = 0x1,
-            yellow = 0x2,
-            green = 0x3,
-            draw = 0x4
+            clear = 0,
+            draw,
+            red,
+            yellow,
+            green,
         }
 
         /// <summary>
@@ -111,12 +114,12 @@ namespace ConnectFour {
         /// <summary>
         /// The next player's color
         /// </summary>
-        protected abstract Pieces nextPlayer { get; }// => currentPlayer == Pieces.red ? Pieces.yellow : Pieces.red;
+        protected virtual Pieces nextPlayer => currentPlayer == Pieces.red ? Pieces.yellow : Pieces.red;
 
         /// <summary>
         /// An instance of the random class for random values
         /// </summary>
-        protected Random random;
+        protected static Random random;
 
         /// <summary>
         /// Instantiates a new game
@@ -161,6 +164,10 @@ namespace ConnectFour {
             // Create the new field and reset all important values
             field = new Pieces[fieldSize.Width, fieldSize.Height];
 
+            fallingPiece = null;
+            lockBoard = false;
+            clearBoard = false;
+
             wonXpos = new int[winLength];
             wonYpos = new int[winLength];
 
@@ -181,10 +188,14 @@ namespace ConnectFour {
             };
         }
 
+        /// <summary>
+        /// Restarts a game
+        /// </summary>
         public virtual void Restart() {
             clearBoard = true;
             boardClearPieces = new List<FallingPiece>();
 
+            // Find all the pieces and set them as falling pieces
             for (int x = 0; x < fieldSize.Width; x++) {
                 for (int y = 0; y < fieldSize.Height; y++) {
                     if (field[x, y] == Pieces.clear || field[x, y] == Pieces.draw)
@@ -289,6 +300,10 @@ namespace ConnectFour {
                 UpdateClearingBoard(deltaTime);
         }
 
+        /// <summary>
+        /// Updates the currently falling piece
+        /// </summary>
+        /// <param name="deltaTime">The time since the last call</param>
         protected virtual void UpdateFallingPiece(float deltaTime) {
             if (fallingPiece == null)
                 return;
@@ -315,6 +330,10 @@ namespace ConnectFour {
             }
         }
 
+        /// <summary>
+        /// Updates the pieces to clear the board
+        /// </summary>
+        /// <param name="deltaTime">The time since the last call</param>
         protected virtual void UpdateClearingBoard(float deltaTime) {
             if (boardClearPieces == null)
                 return;
@@ -322,6 +341,7 @@ namespace ConnectFour {
             foreach (FallingPiece piece in boardClearPieces)
                 piece.Update(deltaTime);
 
+            // If all pieces arrived at the target y-position (the bottom of the panel), reset the game
             if (boardClearPieces.All(piece => piece.atTargetY)) {
                 clearBoard = false;
 
@@ -463,15 +483,8 @@ namespace ConnectFour {
             // Get the column the piece was placed in
             // We don't have to check if it fits because the first if-statement makes sure we are not out of bounds
             int column = location.X / squareSize;
-            int availableY = -1;
 
-            // Look where we can place a piece
-            for (int y = 0; y < fieldSize.Height; y++) {
-                if (field[column, y] == Pieces.clear)
-                    availableY = y;
-                else
-                    break;
-            }
+            int availableY = ProbeY(column);
 
             // If there are no available spaces in the column, we can't place a piece
             if (availableY == -1)
@@ -481,6 +494,25 @@ namespace ConnectFour {
             fallingPiece = new FallingPiece(column * squareSize, -squareSize, availableY * squareSize, currentPlayer);
             lockBoard = true;
             return true;
+        }
+
+        /// <summary>
+        /// Looks for the highest position a piece can fit in a column
+        /// </summary>
+        /// <param name="x">The column to look in</param>
+        /// <returns>The y-position in the field</returns>
+        protected virtual int ProbeY(int x) {
+            int availableY = -1;
+
+            // Look where we can place a piece
+            for (int y = 0; y < fieldSize.Height; y++) {
+                if (field[x, y] == Pieces.clear)
+                    availableY = y;
+                else
+                    break;
+            }
+
+            return availableY;
         }
 
         /// <summary>

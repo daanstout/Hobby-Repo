@@ -58,9 +58,16 @@ namespace ConnectFour {
             ConnectFour.instance.SetViewControl(SettingsControl.instance);
         }
 
+        /// <summary>
+        /// Allows the user to battle an AI
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void aiConnectButton_Click(object sender, EventArgs e) {
             if (!(ConnectControl.instance.game is ConnectAI))
                 ConnectControl.instance.game = new ConnectAI();
+
+            ConnectFour.instance.ShowMessage("The AI is always Yellow, so the player is Red.", Color.White);
 
             ConnectFour.instance.SetViewControl(ConnectControl.instance);
         }
