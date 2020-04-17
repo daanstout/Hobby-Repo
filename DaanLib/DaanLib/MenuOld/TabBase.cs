@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DaanLib.Menu {
+namespace DaanLib.MenuOld {
     /// <summary>
     /// A base class for the ITab Interface
     /// </summary>

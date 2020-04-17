@@ -45,13 +45,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Menu\HorizontalMenu.cs" />
-    <Compile Include="Menu\HorizontalTab.cs" />
+    <Compile Include="MenuOld\HorizontalMenu.cs" />
+    <Compile Include="MenuOld\HorizontalTab.cs" />
+    <Compile Include="MenuOld\IMenu.cs" />
+    <Compile Include="MenuOld\ITab.cs" />
+    <Compile Include="MenuOld\MenuBase.cs" />
+    <Compile Include="MenuOld\MouseModes.cs" />
+    <Compile Include="MenuOld\TabBase.cs" />
+    <Compile Include="MenuOld\TabChangedEventArgs.cs" />
     <Compile Include="Menu\IMenu.cs" />
     <Compile Include="Menu\ITab.cs" />
-    <Compile Include="Menu\MenuBase.cs" />
+    <Compile Include="Menu\Menu.cs" />
+    <Compile Include="Menu\MenuAppearance.cs" />
+    <Compile Include="Menu\MenuBuilderFactory.cs" />
     <Compile Include="Menu\MouseModes.cs" />
-    <Compile Include="Menu\TabBase.cs" />
     <Compile Include="Menu\TabChangedEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

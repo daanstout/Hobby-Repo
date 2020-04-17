@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DaanLib.Menu {
+namespace DaanLib.MenuOld {
     /// <summary>
     /// A base class for the IMenu interface
     /// </summary>

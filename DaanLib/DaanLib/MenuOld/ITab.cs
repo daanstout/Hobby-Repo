@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DaanLib.Menu {
+namespace DaanLib.MenuOld {
     /// <summary>
     /// Displays a tab inside of the menu
     /// </summary>
@@ -18,10 +19,6 @@ namespace DaanLib.Menu {
         /// The data that the tab contains
         /// </summary>
         T data { get; }
-        /// <summary>
-        /// Indicates whether the tab is currently selected
-        /// </summary>
-        bool selected { get; }
 
         /// <summary>
         /// Selects the tab
@@ -39,5 +36,18 @@ namespace DaanLib.Menu {
         /// <param name="tabName">The name of the tab</param>
         /// <param name="data">The data that the tab contains</param>
         void SetInformation(string tabName, T data);
+
+        /// <summary>
+        /// Draws the tab to the panel
+        /// </summary>
+        /// <param name="g">The graphics instance</param>
+        /// <param name="tabSize">The size of the tab</param>
+        /// <param name="location">The location of the tab in the panel</param>
+        /// <param name="textFont">The font to use for the text</param>
+        /// <param name="textColor">The color of the text</param>
+        /// <param name="tabColor">The background color of the tab</param>
+        /// <param name="borderColor">The color of the border around the tab</param>
+        /// <param name="borderWidth">The width of the border around the tab</param>
+        void Draw(Graphics g, Size tabSize, Point location, Font textFont, Color textColor, Color tabColor, Color borderColor, int borderWidth);
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DaanLib.Menu {
+namespace DaanLib.MenuOld {
     /// <summary>
     /// A horizontal tab that is meant to be put above the application
     /// </summary>
