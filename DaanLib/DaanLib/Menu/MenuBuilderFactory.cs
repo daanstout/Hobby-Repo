@@ -18,16 +18,23 @@ namespace DaanLib.Menu {
         /// <param name="tabSize">The size of a tab</param>
         /// <param name="parentControl">The size of the parent control</param>
         /// <param name="appearance">The appearance of the menu<para>Leave null for default values</para></param>
+        /// <param name="menuDrawer">The menu drawer to use when the menu needs to be drawn</param>
+        /// <param name="tabDrawer">The tab drawer to use when a tab needs to be drawn</param>
         /// <returns>A Menu that conforms to the given parameters</returns>
-        public IMenu<T> Build<T>(Size tabSize, Control parentControl, MenuAppearance appearance = null) {
+        public IMenu<T> Build<T>(Size tabSize, Control parentControl, MenuAppearance appearance = null, IMenuDrawer menuDrawer = null, ITabDrawer tabDrawer = null) {
             var menu = new Menu<T> {
                 appearance = appearance ?? MenuAppearance.GetDefaultAppearance(),
                 allowRightClick = false,
                 tabSize = tabSize,
                 parentControl = parentControl,
                 currentTabIndex = -1,
-                
+                currentMouseMode = MouseModes.mouseClick,
+                menuDrawer = menuDrawer ?? new VerticalMenuDrawer(),
+                tabDrawer = tabDrawer ?? new VerticalTabDrawer(),
             };
+
+            parentControl.Paint += menu.OnDraw;
+            parentControl.MouseClick += menu.OnClick;
 
             return menu;
         }

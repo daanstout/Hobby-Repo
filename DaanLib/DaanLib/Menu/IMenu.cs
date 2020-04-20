@@ -34,6 +34,15 @@ namespace DaanLib.Menu {
         int currentTabIndex { get; }
 
         /// <summary>
+        /// The menu drawer to use when the menu needs to be drawn
+        /// </summary>
+        IMenuDrawer menuDrawer { get; }
+        /// <summary>
+        /// The tab drawer to use when a tab needs to be drawn
+        /// </summary>
+        ITabDrawer tabDrawer { get; }
+
+        /// <summary>
         /// Adds a new tab to the menu
         /// </summary>
         /// <param name="tab">The tab to add</param>

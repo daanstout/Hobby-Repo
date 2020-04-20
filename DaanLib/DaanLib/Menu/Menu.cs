@@ -46,11 +46,23 @@ namespace DaanLib.Menu {
         public MouseModes currentMouseMode { get; protected internal set; } = MouseModes.mouseClick;
 
         /// <summary>
+        /// The menu drawer to use when the menu needs to be drawn
+        /// </summary>
+        public IMenuDrawer menuDrawer { get; internal set; }
+        /// <summary>
+        /// The tab drawer to use when a tab needs to be drawn
+        /// </summary>
+        public ITabDrawer tabDrawer { get; internal set; }
+
+        /// <summary>
         /// The type of tabs that this menu contains
         /// </summary>
         protected internal Type tabType { get; internal set; }
 
-        internal Menu() { }
+        /// <summary>
+        /// Instantiates a new Menu object
+        /// </summary>
+        protected internal Menu() { }
 
         /// <summary>
         /// Changes a tab to the specified index
@@ -79,19 +91,45 @@ namespace DaanLib.Menu {
         /// </summary>
         /// <param name="name">The name of the tab to change to</param>
         public void ChangeTab(string name) => ChangeTab(tabList.FindIndex(tab => tab.tabName == name));
-        
+
         /// <summary>
         /// Creates a new tab in the menu
         /// </summary>
         /// <param name="tab">The tab to add</param>
-        public void CreateTab(ITab<T> tab) => throw new NotImplementedException();
+        public void CreateTab(ITab<T> tab) {
+            if (tab == null)
+                throw new ArgumentException("Tab cannot be null");
+
+            if (tab.GetType() != tabType)
+                throw new ArgumentException($"The given tab is not of the correct type. Should be {tabType}, but is {tab.GetType()}");
+
+            if (tabList.Exists(t => t.tabName == tab.tabName))
+                throw new ArgumentException($"There already is a tab named {tab.tabName}");
+
+            tabList.Add(tab);
+
+            parentControl.Invalidate();
+        }
 
         /// <summary>
         /// Creates a new tab in the menu
         /// </summary>
         /// <param name="tabName">The name of the tab to display</param>
         /// <param name="data">The data that the tab contains</param>
-        public void CreateTab(string tabName, T data) => throw new NotImplementedException();
+        public void CreateTab(string tabName, T data) {
+            if (string.IsNullOrEmpty(tabName))
+                throw new ArgumentException("The tab name cannot be null or empty");
+
+            if (data == null)
+                throw new ArgumentException("The data cannot be null");
+
+            if (!(Activator.CreateInstance(tabType) is ITab<T> tab))
+                throw new Exception("Something went wrong with instantiating a new tab, check if everything is correctly set");
+
+            tab.SetInformation(tabName, data);
+
+            CreateTab(tab);
+        }
 
         /// <summary>
         /// Sets the mouse mode, what the user needs to do in order to change the tab
@@ -145,7 +183,7 @@ namespace DaanLib.Menu {
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The MouseEventArgs of the event</param>
-        protected virtual void OnClick(object sender, MouseEventArgs e) {
+        protected internal virtual void OnClick(object sender, MouseEventArgs e) {
 
         }
 
@@ -154,7 +192,7 @@ namespace DaanLib.Menu {
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The PaintEventArgs of the event</param>
-        protected virtual void OnDraw(object sender, PaintEventArgs e) {
+        protected internal virtual void OnDraw(object sender, PaintEventArgs e) {
 
         }
     }

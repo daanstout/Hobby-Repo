@@ -53,13 +53,19 @@
     <Compile Include="MenuOld\MouseModes.cs" />
     <Compile Include="MenuOld\TabBase.cs" />
     <Compile Include="MenuOld\TabChangedEventArgs.cs" />
+    <Compile Include="Menu\HorizontalMenuDrawer.cs" />
+    <Compile Include="Menu\HorizontalTabDrawer.cs" />
     <Compile Include="Menu\IMenu.cs" />
+    <Compile Include="Menu\IMenuDrawer.cs" />
     <Compile Include="Menu\ITab.cs" />
+    <Compile Include="Menu\ITabDrawer.cs" />
     <Compile Include="Menu\Menu.cs" />
     <Compile Include="Menu\MenuAppearance.cs" />
     <Compile Include="Menu\MenuBuilderFactory.cs" />
     <Compile Include="Menu\MouseModes.cs" />
     <Compile Include="Menu\TabChangedEventArgs.cs" />
+    <Compile Include="Menu\VerticalMenuDrawer.cs" />
+    <Compile Include="Menu\VerticalTabDrawer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
