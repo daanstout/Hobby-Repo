@@ -30,6 +30,10 @@ namespace DaanLib.Menu {
         /// The width of the border
         /// </summary>
         public int borderWidth { get; set; }
+        /// <summary>
+        /// The size of a tab
+        /// </summary>
+        public Size tabSize { get; set; }
 
         /// <summary>
         /// Gets a default appearance for the menu
@@ -42,6 +46,7 @@ namespace DaanLib.Menu {
                 borderColor = Color.Black,
                 tabFont = new Font("Times New Roman", 11),
                 borderWidth = 1,
+                tabSize = new Size(50, 20),
             };
         }
     }

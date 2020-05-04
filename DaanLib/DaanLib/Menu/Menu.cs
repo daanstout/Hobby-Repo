@@ -21,10 +21,6 @@ namespace DaanLib.Menu {
         /// </summary>
         public bool allowRightClick { get; set; }
         /// <summary>
-        /// The size of a tab
-        /// </summary>
-        public Size tabSize { get; internal set; }
-        /// <summary>
         /// The parent control this menu rests in
         /// </summary>
         public Control parentControl { get; internal set; }
@@ -53,11 +49,15 @@ namespace DaanLib.Menu {
         /// The tab drawer to use when a tab needs to be drawn
         /// </summary>
         public ITabDrawer tabDrawer { get; internal set; }
-
         /// <summary>
-        /// The type of tabs that this menu contains
+        /// The click handler to use to handle the user clicking on the menu
         /// </summary>
-        protected internal Type tabType { get; internal set; }
+        public IClickHandler clickHandler { get; internal set; }
+
+        ///// <summary>
+        ///// The type of tabs that this menu contains
+        ///// </summary>
+        //protected internal Type tabType { get; internal set; }
 
         /// <summary>
         /// Instantiates a new Menu object
@@ -68,9 +68,9 @@ namespace DaanLib.Menu {
         /// Changes a tab to the specified index
         /// </summary>
         /// <param name="index">The index to change to</param>
-        public void ChangeTab(int index) {
+        public virtual void ChangeTab(int index) {
             if (index < 0 || index >= tabList.Count)
-                throw new ArgumentException("Index must be within the bounds");
+                return;
 
             if (index == currentTabIndex)
                 return;
@@ -90,18 +90,18 @@ namespace DaanLib.Menu {
         /// Changes the tab to the tab with the given name
         /// </summary>
         /// <param name="name">The name of the tab to change to</param>
-        public void ChangeTab(string name) => ChangeTab(tabList.FindIndex(tab => tab.tabName == name));
+        public virtual void ChangeTab(string name) => ChangeTab(tabList.FindIndex(tab => tab.tabName == name));
 
         /// <summary>
         /// Creates a new tab in the menu
         /// </summary>
         /// <param name="tab">The tab to add</param>
-        public void CreateTab(ITab<T> tab) {
+        public virtual void CreateTab(ITab<T> tab) {
             if (tab == null)
                 throw new ArgumentException("Tab cannot be null");
 
-            if (tab.GetType() != tabType)
-                throw new ArgumentException($"The given tab is not of the correct type. Should be {tabType}, but is {tab.GetType()}");
+            //if (tab.GetType() != tabType)
+            //    throw new ArgumentException($"The given tab is not of the correct type. Should be {tabType}, but is {tab.GetType()}");
 
             if (tabList.Exists(t => t.tabName == tab.tabName))
                 throw new ArgumentException($"There already is a tab named {tab.tabName}");
@@ -116,15 +116,17 @@ namespace DaanLib.Menu {
         /// </summary>
         /// <param name="tabName">The name of the tab to display</param>
         /// <param name="data">The data that the tab contains</param>
-        public void CreateTab(string tabName, T data) {
+        public virtual void CreateTab(string tabName, T data) {
             if (string.IsNullOrEmpty(tabName))
                 throw new ArgumentException("The tab name cannot be null or empty");
 
             if (data == null)
                 throw new ArgumentException("The data cannot be null");
 
-            if (!(Activator.CreateInstance(tabType) is ITab<T> tab))
-                throw new Exception("Something went wrong with instantiating a new tab, check if everything is correctly set");
+            //if (!(Activator.CreateInstance(tabType) is ITab<T> tab))
+            //    throw new Exception("Something went wrong with instantiating a new tab, check if everything is correctly set");
+
+            var tab = new Tab<T>();
 
             tab.SetInformation(tabName, data);
 
@@ -135,7 +137,7 @@ namespace DaanLib.Menu {
         /// Sets the mouse mode, what the user needs to do in order to change the tab
         /// </summary>
         /// <param name="mode">The new mouse mode</param>
-        public void SetMouseMode(MouseModes mode) {
+        public virtual void SetMouseMode(MouseModes mode) {
             if (mode == currentMouseMode)
                 return;
 
@@ -183,17 +185,13 @@ namespace DaanLib.Menu {
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The MouseEventArgs of the event</param>
-        protected internal virtual void OnClick(object sender, MouseEventArgs e) {
-
-        }
+        protected internal virtual void OnClick(object sender, MouseEventArgs e) => clickHandler.HandleClick(this, e.Location, appearance.tabSize);
 
         /// <summary>
         /// Reacts to needing to redraw the menu
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The PaintEventArgs of the event</param>
-        protected internal virtual void OnDraw(object sender, PaintEventArgs e) {
-
-        }
+        protected internal virtual void OnDraw(object sender, PaintEventArgs e) => menuDrawer.Draw(e.Graphics, appearance, parentControl.Size, tabList, tabDrawer);
     }
 }

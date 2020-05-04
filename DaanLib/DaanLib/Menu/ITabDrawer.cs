@@ -15,7 +15,9 @@ namespace DaanLib.Menu {
         /// </summary>
         /// <param name="g">The graphics instance to draw to</param>
         /// <param name="appearance">The appearance of the tab</param>
+        /// <param name="tab">The tab to draw</param>
+        /// <param name="location">The point where to draw the tab</param>
         /// <param name="tabSize">The size of a tab</param>
-        void Draw(Graphics g, MenuAppearance appearance, Size tabSize);
+        void Draw<T>(Graphics g, MenuAppearance appearance, ITab<T> tab, Point location, Size tabSize);
     }
 }

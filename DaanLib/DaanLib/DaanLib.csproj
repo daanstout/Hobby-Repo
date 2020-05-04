@@ -45,16 +45,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MenuOld\HorizontalMenu.cs" />
-    <Compile Include="MenuOld\HorizontalTab.cs" />
-    <Compile Include="MenuOld\IMenu.cs" />
-    <Compile Include="MenuOld\ITab.cs" />
-    <Compile Include="MenuOld\MenuBase.cs" />
-    <Compile Include="MenuOld\MouseModes.cs" />
-    <Compile Include="MenuOld\TabBase.cs" />
-    <Compile Include="MenuOld\TabChangedEventArgs.cs" />
+    <Compile Include="Graphs\Edge.cs" />
+    <Compile Include="Graphs\Vertex.cs" />
+    <Compile Include="IDSetter.cs" />
+    <Compile Include="Menu\HorizontalClickHandler.cs" />
     <Compile Include="Menu\HorizontalMenuDrawer.cs" />
     <Compile Include="Menu\HorizontalTabDrawer.cs" />
+    <Compile Include="Menu\IClickHandler.cs" />
     <Compile Include="Menu\IMenu.cs" />
     <Compile Include="Menu\IMenuDrawer.cs" />
     <Compile Include="Menu\ITab.cs" />
@@ -62,8 +59,11 @@
     <Compile Include="Menu\Menu.cs" />
     <Compile Include="Menu\MenuAppearance.cs" />
     <Compile Include="Menu\MenuBuilderFactory.cs" />
+    <Compile Include="Menu\MenuLayout.cs" />
     <Compile Include="Menu\MouseModes.cs" />
+    <Compile Include="Menu\Tab.cs" />
     <Compile Include="Menu\TabChangedEventArgs.cs" />
+    <Compile Include="Menu\VerticalClickHandler.cs" />
     <Compile Include="Menu\VerticalMenuDrawer.cs" />
     <Compile Include="Menu\VerticalTabDrawer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

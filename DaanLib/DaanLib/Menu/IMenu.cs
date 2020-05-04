@@ -21,10 +21,6 @@ namespace DaanLib.Menu {
         /// </summary>
         bool allowRightClick { get; set; }
         /// <summary>
-        /// The size of the tab
-        /// </summary>
-        Size tabSize { get; }
-        /// <summary>
         /// THe parent control that houses this tab
         /// </summary>
         Control parentControl { get; }
@@ -41,6 +37,10 @@ namespace DaanLib.Menu {
         /// The tab drawer to use when a tab needs to be drawn
         /// </summary>
         ITabDrawer tabDrawer { get; }
+        /// <summary>
+        /// The click handler to use to handle the user clicking on the menu
+        /// </summary>
+        IClickHandler clickHandler { get; }
 
         /// <summary>
         /// Adds a new tab to the menu
