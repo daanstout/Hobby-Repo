@@ -75,6 +75,9 @@ namespace DaanLib.Menu {
             if (index == currentTabIndex)
                 return;
 
+            if (currentTabIndex != -1)
+                tabList[currentTabIndex].Deselect();
+
             currentTabIndex = index;
 
             T data = tabList[currentTabIndex].Select();
@@ -185,7 +188,12 @@ namespace DaanLib.Menu {
         /// </summary>
         /// <param name="sender">The sender of the event</param>
         /// <param name="e">The MouseEventArgs of the event</param>
-        protected internal virtual void OnClick(object sender, MouseEventArgs e) => clickHandler.HandleClick(this, e.Location, appearance.tabSize);
+        protected internal virtual void OnClick(object sender, MouseEventArgs e) {
+            if (!allowRightClick && e.Button == MouseButtons.Right)
+                return;
+
+            clickHandler.HandleClick(this, e.Location, appearance.tabSize);
+        }
 
         /// <summary>
         /// Reacts to needing to redraw the menu

@@ -22,7 +22,7 @@ namespace DaanLib.Menu {
         /// <param name="appearance">The appearance this menu should take<para>Leave null for default layout</para></param>
         /// <param name="eventFunction">The function to execute when the tab changes</param>
         /// <returns>A menu based on the parameters given</returns>
-        public IMenu<T> Build<T>(Size tabSize, Control parentControl, MenuLayout menuLayout, MenuAppearance appearance = null, EventHandler<TabChangedEventArgs<T>> eventFunction = null) {
+        public IMenu<T> Build<T>(Control parentControl, MenuLayout menuLayout, Size? tabSize = null, MenuAppearance appearance = null, EventHandler<TabChangedEventArgs<T>> eventFunction = null) {
             var menu = new Menu<T> {
                 appearance = appearance ?? MenuAppearance.GetDefaultAppearance(),
                 allowRightClick = false,
@@ -44,7 +44,8 @@ namespace DaanLib.Menu {
                     break;
             }
 
-            menu.appearance.tabSize = tabSize;
+            if (tabSize.HasValue)
+                menu.appearance.tabSize = tabSize.Value;
 
             parentControl.Paint += menu.OnDraw;
             parentControl.MouseClick += menu.OnClick;
@@ -67,7 +68,7 @@ namespace DaanLib.Menu {
         /// <param name="clickHandler">The click handler to use with the menu</param>
         /// <param name="eventFunction">The function to execute when the tab changes</param>
         /// <returns>A Menu that conforms to the given parameters</returns>
-        public IMenu<T> Build<T>(Size tabSize, Control parentControl, MenuAppearance appearance = null, IMenuDrawer menuDrawer = null, ITabDrawer tabDrawer = null, IClickHandler clickHandler = null, EventHandler<TabChangedEventArgs<T>> eventFunction = null) {
+        public IMenu<T> Build<T>(Control parentControl, MenuAppearance appearance = null, Size? tabSize = null, IMenuDrawer menuDrawer = null, ITabDrawer tabDrawer = null, IClickHandler clickHandler = null, EventHandler<TabChangedEventArgs<T>> eventFunction = null) {
             var menu = new Menu<T> {
                 appearance = appearance ?? MenuAppearance.GetDefaultAppearance(),
                 allowRightClick = false,
@@ -79,7 +80,8 @@ namespace DaanLib.Menu {
                 clickHandler = clickHandler ?? new VerticalClickHandler(),
             };
 
-            menu.appearance.tabSize = tabSize;
+            if (tabSize.HasValue)
+                menu.appearance.tabSize = tabSize.Value;
 
             parentControl.Paint += menu.OnDraw;
             parentControl.MouseClick += menu.OnClick;

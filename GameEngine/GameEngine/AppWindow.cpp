@@ -36,7 +36,7 @@ void AppWindow::UpdateQuadPosition() {
 	Matrix4x4 temp;
 
 	//cc.world.SetTranslation(Vector3D::lerp(Vector3D(-2, -2, 0), Vector3D(2, 2, 0), deltaPosition));
-	
+
 	deltaScale += deltaTime / 0.55f;
 
 	//cc.world.SetScale(Vector3D::lerp(Vector3D(0.5, 0.5, 0), Vector3D(1.0f, 1.0f, 0), (sin(deltaScale) + 1.0f) / 2.0f));
@@ -45,7 +45,7 @@ void AppWindow::UpdateQuadPosition() {
 
 	//cc.world *= temp;
 
-	cc.world.SetScale(Vector3D(1, 1, 1));
+	cc.world.SetScale(Vector3D(scaleCube, scaleCube, scaleCube));
 
 	temp.SetIdentity();
 	temp.SetRotationZ(0.0f);
@@ -76,7 +76,7 @@ AppWindow::~AppWindow() {}
 
 void AppWindow::OnCreate() {
 	Window::OnCreate();
-	
+
 	InputSystem::Get()->AddListener(this);
 
 	GraphicsEngine::Get()->Init();
@@ -184,7 +184,7 @@ void AppWindow::OnUpdate() {
 
 	//GraphicsEngine::Get()->GetImmediateDeviceContext()->DrawTriangleList(_vertexBuffer->GetSizeVertexList(), 0);
 	//GraphicsEngine::Get()->GetImmediateDeviceContext()->DrawTriangleStrip(_vertexBuffer->GetSizeVertexList(), 0);
-	GraphicsEngine::Get()->GetImmediateDeviceContext()->DrawIndexedTriangleList(_indexBuffer->GetSizeIndexList(),0,  0);
+	GraphicsEngine::Get()->GetImmediateDeviceContext()->DrawIndexedTriangleList(_indexBuffer->GetSizeIndexList(), 0, 0);
 
 	_swapChain->Present(true);
 
@@ -193,7 +193,7 @@ void AppWindow::OnUpdate() {
 
 	deltaTime = oldDelta ? ((newDelta - oldDelta) / 1000.0f) : 0;
 
-	std::cout << deltaTime << std::endl;
+	//std::cout << deltaTime << std::endl;
 }
 
 void AppWindow::OnDestroy() {
@@ -208,7 +208,17 @@ void AppWindow::OnDestroy() {
 	GraphicsEngine::Get()->Release();
 }
 
-void AppWindow::onKeyDown(int key) {
+void AppWindow::OnFocus()
+{
+	InputSystem::Get()->AddListener(this);
+}
+
+void AppWindow::OnKillFocus()
+{
+	InputSystem::Get()->RemoveListener(this);
+}
+
+void AppWindow::OnKeyDown(int key) {
 	if (key == 'W') {
 		rotX += 5.0f * deltaTime;
 	} else if (key == 'S') {
@@ -220,6 +230,32 @@ void AppWindow::onKeyDown(int key) {
 	}
 }
 
-void AppWindow::onKeyUp(int key) {
-	
+void AppWindow::OnKeyUp(int key) {
+
+}
+
+void AppWindow::OnMouseMove(const Point& deltaMousePos)
+{
+	rotX -= deltaMousePos.y * deltaTime;
+	rotY -= deltaMousePos.x * deltaTime;
+}
+
+void AppWindow::OnLeftMouseDown(const Point& mousePosition)
+{
+	scaleCube = 0.5f;
+}
+
+void AppWindow::OnLeftMouseUp(const Point& mousePosition)
+{
+	scaleCube = 1.0f;
+}
+
+void AppWindow::OnRightMouseDown(const Point& mousePosition)
+{
+	scaleCube = 2.0f;
+}
+
+void AppWindow::OnRightMouseUp(const Point& mousePosition)
+{
+	scaleCube = 1.0f;
 }

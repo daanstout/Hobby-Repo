@@ -20,12 +20,15 @@ namespace DaanLib.Menu {
         /// <param name="location">The point where to draw the tab</param>
         /// <param name="tabSize">The size of a tab</param>
         public void Draw<T>(Graphics g, MenuAppearance appearance, ITab<T> tab, Point location, Size tabSize) {
+            // Create all the brushes and pens
             using SolidBrush tabBrush = new SolidBrush(appearance.tabBackColor);
             using Pen tabBorderPen = new Pen(appearance.borderColor, appearance.borderWidth);
             using SolidBrush textBrush = new SolidBrush(appearance.textColor);
 
+            // Clear the tab area to get a clean canvas
             g.FillRectangle(tabBrush, location.X, location.Y, tabSize.Width - 1, tabSize.Height - 1);
-
+            
+            // If there should be a border, draw it
             if (appearance.borderWidth > 0)
                 g.DrawRectangle(tabBorderPen, location.X, location.Y, tabSize.Width - 1, tabSize.Height - 1);
 
@@ -53,9 +56,9 @@ namespace DaanLib.Menu {
 
             g.DrawLine(pen,
                        location.X + appearance.borderWidth,
-                       location.Y + tabSize.Height,
+                       location.Y + tabSize.Height - 1,
                        location.X + tabSize.Width - appearance.borderWidth,
-                       location.Y + tabSize.Height);
+                       location.Y + tabSize.Height - 1);
         }
     }
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "InputListener.h"
 #include <map>
+#include "Point.h"
 
 class InputSystem {
 public:
@@ -18,5 +19,7 @@ private:
 	std::map<InputListener*, InputListener*> mapListeners;
 	unsigned char keysState[256] = {};
 	unsigned char oldKeysState[256] = {};
+	Point oldMousePosition;
+	bool firstTime = true;
 };
 

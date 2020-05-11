@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Point.h"
+
 class InputListener {
 public:
 	InputListener() {
@@ -9,6 +11,12 @@ public:
 
 	}
 
-	virtual void onKeyDown(int key) = 0;
-	virtual void onKeyUp(int key) = 0;
+	virtual void OnKeyDown(int key) = 0;
+	virtual void OnKeyUp(int key) = 0;
+
+	virtual void OnMouseMove(const Point& deltaMousePos) = 0;
+	virtual void OnLeftMouseDown(const Point& mousePosition) = 0;
+	virtual void OnLeftMouseUp(const Point& mousePosition) = 0;
+	virtual void OnRightMouseDown(const Point& mousePosition) = 0;
+	virtual void OnRightMouseUp(const Point& mousePosition) = 0;
 };

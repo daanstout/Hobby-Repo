@@ -8,7 +8,7 @@ namespace DaanLib.Graphs {
     /// <summary>
     /// Represents a point on a Graph
     /// </summary>
-    public sealed class Vertex {
+    public sealed class Vertex : IEquatable<Vertex> {
         /// <summary>
         /// An id setter used to set the ID of the Vertex
         /// </summary>
@@ -76,5 +76,44 @@ namespace DaanLib.Graphs {
 
             return AddEdge(edge);
         }
+
+        /// <summary>
+        /// Checks whether this Vertex and another object are equal
+        /// </summary>
+        /// <param name="obj">The object to compare to</param>
+        /// <returns>True if these objects are equal</returns>
+        public override bool Equals(object obj) => Equals(obj as Vertex);
+        /// <summary>
+        /// Checks whether this Vertex and another Vertex are equal
+        /// </summary>
+        /// <param name="other">The other Vertex to compare to</param>
+        /// <returns>True if these objects are equal</returns>
+        public bool Equals(Vertex other) => other != null && id == other.id && name == other.name;
+
+        /// <summary>
+        /// Calculates this Vertex' hash code
+        /// </summary>
+        /// <returns>The hash code of this Vertex</returns>
+        public override int GetHashCode() {
+            int hashCode = -48284730;
+            hashCode = hashCode * -1521134295 + id.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(name);
+            return hashCode;
+        }
+
+        /// <summary>
+        /// Compares two Verteces to eachother to see if they are equal to eachother
+        /// </summary>
+        /// <param name="left">The left side Vertex</param>
+        /// <param name="right">The right side Vertex</param>
+        /// <returns>True if both Verteces are equal to eachother</returns>
+        public static bool operator ==(Vertex left, Vertex right) => EqualityComparer<Vertex>.Default.Equals(left, right);
+        /// <summary>
+        /// Compares two Verteces to eachother to see if they are not equal to eachother
+        /// </summary>
+        /// <param name="left">The left side Vertex</param>
+        /// <param name="right">The right side Vertex</param>
+        /// <returns>True if both Verteces are not equal to eachother</returns>
+        public static bool operator !=(Vertex left, Vertex right) => !(left == right);
     }
 }

@@ -28,6 +28,8 @@ private:
 
 	float rotX = 0.0f;
 	float rotY = 0.0f;
+
+	float scaleCube = 1;
 public:
 	AppWindow();
 
@@ -39,8 +41,16 @@ public:
 	virtual void OnCreate() override;
 	virtual void OnUpdate() override;
 	virtual void OnDestroy() override;
+	virtual void OnFocus() override;
+	virtual void OnKillFocus() override;
 
 	// Inherited via InputListener
-	virtual void onKeyDown(int key) override;
-	virtual void onKeyUp(int key) override;
+	virtual void OnKeyDown(int key) override;
+	virtual void OnKeyUp(int key) override;
+	virtual void OnMouseMove(const Point& deltaMousePos) override;
+
+	virtual void OnLeftMouseDown(const Point& mousePosition) override;
+	virtual void OnLeftMouseUp(const Point& mousePosition) override;
+	virtual void OnRightMouseDown(const Point& mousePosition) override;
+	virtual void OnRightMouseUp(const Point& mousePosition) override;
 };

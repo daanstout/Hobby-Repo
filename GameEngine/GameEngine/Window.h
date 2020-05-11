@@ -34,5 +34,8 @@ public:
 	virtual void OnCreate();
 	virtual void OnUpdate();
 	virtual void OnDestroy();
+
+	virtual void OnFocus();
+	virtual void OnKillFocus();
 };
 

@@ -49,5 +49,65 @@ namespace DaanLib.Menu {
                 tabSize = new Size(50, 20),
             };
         }
+
+        /// <summary>
+        /// Sets the text color to the specified color
+        /// </summary>
+        /// <param name="color">The color the text should appear with</param>
+        /// <returns>The instance of the appearance</returns>
+        public MenuAppearance SetTextColor(Color color) {
+            textColor = color;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the background color of the tab
+        /// </summary>
+        /// <param name="color">The color the tab should have as background</param>
+        /// <returns>The instance of the appearance</returns>
+        public MenuAppearance SetTabBackColor(Color color) {
+            tabBackColor = color;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the border color for the tab
+        /// </summary>
+        /// <param name="color">The color the border should appear with</param>
+        /// <returns>The instance of the appearance</returns>
+        public MenuAppearance SetTabBorderColor(Color color) {
+            borderColor = color;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the font the tab should use to display the text with
+        /// </summary>
+        /// <param name="font">The font to display the text with</param>
+        /// <returns>The instance of the appearance</returns>
+        public MenuAppearance SetTabFont(Font font) {
+            tabFont = font;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the with of the border
+        /// </summary>
+        /// <param name="width">The width of the border</param>
+        /// <returns>The instance of the appearance</returns>
+        public MenuAppearance SetBorderWidth(int width) {
+            borderWidth = width;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the size of the tab
+        /// </summary>
+        /// <param name="size">The size of the tab</param>
+        /// <returns>The instance of the appearance</returns>
+        public MenuAppearance SetTabSize(Size size) {
+            tabSize = size;
+            return this;
+        }
     }
 }

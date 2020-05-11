@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaanLib", "DaanLib\DaanLib.csproj", "{5997DD3B-E04B-4DC8-95AD-54DD253B7581}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWinForm", "TestWinForm\TestWinForm.csproj", "{80C81515-0BA1-47C9-9007-9794DB3448A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "ConsoleTest\ConsoleTest.csproj", "{55E67E97-0C61-47C5-AF7E-BDF8DE8A641C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{5997DD3B-E04B-4DC8-95AD-54DD253B7581}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5997DD3B-E04B-4DC8-95AD-54DD253B7581}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5997DD3B-E04B-4DC8-95AD-54DD253B7581}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80C81515-0BA1-47C9-9007-9794DB3448A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80C81515-0BA1-47C9-9007-9794DB3448A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80C81515-0BA1-47C9-9007-9794DB3448A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80C81515-0BA1-47C9-9007-9794DB3448A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55E67E97-0C61-47C5-AF7E-BDF8DE8A641C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55E67E97-0C61-47C5-AF7E-BDF8DE8A641C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55E67E97-0C61-47C5-AF7E-BDF8DE8A641C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55E67E97-0C61-47C5-AF7E-BDF8DE8A641C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
