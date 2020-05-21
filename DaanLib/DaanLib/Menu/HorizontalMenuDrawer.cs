@@ -28,7 +28,7 @@ namespace DaanLib.Menu {
             int x = 0;
 
             foreach(var tab in tabList) {
-                tabDrawer.Draw(g, appearance, tab, new Point(x, 0), appearance.tabSize);
+                tabDrawer.Draw(g, appearance, tab, new Point(x, 0));
 
                 x += appearance.tabSize.Width;
             }

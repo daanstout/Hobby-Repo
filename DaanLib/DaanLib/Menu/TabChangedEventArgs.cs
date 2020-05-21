@@ -13,7 +13,7 @@ namespace DaanLib.Menu {
         /// <summary>
         /// Empty event args
         /// </summary>
-        public static TabChangedEventArgs<T> empty => new TabChangedEventArgs<T>(default, 0);
+        public static TabChangedEventArgs<T> empty => new TabChangedEventArgs<T>(default, 0, "");
 
         /// <summary>
         /// The data is stored in the new tab
@@ -23,15 +23,20 @@ namespace DaanLib.Menu {
         /// The index of the new tab
         /// </summary>
         public int tabIndex { get; private set; }
+        /// <summary>
+        /// The name ofthe tab
+        /// </summary>
+        public string tabName { get; private set; }
 
         /// <summary>
         /// Instantiates new event args
         /// </summary>
         /// <param name="data">The data of the new tab</param>
         /// <param name="tabIndex">The index of the new tab</param>
-        public TabChangedEventArgs(T data, int tabIndex) {
+        public TabChangedEventArgs(T data, int tabIndex, string tabName) {
             this.data = data;
             this.tabIndex = tabIndex;
+            this.tabName = tabName;
         }
     }
 }

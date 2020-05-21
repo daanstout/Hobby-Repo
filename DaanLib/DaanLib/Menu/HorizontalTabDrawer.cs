@@ -12,36 +12,36 @@ namespace DaanLib.Menu {
     /// </summary>
     public class HorizontalTabDrawer : ITabDrawer {
         /// <summary>
+        /// Finalizes the drawing of the tab
+        /// </summary>
+        public ITabLocationDrawer tabLocationDrawer { get; set; } = new TopTabLocationDrawer();
+
+        /// <summary>
         /// Draws the tab to a graphics instance
         /// </summary>
         /// <param name="g">The graphics instance to draw to</param>
         /// <param name="appearance">The appearance of the tab</param>
         /// <param name="tab">The tab to draw</param>
         /// <param name="location">The point where to draw the tab</param>
-        /// <param name="tabSize">The size of a tab</param>
-        public void Draw<T>(Graphics g, MenuAppearance appearance, ITab<T> tab, Point location, Size tabSize) {
+        public void Draw<T>(Graphics g, MenuAppearance appearance, ITab<T> tab, Point location) {
             // Create all the brushes and pens
             using SolidBrush tabBrush = new SolidBrush(appearance.tabBackColor);
             using Pen tabBorderPen = new Pen(appearance.borderColor, appearance.borderWidth);
             using SolidBrush textBrush = new SolidBrush(appearance.textColor);
 
             // Clear the tab area to get a clean canvas
-            g.FillRectangle(tabBrush, location.X, location.Y, tabSize.Width - 1, tabSize.Height - 1);
+            g.FillRectangle(tabBrush, location.X, location.Y, appearance.tabSize.Width - 1, appearance.tabSize.Height - 1);
             
             // If there should be a border, draw it
             if (appearance.borderWidth > 0)
-                g.DrawRectangle(tabBorderPen, location.X, location.Y, tabSize.Width - 1, tabSize.Height - 1);
+                g.DrawRectangle(tabBorderPen, location.X, location.Y, appearance.tabSize.Width - 1, appearance.tabSize.Height - 1);
 
             SizeF tabNameSize = g.MeasureString(tab.tabName, appearance.tabFont);
-            Point tabNamePoint = new Point((int)((tabSize.Width - tabNameSize.Width) / 2) + location.X,
-                                           (int)((tabSize.Height - tabNameSize.Height) / 2) + location.Y);
+            Point tabNamePoint = new Point((int)((appearance.tabSize.Width - tabNameSize.Width) / 2) + location.X,
+                                           (int)((appearance.tabSize.Height - tabNameSize.Height) / 2) + location.Y);
 
             if (tabNamePoint.X < 0) {
-                tabNameSize = TextRenderer.MeasureText(tab.tabName, appearance.tabFont);
-                tabNamePoint = new Point((int)((tabSize.Width - tabNameSize.Width) / 2) + location.X,
-                                         (int)((tabSize.Height - tabNameSize.Height) / 2) + location.Y);
-
-                TextRenderer.DrawText(null, tab.tabName, appearance.tabFont, tabNamePoint, appearance.textColor);
+                TextRenderer.DrawText(null, tab.tabName, appearance.tabFont, new Rectangle(location, appearance.tabSize), appearance.textColor);
             } else {
                 g.DrawString(tab.tabName, appearance.tabFont, textBrush, tabNamePoint);
             }
@@ -52,13 +52,7 @@ namespace DaanLib.Menu {
             if (appearance.borderWidth == 0)
                 return;
 
-            using Pen pen = new Pen(appearance.tabBackColor, appearance.borderWidth);
-
-            g.DrawLine(pen,
-                       location.X + appearance.borderWidth,
-                       location.Y + tabSize.Height - 1,
-                       location.X + tabSize.Width - appearance.borderWidth,
-                       location.Y + tabSize.Height - 1);
+            tabLocationDrawer.Draw(g, location, appearance);
         }
     }
 }

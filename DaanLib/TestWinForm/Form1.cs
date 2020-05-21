@@ -17,10 +17,8 @@ namespace TestWinForm {
         public Form1() {
             InitializeComponent();
 
-            var factory = new MenuBuilderFactory();
-
-            horizontalMenu = factory.Build<int>(horizontalMenuPanel, MenuLayout.horizontal, eventFunction: OnTabChange, tabSize: new Size(50, 80));
-            verticalMenu = factory.Build<Color>(verticalMenuPanel, eventFunction: OnTabChange, tabSize: new Size(100, 50), appearance: MenuAppearance.GetDefaultAppearance().SetTabBackColor(Color.Red).SetBorderWidth(3));
+            horizontalMenu = MenuBuilderFactory.Build<int>(horizontalMenuPanel, MenuLayout.horizontal, MenuLocation.top, eventFunction: OnTabChange);
+            verticalMenu = MenuBuilderFactory.Build<Color>(verticalMenuPanel, eventFunction: OnTabChange, appearance: MenuAppearance.GetDefaultAppearance(new Size(50, 100)).SetTabBackColor(Color.Red).SetBorderWidth(3));
 
             for(int i = 0; i < 3; i++) {
                 horizontalMenu.CreateTab(i.ToString(), i);

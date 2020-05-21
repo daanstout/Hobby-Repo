@@ -82,7 +82,7 @@ namespace DaanLib.Menu {
 
             T data = tabList[currentTabIndex].Select();
 
-            TabChangedEventArgs<T> args = new TabChangedEventArgs<T>(data, index);
+            TabChangedEventArgs<T> args = new TabChangedEventArgs<T>(data, index, tabList[currentTabIndex].tabName);
 
             OnTabChanged(args);
 

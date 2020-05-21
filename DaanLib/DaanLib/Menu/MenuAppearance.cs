@@ -39,14 +39,14 @@ namespace DaanLib.Menu {
         /// Gets a default appearance for the menu
         /// </summary>
         /// <returns>A default appearance for the menu</returns>
-        public static MenuAppearance GetDefaultAppearance() {
+        public static MenuAppearance GetDefaultAppearance(Size? tabSize = null) {
             return new MenuAppearance {
                 textColor = Color.Black,
                 tabBackColor = Color.White,
                 borderColor = Color.Black,
                 tabFont = new Font("Times New Roman", 11),
                 borderWidth = 1,
-                tabSize = new Size(50, 20),
+                tabSize = tabSize ?? new Size(50, 20),
             };
         }
 
