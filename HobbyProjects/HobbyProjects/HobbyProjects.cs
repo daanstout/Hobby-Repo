@@ -9,8 +9,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DaanLib.Menu;
 
+using HobbyProjects.Projects.GameOfLife;
+
 namespace HobbyProjects {
     public partial class HobbyProjects : Form {
+        protected override CreateParams CreateParams {
+            get {
+                var cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+            }
+        }
+
         IMenu<UserControl> mainMenu;
 
         public HobbyProjects() {
@@ -27,7 +37,7 @@ namespace HobbyProjects {
                     .SetTextColor(Color.White),
                 eventFunction: OnTabChange);
 
-            mainMenu.CreateTab("Game of Life", new UserControl());
+            mainMenu.CreateTab("Game of Life", new GameOfLife());
             mainMenu.CreateTab("Dot Product", new UserControl());
             mainMenu.CreateTab("Mazes", new UserControl());
 
@@ -35,7 +45,9 @@ namespace HobbyProjects {
         }
 
         private void OnTabChange(object sender, TabChangedEventArgs<UserControl> e) {
-            Console.WriteLine(e.tabName);
+            mainViewPanel.Controls.Clear();
+
+            mainViewPanel.Controls.Add(e.data);
         }
     }
 }

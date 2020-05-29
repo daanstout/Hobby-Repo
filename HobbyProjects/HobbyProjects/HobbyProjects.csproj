@@ -12,6 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+	<langversion>8.0</langversion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -56,17 +57,18 @@
       <DependentUpon>HobbyProjects.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="Projects\GameOfLife.cs">
+    <Compile Include="Projects\GameOfLife\Cell.cs" />
+    <Compile Include="Projects\GameOfLife\GameOfLife.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Projects\GameOfLife.Designer.cs">
+    <Compile Include="Projects\GameOfLife\GameOfLife.Designer.cs">
       <DependentUpon>GameOfLife.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="HobbyProjects.resx">
       <DependentUpon>HobbyProjects.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Projects\GameOfLife.resx">
+    <EmbeddedResource Include="Projects\GameOfLife\GameOfLife.resx">
       <DependentUpon>GameOfLife.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
