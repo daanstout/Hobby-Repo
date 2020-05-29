@@ -18,6 +18,6 @@ namespace DaanLib.Menu {
         /// <param name="menuSize">The size of the menu</param>
         /// <param name="tabList">The list of tabs to draw</param>
         /// <param name="tabDrawer">The tab drawer to use when drawing the tabs</param>
-        void Draw<T>(Graphics g, MenuAppearance appearance, Size menuSize, IEnumerable<ITab<T>> tabList, ITabDrawer tabDrawer);
+        void Draw<T>(Graphics g, MenuAppearance appearance, Size menuSize, IList<ITab<T>> tabList, ITabDrawer tabDrawer);
     }
 }

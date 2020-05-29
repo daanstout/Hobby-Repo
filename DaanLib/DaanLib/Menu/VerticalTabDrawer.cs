@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Hosting;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,7 +24,9 @@ namespace DaanLib.Menu {
         /// <param name="appearance">The appearance of the tab</param>
         /// <param name="tab">The tab to draw</param>
         /// <param name="location">The point where to draw the tab</param>
-        public void Draw<T>(Graphics g, MenuAppearance appearance, ITab<T> tab, Point location) {
+        /// <param name="isStart">Indicates this is the first tab</param>
+        /// <param name="isEnd">Indicates this is the last tab and at the end of the menu</param>
+        public void Draw<T>(Graphics g, MenuAppearance appearance, ITab<T> tab, Point location, bool isStart = false, bool isEnd = false) {
             using SolidBrush tabBrush = new SolidBrush(appearance.tabBackColor);
             using Pen tabBorderPen = new Pen(appearance.borderColor, appearance.borderWidth);
             using SolidBrush textBrush = new SolidBrush(appearance.textColor);
@@ -43,13 +46,14 @@ namespace DaanLib.Menu {
                 g.DrawString(tab.tabName, appearance.tabFont, textBrush, tabNamePoint);
             }
 
-            if (!tab.selected)
-                return;
+            if (appearance.borderWidth != 0) {
 
-            if (appearance.borderWidth == 0)
-                return;
+                if (isStart)
+                    g.DrawLine(new Pen(appearance.tabBackColor, appearance.borderWidth), new Point(0, 0), new Point(appearance.tabSize.Width, 0));
 
-            tabLocationDrawer.Draw(g, location, appearance);
+                if (tab.selected)
+                    tabLocationDrawer.Draw(g, location, appearance);
+            }
         }
     }
 }

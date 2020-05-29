@@ -49,6 +49,8 @@
     <Compile Include="Graphs\Edge.cs" />
     <Compile Include="Graphs\Graph.cs" />
     <Compile Include="Graphs\Vertex.cs" />
+    <Compile Include="Grid\Grid.cs" />
+    <Compile Include="Grid\ICell.cs" />
     <Compile Include="IDSetter.cs" />
     <Compile Include="Menu\BottomTabLocationDrawer.cs" />
     <Compile Include="Menu\HorizontalClickHandler.cs" />

@@ -24,7 +24,7 @@ namespace DaanLib.Menu {
         /// </summary>
         public int tabIndex { get; private set; }
         /// <summary>
-        /// The name ofthe tab
+        /// The name of the tab
         /// </summary>
         public string tabName { get; private set; }
 
@@ -33,6 +33,7 @@ namespace DaanLib.Menu {
         /// </summary>
         /// <param name="data">The data of the new tab</param>
         /// <param name="tabIndex">The index of the new tab</param>
+        /// <param name="tabName">The name of the tab</param>
         public TabChangedEventArgs(T data, int tabIndex, string tabName) {
             this.data = data;
             this.tabIndex = tabIndex;

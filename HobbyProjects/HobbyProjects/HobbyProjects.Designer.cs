@@ -24,6 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.mainMenuPanel = new System.Windows.Forms.Panel();
+            this.mainViewPanel = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // mainMenuPanel
@@ -33,12 +34,21 @@
             this.mainMenuPanel.Size = new System.Drawing.Size(150, 860);
             this.mainMenuPanel.TabIndex = 0;
             // 
+            // mainViewPanel
+            // 
+            this.mainViewPanel.ForeColor = System.Drawing.Color.White;
+            this.mainViewPanel.Location = new System.Drawing.Point(157, 13);
+            this.mainViewPanel.Name = "mainViewPanel";
+            this.mainViewPanel.Size = new System.Drawing.Size(1300, 830);
+            this.mainViewPanel.TabIndex = 1;
+            // 
             // HobbyProjects
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.ClientSize = new System.Drawing.Size(1184, 861);
+            this.ClientSize = new System.Drawing.Size(1484, 861);
+            this.Controls.Add(this.mainViewPanel);
             this.Controls.Add(this.mainMenuPanel);
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -51,6 +61,7 @@
         #endregion
 
         private System.Windows.Forms.Panel mainMenuPanel;
+        private System.Windows.Forms.Panel mainViewPanel;
     }
 }
 

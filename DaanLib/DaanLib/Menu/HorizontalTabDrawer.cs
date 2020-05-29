@@ -23,7 +23,9 @@ namespace DaanLib.Menu {
         /// <param name="appearance">The appearance of the tab</param>
         /// <param name="tab">The tab to draw</param>
         /// <param name="location">The point where to draw the tab</param>
-        public void Draw<T>(Graphics g, MenuAppearance appearance, ITab<T> tab, Point location) {
+        /// <param name="isStart">Indicates this is the first tab</param>
+        /// <param name="isEnd">Indicates this is the last tab and at the end of the menu</param>
+        public void Draw<T>(Graphics g, MenuAppearance appearance, ITab<T> tab, Point location, bool isStart = false, bool isEnd = false) {
             // Create all the brushes and pens
             using SolidBrush tabBrush = new SolidBrush(appearance.tabBackColor);
             using Pen tabBorderPen = new Pen(appearance.borderColor, appearance.borderWidth);

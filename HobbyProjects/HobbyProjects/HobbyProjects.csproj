@@ -56,9 +56,18 @@
       <DependentUpon>HobbyProjects.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="Projects\GameOfLife.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Projects\GameOfLife.Designer.cs">
+      <DependentUpon>GameOfLife.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="HobbyProjects.resx">
       <DependentUpon>HobbyProjects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Projects\GameOfLife.resx">
+      <DependentUpon>GameOfLife.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -18,19 +18,15 @@ namespace DaanLib.Menu {
         /// <param name="menuSize">The size of the menu</param>
         /// <param name="tabList">The list of tabs to draw</param>
         /// <param name="tabDrawer">The tab drawer to use when drawing the tabs</param>
-        public void Draw<T>(Graphics g, MenuAppearance appearance, Size menuSize, IEnumerable<ITab<T>> tabList, ITabDrawer tabDrawer) {
+        public void Draw<T>(Graphics g, MenuAppearance appearance, Size menuSize, IList<ITab<T>> tabList, ITabDrawer tabDrawer) {
             if (appearance.borderWidth > 0) {
                 using Pen pen = new Pen(appearance.borderColor, appearance.borderWidth);
 
                 g.DrawRectangle(pen, new Rectangle(0, 0, menuSize.Width - 1, menuSize.Height - 1));
             }
 
-            int y = 0;
-
-            foreach (var tab in tabList) {
-                tabDrawer.Draw(g, appearance, tab, new Point(0, y));
-
-                y += appearance.tabSize.Height;
+            for (int i = 0, y = 0; i < tabList.Count(); i++, y += appearance.tabSize.Height) {
+                tabDrawer.Draw(g, appearance, tabList[i], new Point(0, y), i == 0, i == (tabList.Count - 1));
             }
         }
     }
