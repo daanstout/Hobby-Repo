@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>11be331d-ca14-409d-8e18-66ad45eaf09e</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>MonoUI</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Content\" />
+  </ItemGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Button.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Checkbox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Label.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Picture.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\ComponentBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\ContainerBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\ControlBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\Padding.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\TextRenderer\BottomCenteredTextAligner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\TextRenderer\BottomLeftTextAligner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\TextRenderer\BottomRightTextAligner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\TextRenderer\CenteredLeftTextAligner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\TextRenderer\CenteredRightTextAligner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\TextRenderer\CenteredTextAligner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\TextRenderer\ITextAligner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\TextRenderer\TextAlignerPicker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\TextRenderer\TextAlignment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\TextRenderer\TopCenteredTextAligner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\TextRenderer\TopLeftTextAligner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Framework\TextRenderer\TopRightTextAligner.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InputSystem\Input.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InputSystem\MouseButtons.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InputSystem\MouseClickEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InputSystem\MouseMoveEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InputSystem\State.cs" />
+  </ItemGroup>
+</Project>
