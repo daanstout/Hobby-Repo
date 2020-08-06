@@ -19,6 +19,8 @@ namespace MonoUI.Framework {
         /// <summary>Whether the control has been disposed of</summary>
         private bool disposed;
 
+        protected bool isDirty = true;
+
         /// <summary>The background texture of the control</summary>
         public Texture2D background { get; set; }
         /// <summary>The font of the texture</summary>
@@ -37,8 +39,10 @@ namespace MonoUI.Framework {
         }
         /// <summary>The display rectangle of the control</summary>
         public Rectangle displayRectangle { get; protected set; }
+        public Rectangle viewRectangle { get; protected set; }
         /// <summary>The location of the control within the game screen</summary>
         public Point location => displayRectangle.Location;
+        protected Point worldLocation { get; set; }
         /// <summary>The size of the control</summary>
         public Point size => displayRectangle.Size;
         /// <summary>The height of the control</summary>
@@ -80,6 +84,7 @@ namespace MonoUI.Framework {
         /// <param name="displayRectangle">The display rectangle of the control</param>
         public ControlBase(Rectangle displayRectangle) {
             this.displayRectangle = displayRectangle;
+            viewRectangle = this.displayRectangle;
             children = new List<ControlBase>();
         }
 
@@ -131,6 +136,11 @@ namespace MonoUI.Framework {
         public virtual void PostLoadContent() {
             foreach (var child in children)
                 child.PostLoadContent();
+        }
+
+        public virtual void MoveControl(Point movement) {
+            displayRectangle = new Rectangle(location + movement, size);
+            isDirty = true;
         }
 
         /// <summary>Gets a localized mouse position</summary>
@@ -272,21 +282,29 @@ namespace MonoUI.Framework {
             if (!visible)
                 return;
 
-            DrawControl(gameTime, spriteBatch);
+            DrawControl(gameTime, spriteBatch, new Point(0, 0), isDirty);
         }
 
         /// <summary>Draws the control and its children</summary>
         /// <param name="gameTime">The game time since the last draw call</param>
         /// <param name="spriteBatch">The spritebatch to draw to</param>
-        protected virtual void DrawControl(GameTime gameTime, SpriteBatch spriteBatch) {
+        protected virtual void DrawControl(GameTime gameTime, SpriteBatch spriteBatch, Point worldPosition, bool dirty) {
             if (!visible)
                 return;
+
+            dirty |= isDirty;
+
+            if (dirty) {
+                worldLocation = worldPosition + location;
+                viewRectangle = new Rectangle(worldLocation, size);
+                isDirty = false;
+            }
 
             DrawBackground(spriteBatch);
             DrawText(spriteBatch);
 
             foreach (var child in children)
-                child.DrawControl(gameTime, spriteBatch);
+                child.DrawControl(gameTime, spriteBatch, worldLocation, dirty);
         }
 
         /// <summary>Draws the background of this control</summary>
@@ -295,7 +313,7 @@ namespace MonoUI.Framework {
             if (background == null || !displayBackground)
                 return;
 
-            spriteBatch.Draw(background, displayRectangle, isHovered ? hoverBackColor : backColor);
+            spriteBatch.Draw(background, viewRectangle, isHovered ? hoverBackColor : backColor);
         }
 
         /// <summary>Draws the text of this control</summary>
@@ -304,7 +322,7 @@ namespace MonoUI.Framework {
             if (string.IsNullOrEmpty(text) || !renderText)
                 return;
 
-            textAligner.RenderText(text, displayRectangle, null, textColor, textPadding, spriteBatch);
+            textAligner.RenderText(text, viewRectangle, null, textColor, textPadding, spriteBatch);
         }
 
         /// <summary>Checks whether the user is currently hovering over the control</summary>

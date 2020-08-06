@@ -14,7 +14,6 @@ namespace IdleGame.UI.Framework.TextRenderer {
         public static readonly CenteredTextAligner instance = new CenteredTextAligner();
 
         public void RenderText(string text, Rectangle bounds, SpriteFont font, Color color, Padding padding, SpriteBatch spriteBatch) {
-            var size = font.MeasureString(text);
             var x = (bounds.Width - font.MeasureString(text).X) / 2;
             var y = (bounds.Height - font.MeasureString(text).Y) / 2;
             spriteBatch.DrawString(font, text, new Vector2(x + bounds.X, y + bounds.Y), color);

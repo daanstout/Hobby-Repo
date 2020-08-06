@@ -21,7 +21,7 @@ namespace MonoUI.Controls {
 
         protected override void DrawText(SpriteBatch spriteBatch) {
             if (!string.IsNullOrEmpty(text) && renderText)
-                textAligner.RenderText(text, displayRectangle, font, textColor, textPadding, spriteBatch);
+                textAligner.RenderText(text, viewRectangle, font, textColor, textPadding, spriteBatch);
         }
     }
 }

@@ -13,7 +13,6 @@ using SimpleRPG.UI.Components;
 
 namespace SimpleRPG.UI.Windows {
     public class BattleFieldWindow : ContainerBase {
-        Point componentPosition;
         Point componentSize;
 
         BattleEntityComponent leftCreatureComponent;
@@ -28,10 +27,10 @@ namespace SimpleRPG.UI.Windows {
         public void Initialize(Creature leftCreature, Creature rightCreature) {
             componentSize = new Point(300, 500);
 
-            leftCreatureComponent = new BattleEntityComponent(displayRectangle.Location, componentSize) {
+            leftCreatureComponent = new BattleEntityComponent(new Point(0, 0), componentSize) {
                 backGroundTextureToLoad = "BorderBlack"
             };
-            rightCreatureComponent = new BattleEntityComponent(displayRectangle.X + displayRectangle.Width - componentSize.X, displayRectangle.Y, componentSize.X, componentSize.Y) {
+            rightCreatureComponent = new BattleEntityComponent(displayRectangle.Width - componentSize.X, 0, componentSize.X, componentSize.Y) {
                 backGroundTextureToLoad = "BorderBlack"
             };
 

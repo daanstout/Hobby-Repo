@@ -85,5 +85,17 @@
     <CopyFileToFolders Include="shaderSingleColor.frag">
       <Filter>Shaders</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="blending.frag">
+      <Filter>Shaders</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="blending.vert">
+      <Filter>Shaders</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="grass.png">
+      <Filter>Textures</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="blending_transparent_window.png">
+      <Filter>Textures</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

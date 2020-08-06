@@ -30,13 +30,13 @@ namespace SimpleRPG.UI.Components {
         public void Initialize(Creature creature) {
             this.creature = creature;
 
-            picture = new Picture(new Rectangle(displayRectangle.Location + new Point(50, 25), new Point(200, 400))) {
+            picture = new Picture(new Rectangle(new Point(50, 25), new Point(200, 400))) {
                 background = creature.sprite
             };
 
             AddControl(picture);
 
-            nameLabel = new Label(new Rectangle(displayRectangle.Location + new Point(50, 450), new Point(displayRectangle.Width - 100, 0))) {
+            nameLabel = new Label(new Rectangle(new Point(50, 450), new Point(displayRectangle.Width - 100, 0))) {
                 textAligner = CenteredTextAligner.instance,
                 text = creature.name,
                 fontToLoad = "Font"
@@ -44,7 +44,7 @@ namespace SimpleRPG.UI.Components {
 
             AddControl(nameLabel);
 
-            healthLabel = new Label(new Rectangle(displayRectangle.Location + new Point(50, 475), new Point(displayRectangle.Width - 100, 0))) {
+            healthLabel = new Label(new Rectangle(new Point(50, 475), new Point(displayRectangle.Width - 100, 0))) {
                 textAligner = CenteredTextAligner.instance,
                 text = $"{creature.health} / {creature.maxHealth}",
                 fontToLoad = "Font"
