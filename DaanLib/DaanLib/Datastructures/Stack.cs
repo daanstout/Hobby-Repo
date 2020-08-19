@@ -92,6 +92,19 @@ namespace DaanLib.Datastructures {
         public T Top() => size == 0 ? default : stack[size - 1];
 
         /// <summary>
+        /// Creates and returns a copy of the stack
+        /// </summary>
+        /// <returns>A copy of the stack</returns>
+        public T[] GetCopy() {
+            var copy = new T[size];
+
+            for (int i = 0; i < size; i++)
+                copy[i] = stack[i];
+
+            return copy;
+        }
+
+        /// <summary>
         /// Doubles the stack size and copies the elements over
         /// </summary>
         private void DoubleStack() {
