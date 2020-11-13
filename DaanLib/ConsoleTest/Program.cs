@@ -4,20 +4,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DaanLib.Graphs;
+using DaanLib.Maths;
 
 namespace ConsoleTest {
     class Program {
         private static void Main(string[] args) {
-            Graph graph = new Graph();
+            var matA = new Mat3();
+            var matB = new Mat3();
 
-            graph.RegisterVertex("V1");
-            graph.RegisterVertex("V2");
+            matA[0, 0] = 1;
+            matA[0, 1] = 2;
+            matA[0, 2] = 3;
+            matA[1, 0] = 4;
+            matA[1, 1] = 5;
+            matA[1, 2] = 6;
+            matA[2, 0] = 7;
+            matA[2, 1] = 8;
+            matA[2, 2] = 9;
 
-            graph.RegisterEdge("V1", "V2" , 2.5f);
-            Console.WriteLine(graph.GetEdgeCost("V1", "V2"));
+            matB[0, 0] = 1;
+            matB[0, 1] = 2;
+            matB[0, 2] = 1;
+            matB[1, 0] = 2;
+            matB[1, 1] = 4;
+            matB[1, 2] = 6;
+            matB[2, 0] = 7;
+            matB[2, 1] = 2;
+            matB[2, 2] = 5;
 
-            graph.UpdateEdgeCost("V1", "V2", 3.5f);
-            Console.WriteLine(graph.GetEdgeCost("V1", "V2"));
+            var res = matA * matB;
+
+            Console.WriteLine(res);
 
             Console.ReadKey();
         }

@@ -54,6 +54,11 @@
     <Compile Include="Grid\Grid.cs" />
     <Compile Include="Grid\ICell.cs" />
     <Compile Include="IDSetter.cs" />
+    <Compile Include="Maths\Mat3.cs" />
+    <Compile Include="Maths\Math.cs" />
+    <Compile Include="Maths\Quaternion.cs" />
+    <Compile Include="Maths\Vector2f.cs" />
+    <Compile Include="Maths\Vector3f.cs" />
     <Compile Include="Menu\BottomTabLocationDrawer.cs" />
     <Compile Include="Menu\HorizontalClickHandler.cs" />
     <Compile Include="Menu\HorizontalMenuDrawer.cs" />
