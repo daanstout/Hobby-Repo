@@ -1,0 +1,524 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CoreLib</name>
+    </assembly>
+    <members>
+        <member name="T:CoreLib.Maths.Complex">
+            <summary>A <see cref="T:CoreLib.Maths.Complex"/> number that has 1 real number and 1 imaginary number</summary>
+        </member>
+        <member name="P:CoreLib.Maths.Complex.I">
+            <summary>A <see cref="T:CoreLib.Maths.Complex"/> that is equal to i (0 + 1i)</summary>
+        </member>
+        <member name="P:CoreLib.Maths.Complex.IPow2">
+            <summary>A <see cref="T:CoreLib.Maths.Complex"/> that is equal to i^2 (1 + 0i)</summary>
+        </member>
+        <member name="P:CoreLib.Maths.Complex.IPow3">
+            <summary>A <see cref="T:CoreLib.Maths.Complex"/> that is equal to i^3 (0 - 1i)</summary>
+        </member>
+        <member name="P:CoreLib.Maths.Complex.IPow4">
+            <summary>A <see cref="T:CoreLib.Maths.Complex"/> that is equal to i^4 (-1 + 0i)</summary>
+        </member>
+        <member name="P:CoreLib.Maths.Complex.Zero">
+            <summary>A <see cref="T:CoreLib.Maths.Complex"/> with a real and imaginary value of 0</summary>
+        </member>
+        <member name="F:CoreLib.Maths.Complex.r">
+            <summary>The real portion of the <see cref="T:CoreLib.Maths.Complex"/></summary>
+        </member>
+        <member name="F:CoreLib.Maths.Complex.i">
+            <summary>The imaginary portion of the <see cref="T:CoreLib.Maths.Complex"/></summary>
+        </member>
+        <member name="P:CoreLib.Maths.Complex.Normalized">
+            <summary>Returns a new <see cref="T:CoreLib.Maths.Complex"/> that is a normalized version of this <see cref="T:CoreLib.Maths.Complex"/></summary>
+        </member>
+        <member name="P:CoreLib.Maths.Complex.Conjugate">
+            <summary>Returns a new <see cref="T:CoreLib.Maths.Complex"/> that has the same real value, but an inversed imaginary value</summary>
+        </member>
+        <member name="P:CoreLib.Maths.Complex.Reciprocal">
+            <summary>Returns a new <see cref="T:CoreLib.Maths.Complex"/> that is the Reciprocal of this <see cref="T:CoreLib.Maths.Complex"/></summary>
+        </member>
+        <member name="M:CoreLib.Maths.Complex.#ctor(System.Single,System.Single)">
+            <summary>Instantiates a new <see cref="T:CoreLib.Maths.Complex"/></summary>
+            <param name="r">The real part</param>
+            <param name="i">The imaginary part</param>
+        </member>
+        <member name="M:CoreLib.Maths.Complex.#ctor(CoreLib.Maths.Complex)">
+            <summary>Copies a <see cref="T:CoreLib.Maths.Complex"/> to a new <see cref="T:CoreLib.Maths.Complex"/></summary>
+            <param name="c">The <see cref="T:CoreLib.Maths.Complex"/> to copy from</param>
+        </member>
+        <member name="M:CoreLib.Maths.Complex.op_Addition(CoreLib.Maths.Complex,CoreLib.Maths.Complex)">
+            <summary>Adds to <see cref="T:CoreLib.Maths.Complex"/> values together</summary>
+            <param name="a">The left hand <see cref="T:CoreLib.Maths.Complex"/></param>
+            <param name="b">The right hand <see cref="T:CoreLib.Maths.Complex"/></param>
+            <returns>The resulting <see cref="T:CoreLib.Maths.Complex"/></returns>
+        </member>
+        <member name="M:CoreLib.Maths.Complex.op_UnaryNegation(CoreLib.Maths.Complex)">
+            <summary>Negates a <see cref="T:CoreLib.Maths.Complex"/> value</summary>
+            <param name="a">The <see cref="T:CoreLib.Maths.Complex"/> to negate</param>
+            <returns>The resulting <see cref="T:CoreLib.Maths.Complex"/></returns>
+        </member>
+        <member name="M:CoreLib.Maths.Complex.op_Subtraction(CoreLib.Maths.Complex,CoreLib.Maths.Complex)">
+            <summary>Subtracts a <see cref="T:CoreLib.Maths.Complex"/> from another <see cref="T:CoreLib.Maths.Complex"/></summary>
+            <param name="a">The <see cref="T:CoreLib.Maths.Complex"/> to subtract from</param>
+            <param name="b">The <see cref="T:CoreLib.Maths.Complex"/> to subtract</param>
+            <returns>The resulting <see cref="T:CoreLib.Maths.Complex"/></returns>
+        </member>
+        <member name="M:CoreLib.Maths.Complex.op_Multiply(CoreLib.Maths.Complex,CoreLib.Maths.Complex)">
+            <summary>Multiplies two <see cref="T:CoreLib.Maths.Complex"/> with eachother
+            <para>Note: The resulting magnitude is equal to the magnitudes of the two <see cref="T:CoreLib.Maths.Complex"/> multiplied with eachother</para></summary>
+            <param name="a">The left hand <see cref="T:CoreLib.Maths.Complex"/></param>
+            <param name="b">The right hand <see cref="T:CoreLib.Maths.Complex"/></param>
+            <returns>The resulting <see cref="T:CoreLib.Maths.Complex"/></returns>
+        </member>
+        <member name="M:CoreLib.Maths.Complex.op_Multiply(CoreLib.Maths.Complex,System.Single)">
+            <summary>Multiplies a <see cref="T:CoreLib.Maths.Complex"/> with a <see cref="T:System.Single"/> value
+            <para>This assumes the <see cref="T:System.Single"/> is REAL, to multiply with an imaginary value, multiply: <see cref="T:System.Single"/> * <see cref="T:CoreLib.Maths.Complex"/></para></summary>
+            <param name="a">The left hand <see cref="T:CoreLib.Maths.Complex"/></param>
+            <param name="b">The real <see cref="T:System.Single"/> to multiply with</param>
+            <returns>The resulting <see cref="T:CoreLib.Maths.Complex"/></returns>
+        </member>
+        <member name="M:CoreLib.Maths.Complex.op_Multiply(System.Single,CoreLib.Maths.Complex)">
+            <summary>Multiplies a <see cref="T:CoreLib.Maths.Complex"/> with an imaginary <see cref="T:System.Single"/> value
+            <para>This assumes the <see cref="T:System.Single"/> is IMAGINARY, to multiply with a real value, multiply: <see cref="T:System.Single"/> * <see cref="T:CoreLib.Maths.Complex"/></para></summary>
+            <param name="b">The imaginary <see cref="T:System.Single"/> to multiply with</param>
+            <param name="a">The right hand <see cref="T:CoreLib.Maths.Complex"/></param>
+            <returns>The resulting <see cref="T:CoreLib.Maths.Complex"/></returns>
+        </member>
+        <member name="M:CoreLib.Maths.Complex.op_Division(CoreLib.Maths.Complex,CoreLib.Maths.Complex)">
+            <summary>Divides two <see cref="T:CoreLib.Maths.Complex"/> with eachother</summary>
+            <param name="a">The left hand <see cref="T:CoreLib.Maths.Complex"/></param>
+            <param name="b">The right hand <see cref="T:CoreLib.Maths.Complex"/></param>
+            <returns>The resulting <see cref="T:CoreLib.Maths.Complex"/></returns>
+        </member>
+        <member name="M:CoreLib.Maths.Complex.op_Division(CoreLib.Maths.Complex,System.Single)">
+            <summary>Divides a <see cref="T:CoreLib.Maths.Complex"/> by a <see cref="T:System.Single"/></summary>
+            <param name="a">The <see cref="T:CoreLib.Maths.Complex"/> to divide</param>
+            <param name="b">The <see cref="T:System.Single"/> to divide by</param>
+            <returns>The resulting <see cref="T:CoreLib.Maths.Complex"/></returns>
+        </member>
+        <member name="M:CoreLib.Maths.Complex.op_Explicit(CoreLib.Maths.Complex)~CoreLib.Maths.Vector2">
+            <summary>Explicitly converts from a <see cref="T:CoreLib.Maths.Complex"/> to a <see cref="T:CoreLib.Maths.Vector2"/></summary>
+            <param name="a"></param>
+        </member>
+        <member name="M:CoreLib.Maths.Complex.op_Explicit(CoreLib.Maths.Vector2)~CoreLib.Maths.Complex">
+            <summary>Explicitly converts from a <see cref="T:CoreLib.Maths.Vector2"/> to a <see cref="T:CoreLib.Maths.Complex"/></summary>
+            <param name="a"></param>
+        </member>
+        <member name="M:CoreLib.Maths.Complex.Normalize">
+            <summary>Normalizes the <see cref="T:CoreLib.Maths.Complex"/> to a magnitude of 1</summary>
+        </member>
+        <member name="M:CoreLib.Maths.Complex.Magnitude">
+            <summary>Gets the squared magnitude of this <see cref="T:CoreLib.Maths.Complex"/></summary>
+            <returns>The squared magnitude</returns>
+        </member>
+        <member name="M:CoreLib.Maths.Complex.MagnitudeSQ">
+            <summary>Gets the unsquared magnitude of this <see cref="T:CoreLib.Maths.Complex"/></summary>
+            <returns>The unsquared magnitude</returns>
+        </member>
+        <member name="M:CoreLib.Maths.Complex.ToString">
+            <summary>Creates a <see cref="T:System.String"/> representation of this <see cref="T:CoreLib.Maths.Complex"/></summary>
+            <returns>This <see cref="T:CoreLib.Maths.Complex"/> as a <see cref="T:System.String"/></returns>
+        </member>
+        <member name="T:CoreLib.Maths.Vector2">
+            <summary>A 2-dimensional vector that has an x-component and a y-component</summary>
+        </member>
+        <member name="P:CoreLib.Maths.Vector2.Right">
+            <summary>Returns a <see cref="T:CoreLib.Maths.Vector2"/> pointing to the right (1.0, 0.0)</summary>
+        </member>
+        <member name="P:CoreLib.Maths.Vector2.Left">
+            <summary>Returns a <see cref="T:CoreLib.Maths.Vector2"/> pointing to the left (-1.0, 0.0)</summary>
+        </member>
+        <member name="P:CoreLib.Maths.Vector2.Up">
+            <summary>Returns a <see cref="T:CoreLib.Maths.Vector2"/> pointing up (0.0, 1.0)</summary>
+        </member>
+        <member name="P:CoreLib.Maths.Vector2.Down">
+            <summary>Returns a <see cref="T:CoreLib.Maths.Vector2"/> pointing down (0.0, -1.0)</summary>
+        </member>
+        <member name="P:CoreLib.Maths.Vector2.Zero">
+            <summary>Returns a <see cref="T:CoreLib.Maths.Vector2"/> with all values 0 (0.0, 0.0)</summary>
+        </member>
+        <member name="P:CoreLib.Maths.Vector2.One">
+            <summary>Returns a <see cref="T:CoreLib.Maths.Vector2"/> with all values 1 (1.0, 1.0)</summary>
+        </member>
+        <member name="F:CoreLib.Maths.Vector2.x">
+            <summary>The x-component of this <see cref="T:CoreLib.Maths.Vector2"/></summary>
+        </member>
+        <member name="F:CoreLib.Maths.Vector2.y">
+            <summary>The y-component of this <see cref="T:CoreLib.Maths.Vector2"/></summary>
+        </member>
+        <member name="P:CoreLib.Maths.Vector2.Normalized">
+            <summary>Returns a copy of this <see cref="T:CoreLib.Maths.Vector2"/> with a length of 1</summary>
+        </member>
+        <member name="P:CoreLib.Maths.Vector2.Perp">
+            <summary>Returns a <see cref="T:CoreLib.Maths.Vector2"/> that is perpandicular to this <see cref="T:CoreLib.Maths.Vector2"/>, anti-clockwise</summary>
+        </member>
+        <member name="P:CoreLib.Maths.Vector2.IsNormal">
+            <summary>True if the <see cref="T:CoreLib.Maths.Vector2"/> is normalized<para>The accuracy of this calculation is to 6 significant digits</para></summary>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.#ctor(System.Single)">
+            <summary>Instantiates a new <see cref="T:CoreLib.Maths.Vector2"/> with the given value for both the x and y fields</summary>
+            <param name="val">The value to initialize all components to</param>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.#ctor(System.Single,System.Single)">
+            <summary>Instantiates a new <see cref="T:CoreLib.Maths.Vector2"/> with the given x and y values</summary>
+            <param name="x">The x-component of this <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <param name="y">The y-component of this <see cref="T:CoreLib.Maths.Vector2"/></param>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.#ctor(CoreLib.Maths.Vector2)">
+            <summary>Instantiates a new <see cref="T:CoreLib.Maths.Vector2"/> with the given x and y values</summary>
+            <param name="vec">The <see cref="T:CoreLib.Maths.Vector2"/> to copy the values from</param>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.#ctor(CoreLib.Maths.Vector3)">
+            <summary>Instantiates a new <see cref="T:CoreLib.Maths.Vector2"/> based on a given <see cref="T:CoreLib.Maths.Vector3"/></summary>
+            <param name="vec">The <see cref="T:CoreLib.Maths.Vector2"/> to copy from</param>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.op_Addition(CoreLib.Maths.Vector2,CoreLib.Maths.Vector2)">
+            <summary>Adds two <see cref="T:CoreLib.Maths.Vector2"/>s together</summary>
+            <param name="a">The left side <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <param name="b">The right side <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <returns>The resulting <see cref="T:CoreLib.Maths.Vector2"/></returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.op_Subtraction(CoreLib.Maths.Vector2,CoreLib.Maths.Vector2)">
+            <summary>Subtracts two <see cref="T:CoreLib.Maths.Vector2"/>s from another</summary>
+            <param name="a">The left side <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <param name="b">The right side <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <returns>The resulting <see cref="T:CoreLib.Maths.Vector2"/></returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.op_UnaryNegation(CoreLib.Maths.Vector2)">
+            <summary>Inverses this <see cref="T:CoreLib.Maths.Vector2"/></summary>
+            <param name="a">The <see cref="T:CoreLib.Maths.Vector2"/> to inverse</param>
+            <returns>The inversed <see cref="T:CoreLib.Maths.Vector2"/></returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.op_Multiply(CoreLib.Maths.Vector2,System.Single)">
+            <summary>Scales a <see cref="T:CoreLib.Maths.Vector2"/> by a value</summary>
+            <param name="a">The left side <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <param name="scalar">The value to scale by</param>
+            <returns>The resulting <see cref="T:CoreLib.Maths.Vector2"/></returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.op_Multiply(System.Single,CoreLib.Maths.Vector2)">
+            <summary>Scales a <see cref="T:CoreLib.Maths.Vector2"/> by a value</summary>
+            <param name="scalar">The value to scale by</param>
+            <param name="a">The right side <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <returns>The resulting <see cref="T:CoreLib.Maths.Vector2"/></returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.op_Division(CoreLib.Maths.Vector2,System.Single)">
+            <summary>Divides a <see cref="T:CoreLib.Maths.Vector2"/> by a value</summary>
+            <param name="a">The left side <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <param name="scalar">The value to divide by</param>
+            <returns>The resulting <see cref="T:CoreLib.Maths.Vector2"/></returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.op_Division(System.Single,CoreLib.Maths.Vector2)">
+            <summary>Creates a <see cref="T:CoreLib.Maths.Vector2"/> with num divided by the <see cref="T:CoreLib.Maths.Vector2"/></summary>
+            <param name="num">The numerator of the division</param>
+            <param name="a">The <see cref="T:CoreLib.Maths.Vector2"/> to divide by</param>
+            <returns>The resulting <see cref="T:CoreLib.Maths.Vector2"/></returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.op_Equality(CoreLib.Maths.Vector2,CoreLib.Maths.Vector2)">
+            <summary>Checks to see if two <see cref="T:CoreLib.Maths.Vector2"/>s are equal</summary>
+            <param name="a">The left hand <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <param name="b">The right hand <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <returns>True if the <see cref="T:CoreLib.Maths.Vector2"/> are equal, false if not</returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.op_Inequality(CoreLib.Maths.Vector2,CoreLib.Maths.Vector2)">
+            <summary>Checks to see if two <see cref="T:CoreLib.Maths.Vector2"/>s are not equal</summary>
+            <param name="a">The left hand <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <param name="b">The right hand <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <returns>True if the <see cref="T:CoreLib.Maths.Vector2"/> are not equal, flase if they are</returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.op_Implicit(System.ValueTuple{System.Single,System.Single})~CoreLib.Maths.Vector2">
+            <summary>Converts from a <see cref="T:System.ValueTuple"/> to a <see cref="T:CoreLib.Maths.Vector2"/></summary>
+            <param name="t">The tuple value</param>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.op_Implicit(CoreLib.Maths.Vector2)~System.ValueTuple{System.Single,System.Single}">
+            <summary>Converts from a <see cref="T:CoreLib.Maths.Vector2"/> to a <see cref="T:System.ValueTuple"/></summary>
+            <param name="v">The <see cref="T:CoreLib.Maths.Vector2"/></param>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.op_Implicit(CoreLib.Maths.Vector3)~CoreLib.Maths.Vector2">
+            <summary>Converts from a <see cref="T:CoreLib.Maths.Vector3"/> to a <see cref="T:CoreLib.Maths.Vector2"/></summary>
+            <param name="vec">The <see cref="T:CoreLib.Maths.Vector2"/></param>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.SetZero">
+            <summary>Sets the <see cref="F:CoreLib.Maths.Vector2.x"/> and <see cref="F:CoreLib.Maths.Vector2.y"/> values to 0.0f</summary>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.IsZero">
+            <summary>Checks whether the <see cref="F:CoreLib.Maths.Vector2.x"/> and <see cref="F:CoreLib.Maths.Vector2.y"/> values are 0.0f</summary>
+            <returns>True if both values are 0.0f, false if one or more are not</returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.Length">
+            <summary>Gets the length of the <see cref="T:CoreLib.Maths.Vector2"/></summary>
+            <returns>The length of the <see cref="T:CoreLib.Maths.Vector2"/></returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.LengthSq">
+            <summary>Returns the square of this <see cref="T:CoreLib.Maths.Vector2"/>'s length<para>This is faster than <see cref="M:CoreLib.Maths.Vector2.Length"/> as this doesn't have to take the square root after</para></summary>
+            <returns>The square of this <see cref="T:CoreLib.Maths.Vector2"/>'s length</returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.Dot(CoreLib.Maths.Vector2)">
+            <summary>Calculates the Dot of this <see cref="T:CoreLib.Maths.Vector2"/> and another <see cref="T:CoreLib.Maths.Vector2"/></summary>
+            <param name="other">The other <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <returns>The Dot product of the <see cref="T:CoreLib.Maths.Vector2"/></returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.DotNormalized(CoreLib.Maths.Vector2)">
+            <summary>Calculates the Dot of this <see cref="T:CoreLib.Maths.Vector2"/> and another <see cref="T:CoreLib.Maths.Vector2"/>, but uses the normalized version of both <see cref="T:CoreLib.Maths.Vector2"/>s</summary>
+            <param name="other">The other <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <returns>The Dot product of the <see cref="T:CoreLib.Maths.Vector2"/>s</returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.Normalize">
+            <summary>Normalizes this <see cref="T:CoreLib.Maths.Vector2"/> to have a length of 1</summary>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.Sign(CoreLib.Maths.Vector2)">
+            <summary>Calculates on which side the other <see cref="T:CoreLib.Maths.Vector2"/> is<para>1 means the other <see cref="T:CoreLib.Maths.Vector2"/> is clockwise from this <see cref="T:CoreLib.Maths.Vector2"/>, -1 means anti-clockwise</para></summary>
+            <param name="other">The other <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <returns>1 if the other <see cref="T:CoreLib.Maths.Vector2"/> is clockwise from this <see cref="T:CoreLib.Maths.Vector2"/>, -1 if anti-clockwise</returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.Distance(CoreLib.Maths.Vector2)">
+            <summary>Calculates the distance to the other <see cref="T:CoreLib.Maths.Vector2"/></summary>
+            <param name="other">The other <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <returns>The distance between the two <see cref="T:CoreLib.Maths.Vector2"/></returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.DistanceSq(CoreLib.Maths.Vector2)">
+            <summary>Calculates the squared distance to the other <see cref="T:CoreLib.Maths.Vector2"/></summary>
+            <param name="other">The other <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <returns>The squared distance between the two <see cref="T:CoreLib.Maths.Vector2"/></returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.ManhattanDistance(CoreLib.Maths.Vector2)">
+            <summary>Calculates the manhattan distance to the other <see cref="T:CoreLib.Maths.Vector2"/></summary>
+            <param name="other">The other <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <returns>The manhattan distance to the other <see cref="T:CoreLib.Maths.Vector2"/></returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.Truncate(System.Single)">
+            <summary>Truncates this <see cref="T:CoreLib.Maths.Vector2"/>'s length if it is longer than the max value</summary>
+            <param name="max">The max value this <see cref="T:CoreLib.Maths.Vector2"/> can be</param>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.Reflect(CoreLib.Maths.Vector2)">
+            <summary>Reflects this <see cref="T:CoreLib.Maths.Vector2"/> based on a normal</summary>
+            <param name="norm">The normal to reflect around</param>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.Wrap(System.Single,System.Single)">
+            <summary>Wraps this <see cref="T:CoreLib.Maths.Vector2"/> around 0.0f and the max value</summary>
+            <param name="maxX">The max value the <see cref="F:CoreLib.Maths.Vector2.x"/> can be</param>
+            <param name="maxY">The max value the <see cref="F:CoreLib.Maths.Vector2.y"/> can be</param>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.Wrap(System.Single,System.Single,System.Single,System.Single)">
+            <summary>Wraps this <see cref="T:CoreLib.Maths.Vector2"/> around the min and max value</summary>
+            <param name="minX">The min value the <see cref="F:CoreLib.Maths.Vector2.x"/> can be</param>
+            <param name="maxX">The max value the <see cref="F:CoreLib.Maths.Vector2.x"/> can be</param>
+            <param name="minY">The min value the <see cref="F:CoreLib.Maths.Vector2.y"/> can be</param>
+            <param name="maxY">The max value the <see cref="F:CoreLib.Maths.Vector2.y"/> can be</param>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.InsideRegion(CoreLib.Maths.Vector2,CoreLib.Maths.Vector2)">
+            <summary>Checks whether this <see cref="T:CoreLib.Maths.Vector2"/> is within a region</summary>
+            <param name="tl">The top-left corner of the region</param>
+            <param name="br">The bottom-right corner of the region</param>
+            <returns>True if this <see cref="T:CoreLib.Maths.Vector2"/> is within the region</returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.NotInsideRegion(CoreLib.Maths.Vector2,CoreLib.Maths.Vector2)">
+            <summary>Checks whether this <see cref="T:CoreLib.Maths.Vector2"/> is not within a region</summary>
+            <param name="tl">The top-left corner of the region</param>
+            <param name="br">The bottom-right corner of the region</param>
+            <returns>True if this <see cref="T:CoreLib.Maths.Vector2"/> is within the region</returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.Equals(System.Object)">
+            <summary>Checks whether this <see cref="T:CoreLib.Maths.Vector2"/> is equal to another object</summary>
+            <param name="obj">The object to check with</param>
+            <returns>True if the objects are equal to eachother</returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.Equals(CoreLib.Maths.Vector2)">
+            <summary>Checks if this <see cref="T:CoreLib.Maths.Vector2"/> is equal to another vector</summary>
+            <param name="other">The other vector to check with</param>
+            <returns>True if the <see cref="T:CoreLib.Maths.Vector2"/> are equal to eachother</returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.GetHashCode">
+            <summary>Gets the hashcode of this <see cref="T:CoreLib.Maths.Vector2"/></summary>
+            <returns>the hashcode of this <see cref="T:CoreLib.Maths.Vector2"/></returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.IsSecondInFOVOfFirst(CoreLib.Maths.Vector2,CoreLib.Maths.Vector2,CoreLib.Maths.Vector2,System.Single)">
+            <summary>Checks whether a <see cref="T:CoreLib.Maths.Vector2"/> is within FOV of another <see cref="T:CoreLib.Maths.Vector2"/></summary>
+            <param name="first">The position of the looking <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <param name="firstLookDir">The look direction of the first <see cref="T:CoreLib.Maths.Vector2"/> (this should be normalized)</param>
+            <param name="second">The position of the target <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <param name="fov">The FOV of the first <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <returns>True if the first <see cref="T:CoreLib.Maths.Vector2"/> can see the second <see cref="T:CoreLib.Maths.Vector2"/></returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.Lerp(CoreLib.Maths.Vector2,CoreLib.Maths.Vector2,System.Single)">
+            <summary>Lerps between two values</summary>
+            <param name="start">The start value</param>
+            <param name="end">The end value</param>
+            <param name="delta">How much to lerp with</param>
+            <returns>A value between start and end</returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.LerpUnclamped(CoreLib.Maths.Vector2,CoreLib.Maths.Vector2,System.Single)">
+            <summary>Lerps between two values, without clamping the delta between 0 and 1</summary>
+            <param name="start">The start value</param>
+            <param name="end">The end value</param>
+            <param name="delta">How much to lerp with</param>
+            <returns>A value between start and end</returns>
+        </member>
+        <member name="M:CoreLib.Maths.Vector2.CreateNormalized(System.Single,System.Single)">
+            <summary>Creates a normalized <see cref="T:CoreLib.Maths.Vector2"/> based on two values</summary>
+            <param name="x">The x-value of the <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <param name="y">The y-value of the <see cref="T:CoreLib.Maths.Vector2"/></param>
+            <returns>A normalized <see cref="T:CoreLib.Maths.Vector2"/> based on the given x and y</returns>
+        </member>
+        <member name="T:CoreLib.Maths.Vector3">
+            <summary>A 3-dimensional vector</summary>
+        </member>
+        <member name="P:CoreLib.Maths.Vector3.Up">
+            <summary>Returns a <see cref="T:CoreLib.Maths.Vector3"/> pointing up (0.0, 1.0, 0.0)</summary>
+        </member>
+        <member name="P:CoreLib.Maths.Vector3.Down">
+            <summary>Returns a <see cref="T:CoreLib.Maths.Vector3"/> pointing down (0.0f, -1.0, 0.0)</summary>
+        </member>
+        <member name="P:CoreLib.Maths.Vector3.Left">
+            <summary>Returns a <see cref="T:CoreLib.Maths.Vector3"/> pointing to the left (-1.0, 0.0, 0.0)</summary>
+        </member>
+        <member name="P:CoreLib.Maths.Vector3.Right">
+            <summary>Returns a <see cref="T:CoreLib.Maths.Vector3"/> pointing to the right (1.0, 0.0, 0.0)</summary>
+        </member>
+        <member name="P:CoreLib.Maths.Vector3.Forward">
+            <summary>Returns a <see cref="T:CoreLib.Maths.Vector3"/> pointing forwards (0.0, 0.0, 1.0)</summary>
+        </member>
+        <member name="P:CoreLib.Maths.Vector3.Back">
+            <summary>Returns a <see cref="T:CoreLib.Maths.Vector3"/> pointing backwards (0.0, 0.0, -1.0)</summary>
+        </member>
+        <member name="P:CoreLib.Maths.Vector3.Zero">
+            <summary>Returns a <see cref="T:CoreLib.Maths.Vector3"/> with all values set to 0.0</summary>
+        </member>
+        <member name="P:CoreLib.Maths.Vector3.One">
+            <summary>Returns a <see cref="T:CoreLib.Maths.Vector3"/> with all values set to 1.0</summary>
+        </member>
+        <member name="F:CoreLib.Maths.Vector3.x">
+            <summary>The x-component of this <see cref="T:CoreLib.Maths.Vector2"/></summary>
+        </member>
+        <member name="F:CoreLib.Maths.Vector3.y">
+            <summary>The y-component of this <see cref="T:CoreLib.Maths.Vector2"/></summary>
+        </member>
+        <member name="F:CoreLib.Maths.Vector3.z">
+            <summary>The z-component of this <see cref="T:CoreLib.Maths.Vector2"/></summary>
+        </member>
+        <member name="M:CoreLib.Maths.Vector3.#ctor(System.Single)">
+            <summary>Instantiates a new <see cref="T:CoreLib.Maths.Vector3"/> with the given value for the x, y, and z fields</summary>
+            <param name="val">The value to initialize all components to</param>
+        </member>
+        <member name="M:CoreLib.Maths.Vector3.#ctor(System.Single,System.Single)">
+            <summary>Instantiates a new <see cref="T:CoreLib.Maths.Vector3"/> with the given x and y values, and z to 0.0</summary>
+            <param name="x">The x value</param>
+            <param name="y">The y value</param>
+        </member>
+        <member name="M:CoreLib.Maths.Vector3.#ctor(System.Single,System.Single,System.Single)">
+            <summary>Instantiates a new <see cref="T:CoreLib.Maths.Vector3"/> with the given x, y, and z values</summary>
+            <param name="x">The x value</param>
+            <param name="y">The y value</param>
+            <param name="z">The z value</param>
+        </member>
+        <member name="M:CoreLib.Maths.Vector3.#ctor(CoreLib.Maths.Vector3)">
+            <summary>Instantiates a new <see cref="T:CoreLib.Maths.Vector3"/> based on a given <see cref="T:CoreLib.Maths.Vector3"/></summary>
+            <param name="vec">The vector to copy from</param>
+        </member>
+        <member name="M:CoreLib.Maths.Vector3.#ctor(CoreLib.Maths.Vector2)">
+            <summary>Instantiates a new <see cref="T:CoreLib.Maths.Vector3"/> based on a given <see cref="T:CoreLib.Maths.Vector2"/></summary>
+            <param name="vec">The vector to copy from</param>
+        </member>
+        <member name="T:CoreLib.States.IState`1">
+            <summary>A state the state machine can be in</summary>
+            <typeparam name="T">The type of object the state operates on</typeparam>
+        </member>
+        <member name="M:CoreLib.States.IState`1.Enter(`0)">
+            <summary>Is called when the state becomes the activate state</summary>
+            <param name="obj">The object to operate on</param>
+        </member>
+        <member name="M:CoreLib.States.IState`1.Execute(`0)">
+            <summary>Is called when the state should execute 1 cycle, typically called once per update</summary>
+            <param name="obj">The object to operate on</param>
+        </member>
+        <member name="M:CoreLib.States.IState`1.Exit(`0)">
+            <summary>Is called when the state is switched out for a different state</summary>
+            <param name="obj">The object to operate on</param>
+        </member>
+        <member name="T:CoreLib.States.IStateMachine`1">
+            <summary>A state machine that can hold different <see cref="T:CoreLib.States.IState`1"/></summary>
+            <typeparam name="T">The type of object The state machine operates on</typeparam>
+        </member>
+        <member name="M:CoreLib.States.IStateMachine`1.ChangeState">
+            <summary>Changes the <see cref="T:CoreLib.States.IState`1"/> of the state machine to the NULL-State</summary>
+        </member>
+        <member name="M:CoreLib.States.IStateMachine`1.ChangeState(CoreLib.States.IState{`0})">
+            <summary>Changes the <see cref="T:CoreLib.States.IState`1"/> of the state machine</summary>
+            <param name="newState">The new <see cref="T:CoreLib.States.IState`1"/> the state machine should adopt</param>
+        </member>
+        <member name="M:CoreLib.States.IStateMachine`1.SetOwner(`0,System.Boolean)">
+            <summary>Sets the owner of the state machine</summary>
+            <param name="newOwner">The new owner of the state machine</param>
+            <param name="callExitEnter">Whether or not to call the exit and enter functions on the current <see cref="T:CoreLib.States.IState`1"/> with the old and new owners respectively</param>
+        </member>
+        <member name="M:CoreLib.States.IStateMachine`1.SetState">
+            <summary>Sets the <see cref="T:CoreLib.States.IState`1"/> of the state machine to the NULL-State. This does not call the <see cref="M:CoreLib.States.IState`1.Exit(`0)"/> function on the old state</summary>
+        </member>
+        <member name="M:CoreLib.States.IStateMachine`1.SetState(CoreLib.States.IState{`0})">
+            <summary>Sets the <see cref="T:CoreLib.States.IState`1"/> of the state machine. This does not call the <see cref="M:CoreLib.States.IState`1.Exit(`0)"/> function on the old state</summary>
+            <param name="newState">The new state the state machine should adopt</param>
+        </member>
+        <member name="M:CoreLib.States.IStateMachine`1.Execute">
+            <summary>Executes 1 cycle of the <see cref="T:CoreLib.States.IState`1"/></summary>
+        </member>
+        <member name="M:CoreLib.States.IStateMachine`1.Execute(`0)">
+            <summary>Executes 1 cycle of the <see cref="T:CoreLib.States.IState`1"/> on the target</summary>
+            <param name="target">The target to execute the <see cref="T:CoreLib.States.IState`1"/> on</param>
+        </member>
+        <member name="T:CoreLib.States.NullState`1">
+            <summary>A Null state that does nothing. Can be useful if an object shouldn't do anything for a while and just wait</summary>
+            <typeparam name="T">The type of object the state operates on</typeparam>
+        </member>
+        <member name="M:CoreLib.States.NullState`1.Enter(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CoreLib.States.NullState`1.Execute(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CoreLib.States.NullState`1.Exit(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="T:CoreLib.States.StateMachine`1">
+            <summary>A state machine that can hold an active state and operate on it</summary>
+            <typeparam name="T">The type of object to operate on</typeparam>
+        </member>
+        <member name="F:CoreLib.States.StateMachine`1.nullState">
+            <summary>An instante of the null state so we don't have to keep creating it every time we need it</summary>
+        </member>
+        <member name="F:CoreLib.States.StateMachine`1.owner">
+            <summary>The owner of this state machine</summary>
+        </member>
+        <member name="F:CoreLib.States.StateMachine`1.currentState">
+            <summary>The current state of this state machine</summary>
+        </member>
+        <member name="M:CoreLib.States.StateMachine`1.#ctor(`0)">
+            <summary>Instantiates a new State Machine with an owner, but no active state</summary>
+            <param name="owner">The owner of this state machine</param>
+        </member>
+        <member name="M:CoreLib.States.StateMachine`1.#ctor(`0,CoreLib.States.IState{`0})">
+            <summary>Instantiates a new State Machine with an owner and an active state</summary>
+            <param name="owner">The owner of this state machine</param>
+            <param name="startingState">The initial state of the state machine</param>
+        </member>
+        <member name="M:CoreLib.States.StateMachine`1.ChangeState">
+            <inheritdoc/>
+        </member>
+        <member name="M:CoreLib.States.StateMachine`1.ChangeState(CoreLib.States.IState{`0})">
+            <inheritdoc/>
+        </member>
+        <member name="M:CoreLib.States.StateMachine`1.Execute">
+            <inheritdoc/>
+        </member>
+        <member name="M:CoreLib.States.StateMachine`1.Execute(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CoreLib.States.StateMachine`1.SetOwner(`0,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CoreLib.States.StateMachine`1.SetState">
+            <inheritdoc/>
+        </member>
+        <member name="M:CoreLib.States.StateMachine`1.SetState(CoreLib.States.IState{`0})">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>
